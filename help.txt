@@ -1,0 +1,10 @@
+first test fail: 
+xampp/php.ini
+include:
+extension=php_pdo_pgsql.dll
+
+php artisan migrate
+
+composer install
+
+verificar senha, login, database 
