@@ -28,16 +28,23 @@
             <!-- Formulário de login -->
             <div id="login">
                 <form id="loginForm" class="card" method="POST" action="{{ route('login.store')}}">
+                    @csrf
                     <h3>LOGIN</h3>
                     <div class="card-header">
                             <div class="card-content">
                                 <div class="card-content-area">
                                     <label for="loginEmail">E-MAIL</label>
                                     <input type="text" name="email" id="email" autocomplete="off">
+                                    @error('email')
+                                        <span>{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="card-content-area">
                                     <label for="loginSenha">SENHA</label>
-                                    <input type="password" name="senha" id="senha" autocomplete="off">
+                                    <input type="password" name="password" id="senha" autocomplete="off">
+                                    @error('password')
+                                        <span>{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="card-footer">
