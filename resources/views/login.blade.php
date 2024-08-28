@@ -1,3 +1,7 @@
+@extends('master')
+
+@section('content')
+    
 
 <!DOCTYPE html>
  <html lang="pt-br">
@@ -14,6 +18,7 @@
 </head>
 <body>
     <header class="header">
+        <a href="{{route('home')}}">HOME</a>
     </header>
 
     <h1>SEJA BEM-VINDO</h1>
@@ -22,7 +27,7 @@
         <div class="form-container">
             <!-- Formulário de login -->
             <div id="login">
-                <form id="loginForm" class="card" method="POST">
+                <form id="loginForm" class="card" method="POST" action="{{ route('login.store')}}">
                     <h3>LOGIN</h3>
                     <div class="card-header">
                             <div class="card-content">
@@ -56,3 +61,4 @@
     </script>
 </body>
 </html>
+@endsection
