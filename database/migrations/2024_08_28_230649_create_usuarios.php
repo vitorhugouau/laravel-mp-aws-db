@@ -17,10 +17,9 @@ return new class extends Migration
             $table-> string('SOBRENOME');
             $table-> string('EMAIL');
             $table-> string('SENHA');
-            
+            $table-> timetamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
