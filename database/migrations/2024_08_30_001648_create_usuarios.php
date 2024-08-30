@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table-> string('NOME');
             $table-> string('SOBRENOME');
-            $table-> string('EMAIL');
+            $table-> string('EMAIL')->unique();
             $table-> string('SENHA');
-            $table-> timetamps();
+
         });
     }
+
     /**
      * Reverse the migrations.
      */
