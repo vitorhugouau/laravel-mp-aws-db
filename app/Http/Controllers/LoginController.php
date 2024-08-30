@@ -16,7 +16,8 @@ class LoginController extends Controller
             'password' => 'required'
         ],[
             'email.required' => 'Campo Obrigatório',
-            'email.email' => 'Email Inválido'
+            'email.email' => 'Email Inválido',
+            'password' => 'Campo Obrigatório'
         ]);
 
         // var_dump('login');

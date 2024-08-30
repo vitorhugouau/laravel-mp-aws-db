@@ -36,14 +36,14 @@
                                     <label for="loginEmail">E-MAIL</label>
                                     <input type="text" name="email" id="email" autocomplete="off">
                                     @error('email')
-                                        <span>{{ $message }}</span>
+                                        <span style="font-size:11px">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="card-content-area">
                                     <label for="loginSenha">SENHA</label>
                                     <input type="password" name="password" id="senha" autocomplete="off">
                                     @error('password')
-                                        <span>{{ $message }}</span>
+                                    <span style="font-size:11px">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
