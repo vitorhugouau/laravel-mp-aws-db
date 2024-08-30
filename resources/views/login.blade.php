@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-    
+
 
 <!DOCTYPE html>
  <html lang="pt-br">
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="card-content-area">
                                     <label for="loginSenha">SENHA</label>
-                                    <input type="password" name="password" id="senha" autocomplete="off">
+                                    <input type="password" name="password" id="password" autocomplete="off">
                                     @error('password')
                                     <span style="font-size:11px">{{ $message }}</span>
                                     @enderror

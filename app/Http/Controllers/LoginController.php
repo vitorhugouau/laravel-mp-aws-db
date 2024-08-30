@@ -10,14 +10,15 @@ class LoginController extends Controller
         return view('login');
     }
     public function store(Request $request){
-        
+
         $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ],[
             'email.required' => 'Campo Obrigatório',
             'email.email' => 'Email Inválido',
-            'password' => 'Campo Obrigatório'
+            'password' => 'Campo Obrigatório',
+            'password.password' => 'Senha Inválida'
         ]);
 
         // var_dump('login');
