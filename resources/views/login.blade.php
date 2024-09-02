@@ -21,6 +21,12 @@
         <a href="{{route('home')}}">HOME</a>
     </header>
 
+    @error('error')
+    <span>{{ $message }}</span>
+        
+    @enderror
+
+
     <h1>SEJA BEM-VINDO</h1>
 
     <div class="meio">
@@ -34,7 +40,7 @@
                             <div class="card-content">
                                 <div class="card-content-area">
                                     <label for="loginEmail">E-MAIL</label>
-                                    <input type="text" name="email" id="email" autocomplete="off">
+                                    <input type="text" name="email" id="email" autocomplete="off" value="vitor@gmail.com">
                                     @error('email')
                                         <span style="font-size:11px">{{ $message }}</span>
                                     @enderror

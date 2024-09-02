@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/', [HomeController::class, 'usuarios'])->name('usuarios');
+// Route::get('/', [HomeController::class, 'usuarios'])->name('usuarios');
 
 
 Route::controller(LoginController::class)->group(function(){
