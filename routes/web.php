@@ -18,6 +18,9 @@ Route::controller(LoginController::class)->group(function(){
 });
 
 
+Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.create');
+Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
+
 
 // Route::get('/', function () {
 //     return view('welcome');
