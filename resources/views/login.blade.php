@@ -23,7 +23,7 @@
 
     @error('error')
     <span>{{ $message }}</span>
-        
+
     @enderror
 
 
@@ -57,7 +57,7 @@
                                 <button type="submit" class="submit">ENTRAR</button>
                             </div>
                             <div class="card-cadastro">
-                                <button type="submit" class="teste" id="teste">FAÇA SEU CADASTRO</button>
+                            <button type="button" class="teste" id="teste" onclick="window.location.href='{{ route('usuarios.create') }}'">FAÇA SEU CADASTRO</button>
                             </div>
                     </div>
 
@@ -66,12 +66,12 @@
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         document.getElementById("teste").addEventListener("click", function(event) {
             event.preventDefault();
                 window.location.href = "/php/cadastro.php";
         });
-    </script>
+    </script> -->
 </body>
 </html>
 @endsection
