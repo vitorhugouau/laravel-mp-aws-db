@@ -22,9 +22,9 @@ Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.c
 Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/biblioteca', function () {
+    return view('biblioteca.biblioteca');
+});
 
 // Route::get('/login', function () {
 //     return view('login');
