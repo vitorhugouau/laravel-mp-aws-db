@@ -51,7 +51,7 @@
                         <input type="submit" class="submit" name="submit" id="submit" value="CADASTRAR">
                     </div>
                     <div class="card-cadastro">
-                        <button type="button" class="teste" id="teste" onclick="window.location.href='{{ route('login.index') }}'">VOLTAR</button>
+                        <button type="button" class="teste" id="teste" onclick="window.location.href='{{ route('biblioteca') }}'">VOLTAR</button>
                     </div>
                 </div>
             </form>

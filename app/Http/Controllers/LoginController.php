@@ -1,47 +1,32 @@
 <?php
 
-namespace App\Http\Controllers;
+// namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Hash;
 
-class LoginController extends Controller
-{
+// class LoginController extends Controller
+// {
 
-    public function index(){
-            return view('login');
-        }
+//     public function index(){
+//             return view('login');
+//         }
 
-    public function store(Request $request){
+//     public function store(Request $request){
 
-        $credenciais = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+//         $credenciais = $request->validate([
+//             'email' => ['required', 'email'],
+//             'password' => ['required'],
+//         ]);
 
-        if(Auth::attempt($credenciais)){
-            $request->session()->regenerate();
-            return redirect()->intended('dashboard');
-        }else{
-            return redirect()->back()->with('erro','Usuário ou senha inválida. ');
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//         if(Auth::attempt($credenciais)){
+//             $request->session()->regenerate();
+//             return redirect()->intended('dashboard');
+//         }else{
+//             return redirect()->back()->with('erro','Usuário ou senha inválida. ');
+//         }
+//     }
 
 
 
@@ -76,4 +61,4 @@ class LoginController extends Controller
     //     var_dump('logout');
     // }
 
-}
+

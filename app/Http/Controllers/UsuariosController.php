@@ -6,6 +6,7 @@ use App\Models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+
 class UsuariosController extends Controller
 {
     public function create()
@@ -27,6 +28,6 @@ class UsuariosController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('login.index')->with('success', 'Usuário cadastrado com sucesso!');
+        return redirect()->route('biblioteca')->with('success', 'Usuário cadastrado com sucesso!');
     }
 }

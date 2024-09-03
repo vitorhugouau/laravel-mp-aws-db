@@ -2,20 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class usuarios extends Authenticatable
+class Usuarios extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use Notifiable;
 
-    protected $table = 'usuarios'; // Explicitamente define o nome da tabela
+    protected $table = 'usuarios';
 
     protected $fillable = [
         'name',
         'email',
         'password',
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+    
 }
 
