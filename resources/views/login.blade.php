@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <!DOCTYPE html>
  <html lang="pt-br">
 <head>
@@ -17,15 +16,11 @@
     <link rel="stylesheet" href="css/login/parte.css">
 </head>
 <body>
-    <header class="header">
-        <a href="{{route('home')}}">HOME</a>
-    </header>
 
     @error('error')
     <span>{{ $message }}</span>
 
     @enderror
-
 
     <h1>SEJA BEM-VINDO</h1>
 
@@ -65,13 +60,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <script>
-        document.getElementById("teste").addEventListener("click", function(event) {
-            event.preventDefault();
-                window.location.href = "/php/cadastro.php";
-        });
-    </script> -->
 </body>
 </html>
 @endsection

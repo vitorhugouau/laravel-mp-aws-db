@@ -27,6 +27,6 @@ class UsuariosController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('usuarios.create')->with('success', 'Usuário cadastrado com sucesso!');
+        return redirect()->route('login.index')->with('success', 'Usuário cadastrado com sucesso!');
     }
 }

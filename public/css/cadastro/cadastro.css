@@ -8,8 +8,10 @@ html {
 }
 
 body {
+    background-image: url('../../assets/img/iac.jpg');
+    background-size: cover;
     background-color: white;
-    color: rgb(0, 0, 0);
+    color: #000;
     font: normal 20pt Poppins;
 }
 
