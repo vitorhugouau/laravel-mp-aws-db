@@ -8,7 +8,6 @@
 
     <!-- Importando scripts e estilos -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/fetch.js"></script>
     <link rel="stylesheet" href="/css/login/parte.css">
 </head>
 <body>
@@ -36,7 +35,7 @@
                         <div class="card-content">
                             <div class="card-content-area">
                                 <label for="email">E-MAIL</label>
-                                <input type="email" name="email" id="email" autocomplete="off" required>
+                                <input type="email" name="email" id="email" autocomplete="off" value="teste@teste" required>
                                 @error('email')
                                     <span style="font-size:11px; color:red;">{{ $message }}</span>
                                 @enderror

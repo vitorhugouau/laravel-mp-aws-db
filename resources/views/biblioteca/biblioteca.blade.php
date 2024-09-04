@@ -29,10 +29,14 @@
                 <li><a href="cliente/serviço.php">CONTRATAR SERVIÇO</a></li>
             </ul>
         </li>
-        <li><a href="adm.php">PAINEL DE CONTROLE</a></li>
+        <li><a href="{{ route('adm') }}">PAINEL DE CONTROLE</a>
         <li class="logout">
             <div class="card">
-                <button type="submit" class="submit" id="sair">SAIR</button>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                <button type="button" class="submit" id="sair">SAIR</button>
+                
             </div>
         </li>
         
@@ -41,17 +45,23 @@
     <div class="container">
         <h1 class="heading">BIBLIOTECA DE FOTOS</h1>
 
-        <input type="text" placeholder="Pesquisar Imagem" id="search-box">
+        {{-- <input type="text" placeholder="Pesquisar Imagem" id="search-box"> --}}
     
 {{-- fotos aqui --}}
 </div>
-    <script src="/js/main.js"></script>
-    {{-- <script>
+    {{-- <script src="/js/main.js"></script>
+    <script>
         document.getElementById("sair").addEventListener("click", function(event) {
             event.preventDefault(); 
                 window.location.href = "logout.php";          
         });
     </script> --}}
+    <script>
+        document.getElementById('sair').addEventListener('click', function() {
+                document.getElementById('logout-form').submit();
+            });
+
+    </script>
     
 </body>
 </html>

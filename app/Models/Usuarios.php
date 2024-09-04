@@ -21,6 +21,8 @@ class Usuarios extends Authenticatable
         'password',
         'remember_token',
     ];
-    
+
+
+
 }
 

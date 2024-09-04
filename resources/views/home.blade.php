@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <a href="{{ route('login.index') }}">Login</a>
+    <a href="{{ route('login') }}">Login</a>
 
     <h2>HOME</h2>
     
