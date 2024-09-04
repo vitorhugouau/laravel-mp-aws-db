@@ -28,6 +28,6 @@ class UsuariosController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('biblioteca')->with('success', 'Usuário cadastrado com sucesso!');
+        return redirect()->route('login')->with('success', 'Usuário cadastrado com sucesso!');
     }
 }
