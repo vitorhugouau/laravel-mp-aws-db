@@ -38,10 +38,10 @@
                                 <button type="submit" class="submit">ENTRAR</button>
                             </div>
                             <div class="card-cadastro">
-                                <form id="logout-form" action="{{ route('biblioteca') }}" method="POST" style="display: none;">
+                                {{-- <form id="logout-form" action="{{ route('biblioteca') }}" method="POST" style="display: none;">
                                     @csrf
-                                </form>
-                                <button type="button" class="teste" id="teste">VOLTAR</button>
+                                </form> --}}
+                                <button type="button" class="teste" id="teste" onclick="window.location.href='{{ route('biblioteca') }}'" >VOLTAR</button>
                             </div>
                     </div>
                 </form>
