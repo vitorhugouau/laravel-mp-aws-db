@@ -13,17 +13,6 @@
 <body>
     <h1>SEJA BEM-VINDO</h1>
 
-    <!-- Exibição de erros globais -->
-    @if ($errors->any())
-        <div>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <!-- Conteúdo principal do formulário de login -->
     <div class="meio">
         <div class="form-container">

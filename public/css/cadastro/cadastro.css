@@ -51,8 +51,8 @@ h1 {
 .card {
     background-color: rgb(19 19 19 / 70%);
     padding: 40px;
-    border-radius: 6px;
-    width: 280px;
+    border-radius: 45px;
+    width: 300px;
 }
 
 .card h3 {

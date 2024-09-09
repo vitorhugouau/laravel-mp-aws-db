@@ -4,10 +4,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Route::get('/', [HomeController::class, 'usuarios'])->name('usuarios');
+
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
 
 
 Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.create');
@@ -19,21 +24,10 @@ Route::GET('/biblioteca', function () {
 })->middleware('auth')->name('biblioteca');
 
 
-Route::get('/adm', function () {
-    return view('adm.adm');
-})->middleware('auth')->name('adm');
-
-
-
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
-
-
-
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 // Rota protegida
 Route::get('/dashboard', function () {
@@ -41,6 +35,24 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 
+Route::get('/adm', function () {
+    return view('adm.adm');
+})->middleware('auth')->name('adm');
+
+Route::get('/control', function () {
+    return view('adm.control');
+})->middleware('auth')->name('control');
+
+
+Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
+Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('adm.dashboard');
+    })->name('dashboard');
+});
 
 
 // Route::get('/login', function () {

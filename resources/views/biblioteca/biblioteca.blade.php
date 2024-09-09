@@ -29,7 +29,7 @@
                 <li><a href="cliente/serviço.php">CONTRATAR SERVIÇO</a></li>
             </ul>
         </li>
-        <li><a href="{{ route('adm') }}">PAINEL DE CONTROLE</a>
+        <li><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a>
         <li class="logout">
             <div class="card">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
