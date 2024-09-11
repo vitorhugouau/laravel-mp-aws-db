@@ -13,10 +13,9 @@ return [
             'provider' => 'users',
         ],
 
-        // Guarda para administradores
         'admin' => [
             'driver' => 'session',
-            'provider' => 'admins',
+            'provider' => 'adm', 
         ],
     ],
 
@@ -26,10 +25,9 @@ return [
             'model' => env('AUTH_MODEL', App\Models\Usuarios::class),
         ],
 
-        // Provider para administradores
-        'admins' => [
+        'adm' => [ 
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class, // Model de administradores
+            'model' => App\Models\Admin::class, 
         ],
     ],
 
@@ -41,9 +39,8 @@ return [
             'throttle' => 60,
         ],
 
-        // Configurações de recuperação de senha para administradores
-        'admins' => [
-            'provider' => 'admins',
+        'adm' => [ 
+            'provider' => 'adm',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

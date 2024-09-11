@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('adm', function (Blueprint $table) {
             $table->id();
-            $table-> string('EMAIL')->unique();
-            $table-> string('SENHA');
+            $table-> string('email')->unique();
+            $table-> string('password');
             $table->timestamps();
         });
     }
