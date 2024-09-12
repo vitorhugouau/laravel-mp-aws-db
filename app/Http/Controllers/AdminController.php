@@ -17,23 +17,25 @@ class AdminController extends Controller
     public function login(Request $request)
     {
         // Validação dos dados de email e senha
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:1',
+        $credentials = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string',
         ]);
 
         // Dados de autenticação
-        $credentials = $request->only('email', 'password');
+        // $credentials = $request->only('email', 'password');
 
         // Tenta fazer o login
-        if (Auth::attempt($credentials)) {
+        echo "<pre>";
+        var_dump($credentials);
+        echo "</pre>";
+        if (Auth::attempt(credentials: $credentials)) {
             // Se o login for bem-sucedido, redireciona o usuário
-            return redirect()->intended('control');
+            // return redirect()->intended('control');
+            var_dump('asdfiwf');
+            return redirect()->view('/control');
         }
 
         // Se o login falhar, retorna de volta com uma mensagem de erro
-        return back()->withErrors([
-            'email' => 'As credenciais não correspondem aos nossos registros.',
-        ])->onlyInput('email');
     }
 }

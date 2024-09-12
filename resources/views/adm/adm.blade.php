@@ -30,14 +30,14 @@
                     <div class="card-header"> 
                         <div class="card-content">
                             <div class="card-content-area">
-                                <label for="usuario">E-MAIL</label>
+                                <label for="email">E-MAIL</label>
                                 <input type="text" name="email" id="email" autocomplete="off" >
                                 @error('email')
                                 <span style="font-size:11px; color:red;">{{ $message }}</span>
                             @enderror
                             </div>
                             <div class="card-content-area">
-                                <label for="senha">SENHA</label>
+                                <label for="password">SENHA</label>
                                 <input type="password" name="password" id="password" autocomplete="off" required>
                                 @error('password')
                                 <span style="font-size:11px; color:red;">{{ $message }}</span>
