@@ -13,17 +13,12 @@
     <ul class="menu">
         <li><a href="#">HOME</a></li> 
         <li><a href="#">SOBRE</a>
-            <ul>
-                <li><a href="equipamento.php">EQUIPAMENTOS USADOS</a></li>
-            </ul>
         </li>
         <li><a href="album.php">ÁLBUM</a>
         </li>
         <li><a href="#">CONTATO</a>
             <ul><a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a></ul>
         </li>
-        <li><a href="artistas.php">ARTISTAS</a>
-
         <li><a href="#">SERVIÇOS</a>
             <ul>
                 <li><a href="cliente/serviço.php">CONTRATAR SERVIÇO</a></li>
