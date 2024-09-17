@@ -46,6 +46,8 @@ Route::get('/control', function () {
 
 Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
 Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
+Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
+
 
 
 Route::middleware(['auth'])->group(function () {
