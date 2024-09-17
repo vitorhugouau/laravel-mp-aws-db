@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-// Route::get('/login', function () {
-//     return view('login');
-// })->name('login');
+Route::get('/teste', function () {
+     echo "deu certo";
+})->name('teste');
 
