@@ -5,6 +5,7 @@ use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ImageController;
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -57,7 +58,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/teste', function () {
-     echo "deu certo";
-})->name('teste');
+// Route::get('/teste', function () {
+//     return view('biblioteca.png');
+// })->name('teste');
+
+
+Route::get('/teste', [ImageController::class, 'gerarImagemComMarcaDAgua'])->name('teste');
+
 
