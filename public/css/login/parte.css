@@ -8,7 +8,7 @@ html {
 }
 
 body {
-    background-image: url('/imgnovas/iacanga.JPEG');
+    background-image: url('../../assets/img/iac.jpg');
     background-size: cover;
     background-color: white;
     color: #000;
@@ -62,7 +62,7 @@ h1 {
 .card {
     background-color: rgb(8 8 8 / 70%);
     padding: 42px;
-    border-radius: 6px;
+    border-radius: 45px;
     width: 280px;
     margin: 10px;
 }
