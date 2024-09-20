@@ -163,7 +163,7 @@ header{
     grid-template-columns: 1fr 1fr 1fr;
     gap: 0px;
     padding: 15px;
-
+    user-select: none;
 }
 @keyframes fadeIn{
     0%{

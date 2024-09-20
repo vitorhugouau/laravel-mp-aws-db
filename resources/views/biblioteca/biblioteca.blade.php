@@ -70,7 +70,7 @@
         <br><br>
         <div class="container-image">
             <div class="image" data-title="cidade toda">
-                <img src="../../assets/img/imgnovas/DC0BA660DD51D7CF60947E38295486DD.jpeg" alt="">
+                <img src="../../assets/img/imgnovas/DC0BA660DD51D7CF60947E38295486DD.jpeg" alt="" oncontextmenu="bloquearBotaoDireito(event)">
                 <h3>PRAIA DE IACANGA</h3>
                 <div class="compra">
                     <button id="boton" onclick="window.location.href='{{ route('teste') }}'" >COMPRAR IMAGEM</button>
@@ -107,7 +107,9 @@
         document.getElementById('sair').addEventListener('click', function() {
                 document.getElementById('logout-form').submit();
             });
-
+            function bloquearBotaoDireito(event){
+                event.preventDefault();
+            }
     </script>
     
 </body>

@@ -7,9 +7,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
 
-// Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Route::get('/', [HomeController::class, 'usuarios'])->name('usuarios');
+Route::get('/', [HomeController::class, 'usuarios'])->name('usuarios');
 
 Route::get('/home', function () {
     return view('home');
@@ -58,11 +58,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-// Route::get('/teste', function () {
-//     return view('biblioteca.png');
-// })->name('teste');
+Route::get('/teste', function () {
+    return view('biblioteca.png');
+})->name('teste');
 
 
-Route::get('/teste', [ImageController::class, 'gerarImagemComMarcaDAgua'])->name('teste');
 
 
