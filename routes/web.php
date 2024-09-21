@@ -7,9 +7,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/', [HomeController::class, 'usuarios'])->name('usuarios');
+// Route::get('/', [HomeController::class, 'usuarios'])->name('usuarios');
 
 Route::get('/home', function () {
     return view('home');
@@ -58,9 +58,19 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/teste', function () {
-    return view('biblioteca.png');
-})->name('teste');
+use App\Http\Controllers\ImagemController;
+
+Route::get('/uploads', function () {
+    return view('upload_imagem');
+})->name('uploads');
+
+Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
+
+
+
+// Route::get('/teste', function () {
+//     return view('biblioteca.png');
+// })->name('teste');
 
 
 

@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('imagens', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');     
-            $table->binary('imagem');   
+            $table->string('nome');      // Nome do arquivo da imagem
+            $table->text('imagem');      // Armazena a string base64
             $table->timestamps();
         });
+        
     }
 
     /**
