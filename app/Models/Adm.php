@@ -22,5 +22,7 @@ class Adm extends Authenticatable
         'remember_token',
     ];
 
+
+
 }
 

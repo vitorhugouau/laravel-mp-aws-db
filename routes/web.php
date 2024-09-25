@@ -5,6 +5,7 @@ use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ImageController;
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -57,7 +58,20 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-// Route::get('/login', function () {
-//     return view('login');
-// })->name('login');
+use App\Http\Controllers\ImagemController;
+
+Route::get('/uploads', function () {
+    return view('upload_imagem');
+})->name('uploads');
+
+Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
+
+
+
+// Route::get('/teste', function () {
+//     return view('biblioteca.png');
+// })->name('teste');
+
+
+
 

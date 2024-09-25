@@ -163,6 +163,7 @@ header{
     grid-template-columns: 1fr 1fr 1fr;
     gap: 0px;
     padding: 15px;
+    user-select: none;
 }
 @keyframes fadeIn{
     0%{
@@ -173,11 +174,10 @@ header{
 .container .container-image .image{
     width: 560px; /*largura */
     border-radius: 5px;
-    
     cursor: pointer;
     box-shadow: 0 5px 10px rgba(0,0,0,.1);
     background-color: #d8d7e2;
-    padding: 15px;
+    /* padding: 1px; */
     animation: fadeIn .2s linear;
 }
 .container .container-image .image img{
