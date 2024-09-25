@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
+use App\Models\Imagem;
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -21,7 +22,11 @@ Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.s
 
 
 Route::GET('/biblioteca', function () {
-    return view('biblioteca.biblioteca');
+    // Busca as imagens do banco de dados
+    $imagens = Imagem::all();
+
+    // Passa as imagens para a view
+    return view('biblioteca.biblioteca', compact('imagens'));
 })->middleware('auth')->name('biblioteca');
 
 
@@ -66,11 +71,14 @@ Route::get('/uploads', function () {
 
 Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
 
+Route::get('/imagens', [ImagemController::class, 'index'])->name('imagens.index');
 
 
-// Route::get('/teste', function () {
-//     return view('biblioteca.png');
-// })->name('teste');
+
+
+Route::get('/teste', function () {
+    return view('biblioteca.png');
+})->name('teste');
 
 
 

@@ -65,33 +65,24 @@
         transform: scale(1.3);
     }
 </style>
-    <div class="container">
-        <h1 class="heading">BIBLIOTECA DE FOTOS</h1>
-        <br><br>
-        <div class="container-image">
-            <div class="image" data-title="cidade toda">
-                <img src="../../assets/img/imgnovas/DC0BA660DD51D7CF60947E38295486DD.jpeg" alt="" oncontextmenu="bloquearBotaoDireito(event)">
-                <h3>PRAIA DE IACANGA</h3>
+<div class="container">
+    <h1 class="heading">BIBLIOTECA DE FOTOS</h1>
+    <br><br>
+    <div class="container-image">
+        @foreach ($imagens as $imagem)
+            <div class="image" data-title="{{ $imagem->nome }}">
+                <!-- Exibe a imagem armazenada no banco de dados em Base64 -->
+                <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="{{ $imagem->nome }}" oncontextmenu="bloquearBotaoDireito(event)">
+                <h3>{{ $imagem->nome }}</h3>
                 <div class="compra">
-                    <button id="boton" onclick="window.location.href='{{ route('teste') }}'" >COMPRAR IMAGEM</button>
+                    <button id="boton" onclick="window.location.href='{{ route('teste') }}'">COMPRAR IMAGEM</button>
                 </div>
             </div>
-            <div class="image" data-title="manha">
-                <img src="../../assets/img/imgnovas/praia.JPG" alt="">
-                <h3>PONTE DA PRAIA</h3>
-                <div class="compra">
-                    <button id="boton" onclick="window.location.href='{{ route('teste') }}'" >COMPRAR IMAGEM</button>
-                </div>
-            </div>
-            <div class="image" data-title="praia">
-                <img src="../../assets/img/imgnovas/rio.JPG" alt="">
-                <h3>NASCER DO SOL</h3>
-                <div class="compra">
-                    <button id="boton" onclick="window.location.href='{{ route('teste') }}'" >COMPRAR IMAGEM</button>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
+</div>
+
+
         
         {{-- <input type="text" placeholder="Pesquisar Imagem" id="search-box"> --}}
     

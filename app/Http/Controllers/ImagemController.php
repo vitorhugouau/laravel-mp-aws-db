@@ -42,5 +42,12 @@ public function show($id)
            ->header('Content-Type', 'image/jpeg'); // Ajuste o tipo de conteúdo conforme necessário
 }
 
+public function index()
+{
+    // Busca todas as imagens do banco de dados
+    $imagens = Imagem::all();
 
+    // Retorna a view com as imagens
+    return view('imagens.index', compact('imagens'));
+}
 }
