@@ -70,13 +70,17 @@
     <br><br>
     <div class="container-image">
         @foreach ($imagens as $imagem)
-            <div class="image" data-title="{{ $imagem->nome }}">
+            <div style="background-image: url('data:image/jpeg;base64,{{ $imagem->imagem }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important" class="image" data-title="{{ $imagem->nome }}">
                 <!-- Exibe a imagem armazenada no banco de dados em Base64 -->
-                <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="{{ $imagem->nome }}" oncontextmenu="bloquearBotaoDireito(event)">
-                <h3>{{ $imagem->nome }}</h3>
-                <div class="compra">
-                    <button id="boton" onclick="window.location.href='{{ route('teste') }}'">COMPRAR IMAGEM</button>
-                </div>
+                <!-- <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="{{ $imagem->nome }}" oncontextmenu="bloquearBotaoDireito(event)"> -->
+                <img id="{{ $imagem->id }}" class="imagemaaa" src="{{ asset("assets/image.png") }}" style="height: auto !important; width: 60% !important; opacity: 0.6 !important; user-select: none">
+                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; width: 100%">
+                     <h3>{{ $imagem->nome }}</h3>
+                     <div class="compra">
+                         <!-- <button id="boton" onclick="window.location.href='{{ route('teste') }}'">COMPRAR IMAGEM</button> -->
+                         <button id="boton" onclick="buyImage({{ $imagem->id }})">COMPRAR IMAGEM</button>
+                     </div>
+                 </div>
             </div>
         @endforeach
     </div>
@@ -95,6 +99,16 @@
         });
     </script> --}}
     <script>
+
+        
+    const buyImage = (id) => {
+        const imagemComprada = document.getElementById(id);
+        imagemComprada.style.display = 'none';
+    };
+
+    </script>
+  
+  <script>
         document.getElementById('sair').addEventListener('click', function() {
                 document.getElementById('logout-form').submit();
             });
