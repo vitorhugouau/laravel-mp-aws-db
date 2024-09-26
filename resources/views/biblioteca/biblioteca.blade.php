@@ -36,6 +36,9 @@
     </ul>
 </nav>
 <style>
+    *{
+        user-select: none;
+    }
     .compra{
         left: 20px;
         align-items: center;
@@ -68,7 +71,7 @@
 <div class="container">
     <h1 class="heading">BIBLIOTECA DE FOTOS</h1>
     <br><br>
-    <div class="container-image">
+    <div class="container-image" >
         @foreach ($imagens as $imagem)
             <div style="background-image: url('data:image/jpeg;base64,{{ $imagem->imagem }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important" class="image" data-title="{{ $imagem->nome }}">
                 <!-- Exibe a imagem armazenada no banco de dados em Base64 -->
@@ -106,6 +109,22 @@
         imagemComprada.style.display = 'none';
     };
 
+    </script>
+    <script>
+        document.addEventListener('keydown',
+            function(e){
+                if (e.key === "F12" || (e.ctrlKey && 
+            e.shiftKey && e.key === 'I' )) {
+                e.preventDefault();
+            }
+            }
+        );
+
+        document.addEventListener('contextmenu',
+            function (e){
+                e.preventDefault();
+            }
+        );
     </script>
   
   <script>
