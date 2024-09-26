@@ -20,9 +20,16 @@ Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.c
 Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
 
 
+use App\Models\Imagem;
+
 Route::GET('/biblioteca', function () {
-    return view('biblioteca.biblioteca');
+    // Busca as imagens do banco de dados
+    $imagens = Imagem::all();
+
+    // Passa as imagens para a view
+    return view('biblioteca.biblioteca', compact('imagens'));
 })->middleware('auth')->name('biblioteca');
+
 
 
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -68,9 +75,9 @@ Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store')
 
 
 
-// Route::get('/teste', function () {
-//     return view('biblioteca.png');
-// })->name('teste');
+Route::get('/teste', function () {
+    return view('biblioteca.png');
+})->name('teste');
 
 
 
