@@ -7,6 +7,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
 use App\Models\Imagem;
+use App\Http\Controllers\ImagemController;
+
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -55,7 +57,6 @@ Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
 Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
 
 
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('adm.dashboard');
@@ -63,23 +64,24 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-use App\Http\Controllers\ImagemController;
-
 Route::get('/uploads', function () {
-    return view('upload_imagem');
+    return view('adm.add_biblioteca.upload_imagem');
 })->name('uploads');
 
-Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
+
+Route::get('/upload', [ImagemController::class, 'store'])->name('imagem-store');
+
 
 Route::get('/imagens', [ImagemController::class, 'index'])->name('imagens.index');
-
-
 
 
 Route::get('/teste', function () {
     return view('biblioteca.png');
 })->name('teste');
 
+Route::get('/control_biblioteca', function () {
+    return view('adm.add_biblioteca.add-biblioteca');
+})->name('control_biblioteca');
 
 
 

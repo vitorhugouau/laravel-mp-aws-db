@@ -20,11 +20,11 @@
                     <li><a href="inserindo.php">Gerenciar Usuários</a></li>
                     <!-- <li><a href="upload.php">Adicionar Imagem ao Banco</a></li> -->
                     <li><a href="consult_img/consult_control.php">Consultar Imagem</a></li>
-                    <li><a href="control_library.php">Biblioteca</a></li>
+                    <li><a href="{{route('control_biblioteca')}}">Adicionando Imagens na Biblioteca</a></li>
                     <li><a href="add_img/panel_control.php">Adicionando Imagens nos Albuns</a></li>
                     <li><a href="cliente/crud_serviço.php">Gerenciador de clientes</a></li>
-                    <li><a href="artista/crud_artista.php">Artistas</a></li>
-                    <li><a href="equipamento/crud_equipamento.php">Equipamentos</a></li>
+                    <!-- <li><a href="artista/crud_artista.php">Artistas</a></li> -->
+                    <!-- <li><a href="equipamento/crud_equipamento.php">Equipamentos</a></li> -->
                 </ul>
             </div>
         </div>

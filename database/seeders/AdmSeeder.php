@@ -17,8 +17,8 @@ class AdmSeeder extends Seeder
     {
         // Cria um administrador
         Adm::create([
-            'email' => 'admin@example.com',
-            'password' => Hash::make('123'),  // Hash da senha
+            'email' => 'a',
+            'password' => Hash::make('a'),  // Hash da senha
         ]);
     }
 }
