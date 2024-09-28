@@ -28,7 +28,7 @@ class ImagemController extends Controller
             'imagem' => $imagemBase64,  // Armazena a imagem como string base64
         ]);
     
-        return redirect()->route('uploads')->with('success', 'Imagem enviada com sucesso!');
+        return redirect()->route('control')->with('success', 'Imagem enviada com sucesso!');
     }
     
 
