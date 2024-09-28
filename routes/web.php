@@ -69,7 +69,7 @@ Route::get('/uploads', function () {
 })->name('uploads');
 
 
-Route::get('/upload', [ImagemController::class, 'store'])->name('imagem-store');
+Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
 
 
 Route::get('/imagens', [ImagemController::class, 'index'])->name('imagens.index');
