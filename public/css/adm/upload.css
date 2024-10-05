@@ -1,0 +1,274 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+.menu {
+    list-style-type: none;
+    margin: 0 auto; /* Centralizar horizontalmente */
+    padding: 0;
+    background: #355a92;
+    background: linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
+    background: -webkit-linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
+    background: -moz-linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
+    text-align: center; /* Centralizar os itens do menu */
+    justify-content: center; /* Centralizar os itens horizontalmente */
+    align-items: center; /* Centralizar os itens verticalmente */
+}
+
+.menu li {
+    display: inline-block;
+    position: relative; /* Para posicionar o submenu */
+}
+
+.menu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.menu li a:hover {
+    background-color: #1159c5; /* Cor de fundo ao passar o mouse */
+}
+
+.cont {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #d8d7e2;
+    box-shadow: 1px -1px 41px 4px rgba(0,0,0,0.78);
+    -webkit-box-shadow: 1px -1px 41px 4px rgba(0,0,0,0.78);
+    -moz-box-shadow: 1px -1px 41px 4px rgba(0,0,0,0.78);
+}
+
+.area {
+    margin-bottom: 15px;
+    color: #007bff;
+}
+.area button.enviar{
+    color: #007bff;
+}
+label {
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.acaoBotao {
+    display: none;
+    color: #fff; /* Cor do texto */
+    padding: 15px 25px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    border: none; /* Remover borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Alterar cursor ao passar por cima */
+    transition: background-color 0.3s; /* Efeito de transição */
+    margin-right: 10px; /* Margem à direita */
+    transition: all 0.4s ease;
+}
+.acaoBotao:hover {
+    transform: scale(1.1);
+}
+#botaoAcao{
+    background-color: #007BFF;
+}
+/* Estilo do botão "SIM" */
+#botaoAcao1 {
+    background-color: #019e09; /* Azul */
+}
+
+/* Estilo do botão "NÃO" */
+#botaoAcao2 {
+    background-color: #DC3545; /* Vermelho */
+}
+.container{
+    padding: 18px 32.5%;
+    text-align: center;
+}
+
+.container .heading{
+    text-align: center;
+    color: #727cd8;
+    font: normal 44pt Impact;
+    opacity: 100%;
+    text-shadow: 9px 3px 3px rgba(0,0,0,0.66);
+    
+}
+
+.container .container-image{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 25px;
+}
+@keyframes fadeIn{
+    0%{
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+}
+.container .container-image .image{
+    width: 630px; /*largura */
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0,0,0,.1);
+    background-color: #d8d7e2;
+    padding: 15px;
+    animation: fadeIn .2s linear;
+    box-shadow: 1px -1px 41px 4px rgba(0,0,0,0.78);
+    -webkit-box-shadow: 1px -1px 41px 4px rgba(0,0,0,0.78);
+    -moz-box-shadow: 1px -1px 41px 4px rgba(0,0,0,0.78);
+}
+.container .container-image .image img{
+    width: 100%;
+    height: 354px; /* altura */
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: all 0.4s ease;
+}
+.container .container-image .image img:hover{
+    transform: scale(1.1);
+}
+
+.container .container-image .image h3{
+    font-size: 20px;
+    color: #01060c;
+    font: normal Impact;
+}
+
+@media (max-width: 768px) {
+    .container .container-image{
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        padding: 25px 20px;
+    }
+    .container .container-image .image{
+        width: 100%;
+    }
+    .container #search-box{
+        width: 10%;
+    }
+  }
+
+@media(max-width:450px){
+    .container .container-image{
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        padding: 25px 20px;
+    }
+      .container #search-box{
+        width: 1000%;
+    }
+    .container .container-image .image{
+        width: 100%;
+    }
+
+}
+
+/* Estilo para a tabela */
+/* Estilo para a tabela */
+/* Estilo para a tabela */
+/* Estilo para a tabela */
+/* Estilo para a tabela */
+.table {
+    width: 26%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 8px; /* Bordas arredondadas */
+    overflow: hidden; /* Oculta as bordas arredondadas que vão além da tabela */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
+    background-color: rgba(255, 255, 255, 0.5); /* Fundo com 50% de opacidade */
+}
+
+/* Estilo para as células do cabeçalho */
+.table th {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Estilo para a borda direita da célula de ID */
+.table th#id {
+    border-right: 1px solid #000; /* Linha preta */
+}
+
+/* Estilo para as células dos dados */
+.table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Estilo para as linhas ímpares */
+.table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+/* Estilo para os botões */
+/* Estilo para o contêiner dos botões */
+.button-container {
+    display: flex;
+    gap: 1px; /* Espaço entre os botões */
+}
+
+/* Estilo para os botões */
+/* Estilo para os botões */
+.btn {
+    display: flex; /* Adiciona os botões em linha */
+    margin-right: 5px; /* Espaçamento entre os botões */
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Estilo para o botão de exclusão */
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Estilo para o botão de edição */
+.btn-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+/* Estilo para os botões quando hover */
+.btn:hover {
+    filter: brightness(90%);
+}
+
+.container-selects {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}

@@ -24,7 +24,7 @@
                 <li><a href="cliente/serviço.php">CONTRATAR SERVIÇO</a></li>
             </ul>
         </li>
-        <li><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a>
+        <li><a href="{{ route('control') }}">PAINEL DE CONTROLE</a>
         <li class="logout">
             <div class="card">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -36,6 +36,9 @@
     </ul>
 </nav>
 <style>
+    *{
+        user-select: none;
+    }
     .compra{
         left: 20px;
         align-items: center;
@@ -68,19 +71,26 @@
 <div class="container">
     <h1 class="heading">BIBLIOTECA DE FOTOS</h1>
     <br><br>
-    <div class="container-image">
+
+    <div class="container-image" >
         @foreach ($imagens as $imagem)
-            <div class="image" data-title="{{ $imagem->nome }}">
+            <div style="background-image: url('data:image/jpeg;base64,{{ $imagem->imagem }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important" class="image" data-title="{{ $imagem->nome }}">
                 <!-- Exibe a imagem armazenada no banco de dados em Base64 -->
-                <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="{{ $imagem->nome }}" oncontextmenu="bloquearBotaoDireito(event)">
-                <h3>{{ $imagem->nome }}</h3>
-                <div class="compra">
-                    <button id="boton" onclick="window.location.href='{{ route('teste') }}'">COMPRAR IMAGEM</button>
-                </div>
+                <!-- <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="{{ $imagem->nome }}" oncontextmenu="bloquearBotaoDireito(event)"> -->
+                <img id="{{ $imagem->id }}" class="imagemaaa" src="{{ asset("assets/image.png") }}" style="height: auto !important; width: 60% !important; opacity: 0.6 !important; user-select: none">
+                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; width: 100%">
+                     <h3>{{ $imagem->nome }}</h3>
+                     <div class="compra">
+                         <!-- <button id="boton" onclick="window.location.href='{{ route('teste') }}'">COMPRAR IMAGEM</button> -->
+                         <button id="boton" onclick="buyImage({{ $imagem->id }})">COMPRAR IMAGEM</button>
+                     </div>
+                 </div>
+
             </div>
         @endforeach
     </div>
 </div>
+
 
         
         {{-- <input type="text" placeholder="Pesquisar Imagem" id="search-box"> --}}
@@ -94,6 +104,32 @@
         });
     </script> --}}
     <script>
+
+        
+    const buyImage = (id) => {
+        const imagemComprada = document.getElementById(id);
+        imagemComprada.style.display = 'none';
+    };
+
+    </script>
+    <script>
+        document.addEventListener('keydown',
+            function(e){
+                if (e.key === "F12" || (e.ctrlKey && 
+            e.shiftKey && e.key === 'I' )) {
+                e.preventDefault();
+            }
+            }
+        );
+
+        document.addEventListener('contextmenu',
+            function (e){
+                e.preventDefault();
+            }
+        );
+    </script>
+  
+  <script>
         document.getElementById('sair').addEventListener('click', function() {
                 document.getElementById('logout-form').submit();
             });
