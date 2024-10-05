@@ -84,4 +84,11 @@ Route::get('/control_biblioteca', function () {
 })->name('control_biblioteca');
 
 
+Route::get('/imagensTable', [ImagemController::class, 'indexTable'])->name('imagens.table');
+Route::delete('/imagens/{id}', [ImagemController::class, 'destroy'])->name('imagens.destroy');
+
+Route::get('/imagensEdit/{id}', [ImagemController::class, 'edit'])->name('imagens.edit');
+Route::post('/imagens/{id}', [ImagemController::class, 'update'])->name('imagens.update');
+
+
 

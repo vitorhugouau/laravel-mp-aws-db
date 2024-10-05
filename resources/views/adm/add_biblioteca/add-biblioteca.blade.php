@@ -22,7 +22,7 @@
         <form action="" method="get">
             <div class="area">
                 <input type="submit" value="ADICIONAR IMAGEM" formaction="{{route('uploads')}}">
-                <input type="submit" value="CONTROLE DE IMAGENS" formaction="control_consult.php">
+                <input type="submit" value="CONTROLE DE IMAGENS" formaction="{{route('imagens.table')}}">
             </div>
         </form>
     </div>
