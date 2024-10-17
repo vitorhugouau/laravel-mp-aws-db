@@ -28,9 +28,6 @@ Route::GET('/biblioteca', function () {
 
 
 
-
-
-
 // Rota protegida
 Route::get('/dashboard', function () {
     return 'Você está logado!';
@@ -100,7 +97,6 @@ Route::get('/control', function () {
 //     Route::get('/', function () {
 //         return view('biblioteca');
 //     });
-// });
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
