@@ -19,11 +19,14 @@ Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.c
 Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
 
 
+
 Route::GET('/biblioteca', function () {
     $imagens = Imagem::all();
 
     return view('biblioteca.biblioteca', compact('imagens'));
 })->middleware('auth')->name('biblioteca');
+
+
 
 
 
@@ -67,6 +70,11 @@ Route::get('/control_biblioteca', function () {
 
 Route::get('/imagensTable', [ImagemController::class, 'indexTable'])->name('imagens.table');
 Route::delete('/imagens/{id}', [ImagemController::class, 'destroy'])->name('imagens.destroy');
+
+Route::get('/teste', function () {
+    return view('biblioteca.png');
+})->name('teste');
+
 
 Route::get('/imagensEdit/{id}', [ImagemController::class, 'edit'])->name('imagens.edit');
 Route::post('/imagens/{id}', [ImagemController::class, 'update'])->name('imagens.update');

@@ -71,6 +71,7 @@
 <div class="container">
     <h1 class="heading">BIBLIOTECA DE FOTOS</h1>
     <br><br>
+
     <div class="container-image" >
         @foreach ($imagens as $imagem)
             <div style="background-image: url('data:image/jpeg;base64,{{ $imagem->imagem }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important" class="image" data-title="{{ $imagem->nome }}">
@@ -84,6 +85,7 @@
                          <button id="boton" onclick="buyImage({{ $imagem->id }})">COMPRAR IMAGEM</button>
                      </div>
                  </div>
+
             </div>
         @endforeach
     </div>
