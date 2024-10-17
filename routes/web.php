@@ -10,10 +10,6 @@ use App\Models\Imagem;
 use App\Http\Controllers\ImagemController;
 
 
-// Route::get('/', [HomeController::class, 'index'])->name('home');
-
-// Route::get('/', [HomeController::class, 'usuarios'])->name('usuarios');
-
 Route::get('/home', function () {
     return view('home');
 })->name('home');
@@ -24,17 +20,12 @@ Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.s
 
 
 Route::GET('/biblioteca', function () {
-    // Busca as imagens do banco de dados
     $imagens = Imagem::all();
 
-    // Passa as imagens para a view
     return view('biblioteca.biblioteca', compact('imagens'));
 })->middleware('auth')->name('biblioteca');
 
 
-Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // Rota protegida
@@ -47,22 +38,12 @@ Route::get('/adm', function () {
     return view('adm.adm');
 })->middleware('auth')->name('adm');
 
-Route::get('/control', function () {
-    return view('adm.control');
-})->middleware('auth')->name('control');
-
-
-Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
-Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
-Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
-
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('adm.dashboard');
     })->name('dashboard');
 });
-
 
 Route::get('/uploads', function () {
     return view('adm.add_biblioteca.upload_imagem');
@@ -90,5 +71,33 @@ Route::delete('/imagens/{id}', [ImagemController::class, 'destroy'])->name('imag
 Route::get('/imagensEdit/{id}', [ImagemController::class, 'edit'])->name('imagens.edit');
 Route::post('/imagens/{id}', [ImagemController::class, 'update'])->name('imagens.update');
 
+// ------------------------------------------------------------------------------------------------------------------------- 
+
+Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
+Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
+Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
+
+Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/control', function () {
+    return view('adm.control');
+})->middleware('auth')->name('control');
 
 
+
+// Route::middleware('auth')->group(function () {
+//     // Rotas acessíveis para usuários autenticados
+//     Route::get('/', function () {
+//         return view('biblioteca');
+//     });
+// });
+
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    // Rotas acessíveis apenas para administradores
+    Route::get('/admin/dashboard', function () {
+        return view('adm.login');
+    });
+});

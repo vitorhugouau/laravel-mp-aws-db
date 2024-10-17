@@ -12,7 +12,6 @@ class Adm extends Authenticatable
     protected $table = 'adm';
 
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
