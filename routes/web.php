@@ -21,9 +21,9 @@ Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.s
 
 
 // Rota protegida
-Route::get('/dashboard', function () {
-    return 'Você está logado!';
-})->middleware('auth');
+// Route::get('/dashboard', function () {
+//     return 'Você está logado!';
+// })->middleware('auth');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -81,26 +81,31 @@ Route::middleware('auth')->group(function () {
     })->name('biblioteca');
 
     Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
+    Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
+    Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
+Route::get('/control', function () 
+{ return view('adm.control');
+})->name('control');
 
-Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
-Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/control', function () 
+{ return view('adm.control');
+})->name('control');
 
+// Route::get('/usuarios', function () 
+// { return view('adm.add_usuarios.index');
+// })->name('usuarios');
+
+Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
+
+
+Route::resource('usuarios', UsuariosController::class);
 
 
 Route::middleware([AdminAuth::class, 'AuthAdmin'])->group(function () {
     
-    Route::get('/control', function () 
-    { return view('adm.control');
-    })->name('control');
-
-
-    Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
-
-
-
     // Route::get('/adm', function () {
     //     return view('adm.adm');
     // })->name('adm');

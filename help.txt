@@ -8,11 +8,3 @@ php artisan migrate
 composer install
 
 verificar senha, login, database 
-
-DB_CONNECTION=pgsql
-DB_HOST=localhost
-DB_PORT=5432
-DB_DATABASE=postgres
-DB_USERNAME=postgres
-DB_PASSWORD=
-DB_CHARSET=utf8

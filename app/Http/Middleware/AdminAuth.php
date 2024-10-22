@@ -10,7 +10,7 @@ class AdminAuth
 {
     public function handle($request, Closure $next)
     {
-        if (Auth::guard('admin')->check()) {
+        if (Auth::guard('AuthAdmin')->check()) {
             return $next($request);
 
         }

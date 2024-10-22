@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\AdminAuth;
+use App\Models\Usuarios;
+use App\Models\Adm;
+use App\Models\Admin;
 
 class AdminController extends Controller
 {
@@ -14,10 +17,9 @@ class AdminController extends Controller
         return view('adm.adm');
     }
 
-    // Lida com a submissão do formulário de login
     public function login(Request $request)
     {
-        // Validação dos dados de email e senha
+        
         $credentials = $request->validate([
             'email' => 'required|string',
             'password' => 'required|string',
@@ -29,10 +31,9 @@ class AdminController extends Controller
         //     return redirect()->intended('control');
         // }
         if (Auth::guard('adm')->attempt($credentials)) {
-            return redirect()->intended('biblioteca');
+            return redirect()->intended('control');
         }
 
-        // Se o login falhar, retorna com mensagem de erro
         return back()->withErrors([
             'email' => 'As credenciais não correspondem aos nossos registros.',
         ])->withInput();
