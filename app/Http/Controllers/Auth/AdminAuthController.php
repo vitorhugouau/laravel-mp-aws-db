@@ -15,7 +15,7 @@ class AdminAuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->all();
 
         // Tente autenticar com as credenciais fornecidas
         if (Auth::attempt(array_merge($credentials, ['is_admin' => true]))) {

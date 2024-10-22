@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
 use App\Models\Imagem;
 use App\Http\Controllers\ImagemController;
+use App\Http\Middleware\AdminAuth;
 
 
 Route::get('/home', function () {
@@ -25,7 +26,6 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('adm.dashboard');
@@ -35,9 +35,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/uploads', function () {
     return view('adm.add_biblioteca.upload_imagem');
 })->name('uploads');
-
-
-Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
 
 
 Route::get('/imagens', [ImagemController::class, 'index'])->name('imagens.index');
@@ -63,29 +60,17 @@ Route::get('/teste', function () {
 Route::get('/imagensEdit/{id}', [ImagemController::class, 'edit'])->name('imagens.edit');
 Route::post('/imagens/{id}', [ImagemController::class, 'update'])->name('imagens.update');
 
-// ------------------------------------------------------------------------------------------------------------------------- 
 
 // Route::get('/adm', function () {
 //     return view('adm.adm');
 // })->middleware('auth')->name('adm');
 
 
-Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
-
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/', [AuthController::class, 'login']);
 
-
-
-
-
-
-
-
+// ------------------------------------------------------------------------------------------------------------------------- 
 
 
 Route::middleware('auth')->group(function () {
@@ -94,22 +79,36 @@ Route::middleware('auth')->group(function () {
     
         return view('biblioteca.biblioteca', compact('imagens'));
     })->name('biblioteca');
+
+    Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
 });
 
 
+Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
+Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware('adminAuth')->group(function () {
+
+
+Route::middleware([AdminAuth::class, 'AuthAdmin'])->group(function () {
     
-    Route::get('/control', function () {
-        return view('adm.control');
+    Route::get('/control', function () 
+    { return view('adm.control');
     })->name('control');
 
-    Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
-    Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
 
-    Route::get('/admin/dashboard', function () {
-        return view('adm.dashboard');
-    })->name('admin.dashboard');
+    Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
+
+
+
+    // Route::get('/adm', function () {
+    //     return view('adm.adm');
+    // })->name('adm');
+
+    // Route::get('/admin/dashboard', function () {
+    //     return view('adm.dashboard');
+    // })->name('admin.dashboard');
+
 });
 
 
