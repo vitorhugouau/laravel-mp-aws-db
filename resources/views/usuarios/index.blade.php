@@ -49,7 +49,6 @@
 <!-- Tabela com os dados dos usuários -->
 <br>
 <table class="table">
-    <thead>
         <tr>
             <th>ID</th>
             <th>NOME</th>

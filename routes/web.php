@@ -17,10 +17,6 @@ Route::get('/home', function () {
 })->name('home');
 
 
-Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.create');
-Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
-
-
 // Rota protegida
 // Route::get('/dashboard', function () {
 //     return 'Você está logado!';
@@ -33,52 +29,40 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 });
 
-Route::get('/uploads', function () {
-    return view('adm.add_biblioteca.upload_imagem');
-})->name('uploads');
-
-
-Route::get('/imagens', [ImagemController::class, 'index'])->name('imagens.index');
-
-
-Route::get('/teste', function () {
-    return view('biblioteca.png');
-})->name('teste');
-
-Route::get('/control_biblioteca', function () {
-    return view('adm.add_biblioteca.add-biblioteca');
-})->name('control_biblioteca');
-
-
-Route::get('/imagensTable', [ImagemController::class, 'indexTable'])->name('imagens.table');
-Route::delete('/imagens/{id}', [ImagemController::class, 'destroy'])->name('imagens.destroy');
 
 Route::get('/teste', function () {
     return view('biblioteca.png');
 })->name('teste');
 
 
-Route::get('/imagensEdit/{id}', [ImagemController::class, 'edit'])->name('imagens.edit');
-Route::post('/imagens/{id}', [ImagemController::class, 'update'])->name('imagens.update');
+Route::get('/teste', function () {
+    return view('biblioteca.png');
+})->name('teste');
 
 
 // Route::get('/adm', function () {
 //     return view('adm.adm');
 // })->middleware('auth')->name('adm');
 
+use App\Http\Controllers\PagamentoController;
+
+Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
+Route::post('/pagamento/finalizar', [PagamentoController::class, 'finalizarPagamento'])->name('finalizarPagamento');
 
 
+// ------------------------------------------------------------------------------------------------------------------------- 
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/', [AuthController::class, 'login']);
 
-// ------------------------------------------------------------------------------------------------------------------------- 
+Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.create');
+Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
 
-
+// auth 
 Route::middleware('auth')->group(function () {
+
     Route::get('/biblioteca', function () {
-        $imagens = Imagem::all(); 
-    
-        return view('biblioteca.biblioteca', compact('imagens'));
+    $imagens = Imagem::all(); 
+    return view('biblioteca.biblioteca', compact('imagens'));
     })->name('biblioteca');
 
     Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
@@ -87,25 +71,36 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-
-
-// Route::get('/usuarios', function () 
-// { return view('adm.add_usuarios.index');
-// })->name('usuarios');
-
-Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
-
-
-Route::resource('usuarios', UsuariosController::class);
-
-
-// Route::middleware([AdminAuth::class, 'AuthAdmin'])->group(function () {
+// middleware 
 Route::middleware([AdminAuthMiddleware::class])->group(function () {
+
+    Route::get('/imagensEdit/{id}', [ImagemController::class, 'edit'])->name('imagens.edit');
+    Route::post('/imagens/{id}', [ImagemController::class, 'update'])->name('imagens.update');
+
+
+    Route::get('/imagensTable', [ImagemController::class, 'indexTable'])->name('imagens.table');
+    Route::delete('/imagens/{id}', [ImagemController::class, 'destroy'])->name('imagens.destroy');
+
+
+    Route::get('/uploads', function () {
+        return view('adm.add_biblioteca.upload_imagem');
+    })->name('uploads');
+    
+    
+    Route::get('/imagens', [ImagemController::class, 'index'])->name('imagens.index');
+
+    Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
+
+    Route::resource('usuarios', UsuariosController::class);
 
     Route::get('/control', function () 
     { return view('adm.control');
     })->name('control');
 
+    Route::get('/control_biblioteca', function () {
+        return view('adm.add_biblioteca.add-biblioteca');
+    })->name('control_biblioteca');
+    
     
     // Route::get('/adm', function () {
     //     return view('adm.adm');

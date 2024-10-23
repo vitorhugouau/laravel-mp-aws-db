@@ -90,6 +90,12 @@
         @endforeach
     </div>
 </div>
+<script>
+    const buyImage = (id) => {
+    window.location.href = `/pagamento/${id}`;
+    
+};
+</script>
 
 
         
@@ -137,6 +143,7 @@
                 event.preventDefault();
             }
     </script>
+    
     
 </body>
 </html>
