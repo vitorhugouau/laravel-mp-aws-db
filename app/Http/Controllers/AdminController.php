@@ -30,7 +30,7 @@ class AdminController extends Controller
         //     // Se o login for bem-sucedido, redireciona o usuário
         //     return redirect()->intended('control');
         // }
-        if (Auth::guard('adm')->attempt($credentials)) {
+        if (Auth::guard('AdminAuthMiddleware')->attempt($credentials)) {
             return redirect()->intended('control');
         }
 

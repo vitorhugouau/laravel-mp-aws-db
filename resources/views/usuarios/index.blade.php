@@ -53,7 +53,6 @@
         <tr>
             <th>ID</th>
             <th>NOME</th>
-            <th>SOBRENOME</th>
             <th>EMAIL</th>
             <th>OPÇÕES</th>
         </tr>
@@ -63,9 +62,8 @@
             <tr>
                 <td>{{ $usuario->id }}</td>
                 <td>{{ $usuario->name }}</td>
-                <td>{{ $usuario->sobrenome }}</td>
                 <td>{{ $usuario->email }}</td>
-                <td>
+                <td style="display:flex;">
                     <!-- Formulário para excluir o usuário -->
                     <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST" style="display:inline-block;">
                         @csrf

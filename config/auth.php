@@ -13,14 +13,16 @@ return [
             'provider' => 'users',
         ],
 
-        'admin' => [
-        'driver' => 'session',
-        'provider' => 'admins',
-    ],
-    'adm' => [
-        'driver' => 'session',
-        'provider' => 'admins',
-    ],
+        'AdminAuthMiddleware' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        // Se você precisa de um guard diferente para 'adm', mantenha-o
+        'adm' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
     ],
 
     'providers' => [
@@ -30,10 +32,9 @@ return [
         ],
 
         'admins' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Admin::class,
-    ],
-        
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
     ],
 
     'passwords' => [
@@ -44,13 +45,12 @@ return [
             'throttle' => 60,
         ],
 
-        'admin' => [
-            'provider' => 'adm', 
+        'admins' => [
+            'provider' => 'admins',  // Corrigido para 'admins'
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
         ],
-        
     ],
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),

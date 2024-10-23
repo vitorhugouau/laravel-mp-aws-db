@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Middleware\AdminAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
@@ -86,13 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::get('/control', function () 
-{ return view('adm.control');
-})->name('control');
 
-Route::get('/control', function () 
-{ return view('adm.control');
-})->name('control');
 
 // Route::get('/usuarios', function () 
 // { return view('adm.add_usuarios.index');
@@ -104,7 +99,13 @@ Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store')
 Route::resource('usuarios', UsuariosController::class);
 
 
-Route::middleware([AdminAuth::class, 'AuthAdmin'])->group(function () {
+// Route::middleware([AdminAuth::class, 'AuthAdmin'])->group(function () {
+Route::middleware([AdminAuthMiddleware::class])->group(function () {
+
+    Route::get('/control', function () 
+    { return view('adm.control');
+    })->name('control');
+
     
     // Route::get('/adm', function () {
     //     return view('adm.adm');

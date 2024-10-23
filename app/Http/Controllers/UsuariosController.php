@@ -36,26 +36,34 @@ class UsuariosController extends Controller
     return view('usuarios.index', compact('usuarios')); // Retorna a view com os usuários
 }
 // <------------------------------------------------------------------------------------------->
-    // public function edit(Usuario $usuario)
-    // {
-    //     return view('adm.add_usuarios.edit', compact('usuario'));
-    // }
+public function edit($id)
+{
+    // Busca o usuário pelo ID
+    $usuario = Usuarios::find($id);
 
-    // Atualiza um usuário existente (U)
+    // Verifica se o usuário existe
+    if (!$usuario) {
+        return redirect()->route('usuarios.index')->with('error', 'Usuário não encontrado.');
+    }
+
+    // Retorna a view de edição com os dados do usuário
+    return view('usuarios.edit', compact('usuario'));
+}
+
 
 // <------------------------------------------------------------------------------------------->
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, Usuarios $usuario)
     {
         $request->validate([
-            'nome' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
-            'senha' => 'nullable|string|min:8',
+            'password' => 'nullable|string|min:3',
         ]);
 
         $usuario->update([
-            'nome' => $request->nome,
+            'name' => $request->name,
             'email' => $request->email,
-            'senha' => $request->senha ? bcrypt($request->senha) : $usuario->senha,
+            'password' => $request->password ? bcrypt($request->password) : $usuario->password,
         ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso!');
@@ -64,7 +72,7 @@ class UsuariosController extends Controller
 // <------------------------------------------------------------------------------------------->
 
     // Deleta um usuário (D)
-    public function destroy(Usuario $usuario)
+    public function destroy(Usuarios $usuario)
     {
         $usuario->delete();
         return redirect()->route('usuarios.index')->with('success', 'Usuário deletado com sucesso!');
