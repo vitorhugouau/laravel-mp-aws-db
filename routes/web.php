@@ -44,10 +44,6 @@ Route::get('/teste', function () {
 //     return view('adm.adm');
 // })->middleware('auth')->name('adm');
 
-use App\Http\Controllers\PagamentoController;
-
-Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
-Route::post('/pagamento/finalizar', [PagamentoController::class, 'finalizarPagamento'])->name('finalizarPagamento');
 
 
 // ------------------------------------------------------------------------------------------------------------------------- 
@@ -113,6 +109,22 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 });
 
 
+use App\Http\Controllers\PagamentoController;
 
+Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
+Route::post('/pagamento/finalizar', [PagamentoController::class, 'finalizarPagamento'])->name('finalizarPagamento');
 
+use App\Http\Controllers\MercadoPagoController;
+
+Route::get('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
+Route::get('/mercadopago/success', function () {
+    return "Pagamento aprovado!";
+})->name('mercadopago.success');
+Route::get('/mercadopago/failure', function () {
+    return "Falha no pagamento!";
+})->name('mercadopago.failure');
+
+Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
+
+Route::get('/pagar', [MercadoPagoController::class, 'createPaymentPreference'])->name('pagar');
 
