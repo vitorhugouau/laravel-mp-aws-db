@@ -2,12 +2,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/adm/upload.css') }}">
     <title>Editar Imagem</title>
 </head>
+
 <body background="../../assets/img/ti2.jpg">
     <nav>
         <ul class="menu">
@@ -38,4 +40,5 @@
         }
     </script>
 </body>
+
 </html>

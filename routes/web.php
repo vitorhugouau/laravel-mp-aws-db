@@ -10,40 +10,8 @@ use App\Http\Controllers\ImageController;
 use App\Models\Imagem;
 use App\Http\Controllers\ImagemController;
 use App\Http\Middleware\AdminAuth;
-
-
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
-
-
-// Rota protegida
-// Route::get('/dashboard', function () {
-//     return 'Você está logado!';
-// })->middleware('auth');
-
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('adm.dashboard');
-    })->name('dashboard');
-});
-
-
-Route::get('/teste', function () {
-    return view('biblioteca.png');
-})->name('teste');
-
-
-Route::get('/teste', function () {
-    return view('biblioteca.png');
-})->name('teste');
-
-
-// Route::get('/adm', function () {
-//     return view('adm.adm');
-// })->middleware('auth')->name('adm');
-
+use App\Http\Controllers\PagamentoController;
+use App\Http\Controllers\MercadoPagoController;
 
 
 // ------------------------------------------------------------------------------------------------------------------------- 
@@ -57,14 +25,28 @@ Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.s
 Route::middleware('auth')->group(function () {
 
     Route::get('/biblioteca', function () {
-    $imagens = Imagem::all(); 
-    return view('biblioteca.biblioteca', compact('imagens'));
+        $imagens = Imagem::all();
+        return view('biblioteca.biblioteca', compact('imagens'));
     })->name('biblioteca');
 
     Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
     Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
     Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
+
+    Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
+    Route::get('/mercadopago/success', function () {
+        return "Pagamento aprovado!";
+    })->name('mercadopago.success');
+    Route::get('/mercadopago/failure', function () {
+        return "Falha no pagamento!";
+    })->name('mercadopago.failure');
+
+    Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
+    // Route::get('/pagar', [MercadoPagoController::class, 'createPaymentPreference'])->name('pagar');
+
 });
 
 // middleware 
@@ -81,60 +63,29 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/uploads', function () {
         return view('adm.add_biblioteca.upload_imagem');
     })->name('uploads');
-    
-    
+
+
     Route::get('/imagens', [ImagemController::class, 'index'])->name('imagens.index');
 
     Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
 
     Route::resource('usuarios', UsuariosController::class);
 
-    Route::get('/control', function () 
-    { return view('adm.control');
+    Route::get('/control', function () {
+        return view('adm.control');
     })->name('control');
 
     Route::get('/control_biblioteca', function () {
         return view('adm.add_biblioteca.add-biblioteca');
     })->name('control_biblioteca');
-    
-    
+
+
     // Route::get('/adm', function () {
     //     return view('adm.adm');
     // })->name('adm');
 
-    // Route::get('/admin/dashboard', function () {
-    //     return view('adm.dashboard');
-    // })->name('admin.dashboard');
 
 });
 
 
-use App\Http\Controllers\PagamentoController;
-
-
-
-Route::get('/biblioteca', function () {
-    $imagens = Imagem::all(); 
-    return view('biblioteca.biblioteca', compact('imagens'));
-    })->name('biblioteca');
-
-
-
-
-Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
-
-use App\Http\Controllers\MercadoPagoController;
-
-Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
-Route::get('/mercadopago/success', function () {
-    return "Pagamento aprovado!";
-})->name('mercadopago.success');
-Route::get('/mercadopago/failure', function () {
-    return "Falha no pagamento!";
-})->name('mercadopago.failure');
-
-Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
-
-
-// Route::get('/pagar', [MercadoPagoController::class, 'createPaymentPreference'])->name('pagar');
 

@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inserindo</title>
     <link rel="stylesheet" href="/css/adm/control.css">
 </head>
+
 <body background="../../assets/img/ti2.jpg">
     <!-----------------------------------BOTAO PARA VOLTAR------------------------------------------------------->
     <nav>
-        <ul class= "menu">
+        <ul class="menu">
             <li><a href="{{ route('control') }}">VOLTAR</a></li>
         </ul>
     </nav>
@@ -28,4 +30,5 @@
     </div>
     <!-------------------------------IMAGEM NA TELA-------------------------------------------------------------------->
 </body>
+
 </html>
