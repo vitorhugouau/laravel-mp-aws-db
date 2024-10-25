@@ -111,8 +111,9 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
 use App\Http\Controllers\PagamentoController;
 
+
 Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
-Route::post('/pagamento/finalizar', [PagamentoController::class, 'finalizarPagamento'])->name('finalizarPagamento');
+
 
 use App\Http\Controllers\MercadoPagoController;
 

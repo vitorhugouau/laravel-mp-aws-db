@@ -86,9 +86,7 @@
         }
 
         /* Esconde os formulários por padrão */
-        .payment-form {
-            display: none;
-        }
+        
     </style>
     <style>
         *{
@@ -189,68 +187,17 @@
         </div>
     </div>
     <div class="payment-container">
-        <div class="payment-header">Selecione o método de pagamento</div>
+        <div class="payment-header">Selecione o seu Email</div>
 
         <!-- Métodos de pagamento -->
-        <div class="payment-methods">
-            <label for="credit-card-option">
-                <img src="../../assets/mastercard.png" alt="Cartão de Crédito" style="height: 29px;">
-                <div class="cartao" style="padding: 10px">
-                Cartão de Crédito
-                  </div>
-                <input type="radio" id="credit-card-option" name="payment-method" value="credit" onclick="togglePaymentForm('credit')">
-            </label>
-
-            <label for="pix-option">
-                <img src="../../assets/pix.png" alt="Pix" style="height: 30px;">
-                Pix
-                <input type="radio" id="pix-option" name="payment-method" value="pix" onclick="togglePaymentForm('pix')">
-            </label>
-        </div>
-
-        <!-- Formulário de pagamento por cartão -->
-        <div id="credit-card-form" class="payment-form">
-            <form method="POST" action="{{ route('finalizarPagamento', ['imagem' => $imagem->id]) }}">
-                @csrf
-                <div class="form-group">
-                    <label for="card-name">Nome no cartão</label>
-                    <input type="text" id="card-name" name="card-name" placeholder="Nome no cartão" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="card-cpf">CPF/CPNJ</label>
-                    <input type="number" id="card-cpf" name="card-cpf" placeholder="CPF/CNPJ do titular" oninput="if(this.value.length > 14) this.value = this.value.slice(0, 14);" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="card-number">Número do cartão</label>
-                    <input type="number" id="card-number" name="card-number" placeholder="Número do cartão" oninput="if(this.value.length > 16) this.value = this.value.slice(0, 16);" required>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="expiration">MM / AA</label>
-                        <input type="text" id="expiration" name="expiration" placeholder="MM / AA" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="cvv">Código de segurança</label>
-                        <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-button" id="boton" onclick="buyImage({{ $imagem->id }})" >Efetuar pagamento</button>
-            </form>
-        </div>
-
         <!-- Formulário de pagamento por Pix -->
         <div id="pix-form" class="payment-form">
-            <form method="POST" > 
+            <form method="POST" action="{{ route('adm.login.post') }}"> 
                 {{-- action="{{ route('finalizarPagamentoPix', ['imagem' => $imagem->id]) }}" --}}
                 @csrf
                 <div class="form-group">
-                    <label for="pix-cpf">CPF/CPNJ do pagador</label>
-                    <input type="number" id="pix-cpf" name="pix-cpf" placeholder="Informe seu CPF/CPNJ" oninput="if(this.value.length > 14) this.value = this.value.slice(0, 14);" required>
+                    <label for="pix-cpf">Email</label>
+                    <input type="email" id="pix-cpf" name="pix-cpf" placeholder="Informe seu Email" required>
                 </div>
 
                 <button type="submit" class="submit-button" id="boton" onclick="buyImage({{ $imagem->id }})" >Efetuar pagamento </button>
@@ -259,10 +206,6 @@
     </div>
 </div>
     <script>
-        function togglePaymentForm(method) {
-            document.getElementById('credit-card-form').style.display = (method === 'credit') ? 'block' : 'none';
-            document.getElementById('pix-form').style.display = (method === 'pix') ? 'block' : 'none';
-        }
         
         const buyImage = (id) => {
         const imagemComprada = document.getElementById(id);
@@ -270,9 +213,6 @@
     };
     </script>
 
-    
-
-    </script>
     <script>
         document.addEventListener('keydown',
             function(e){

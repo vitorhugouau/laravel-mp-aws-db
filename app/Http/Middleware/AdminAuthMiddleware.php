@@ -12,9 +12,8 @@ class AdminAuthMiddleware
     {
         if (Auth::guard('AdminAuthMiddleware')->check()) {
             return $next($request);
-
         }
-
+        
         return redirect('adm');
     }
 }
