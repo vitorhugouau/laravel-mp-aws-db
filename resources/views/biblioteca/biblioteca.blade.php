@@ -12,10 +12,10 @@
 <nav>
     <ul class="menu">
         <li><a href="#">HOME</a></li> 
-        <li><a href="#">SOBRE</a>
+        {{-- <li><a href="#">SOBRE</a> --}}
         </li>
-        <li><a href="album.php">ÁLBUM</a>
-        </li>
+        {{-- <li><a href="album.php">ÁLBUM</a>
+        </li> --}}
         <li><a href="#">CONTATO</a>
             <ul><a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a></ul>
         </li>
@@ -79,7 +79,7 @@
                 <!-- <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="{{ $imagem->nome }}" oncontextmenu="bloquearBotaoDireito(event)"> -->
                 <img id="{{ $imagem->id }}" class="imagemaaa" src="{{ asset("assets/image.png") }}" style="height: auto !important; width: 60% !important; opacity: 0.6 !important; user-select: none">
                  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; width: 100%">
-                     <h3>{{ $imagem->nome }}</h3>
+                     {{-- <h3>{{ $imagem->nome }}</h3> --}}
                      <div class="compra">
                          <!-- <button id="boton" onclick="window.location.href='{{ route('teste') }}'">COMPRAR IMAGEM</button> -->
                          <button id="boton" onclick="buyImage({{ $imagem->id }})">COMPRAR IMAGEM</button>
@@ -93,7 +93,6 @@
 <script>
     const buyImage = (id) => {
     window.location.href = `/pagamento/${id}`;
-    
 };
 </script>
 

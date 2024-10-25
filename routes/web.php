@@ -114,6 +114,11 @@ use App\Http\Controllers\PagamentoController;
 
 Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
 
+Route::get('/biblioteca', function () {
+    $imagens = Imagem::all(); 
+    return view('biblioteca.biblioteca', compact('imagens'));
+    })->name('biblioteca');
+
 
 use App\Http\Controllers\MercadoPagoController;
 
