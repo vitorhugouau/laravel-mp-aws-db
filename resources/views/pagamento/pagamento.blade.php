@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/biblioteca/type1.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pagamento</title>
 </head>
 <body>
@@ -51,15 +52,17 @@
         
         <div class="container1"> 
             <h2>Área de Confirmação</h2>
-            <div class="planos">
-                <label>
-                    <input type="checkbox" name="plano" value="125" style="margin-right: 8px;">
-                    R$ 125 por esta imagem<br>
-                </label>
-                <strong>→ Confirme Clicando no Botão Abaixo</strong>
-            </div>
-            
-            <button class="button" onclick="buyImage({{ $imagem->id }})">Continuar compra</button>
+            <form id="purchaseForm" method="POST">
+                <div class="planos">
+                    <label>
+                        <input type="radio" name="valor" value="125" style="margin-right: 8px;">
+                        R$ 125 por esta imagem<br>
+                    </label>
+                    <strong>→ Confirme Clicando no Botão Abaixo</strong>
+                </div>
+                
+                <button type="button" class="button" onclick="{{route('mercadopago.create')}}">Continuar compra</button>
+            </form>
         
             <div class="info">
                 Inclui a nossa <a href="#">licença padrão</a>.<br>
@@ -70,43 +73,34 @@
     <script>
         // Função para obter o valor selecionado
         function getSelectedValue() {
-            const selected = document.querySelector('input[name="plano"]:checked');
+            const selected = document.querySelector('input[name="valor"]:checked');
             return selected ? selected.value : null;
         }
+     
+        async function buyImage() {
+            // Valor fixo para testes
+            const valorFixo = 125;
+    
+            try {
+                const response = await fetch("{{ route('mercadopago.create') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({ valor: valorFixo }),
+            });
 
-        async function buyImage(imagemId) {
-            const valorSelecionado = getSelectedValue();
-
-            if (valorSelecionado) {
-                try {
-                    const response = await fetch('/mercadopago/create', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({
-                            imagem_id: imagemId,
-                            valor: valorSelecionado
-                        })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Erro ao criar a preferência de pagamento.');
-                    }
-
-                    const data = await response.json();
-                    window.location.href = data.init_point; // Redireciona para o checkout do Mercado Pago
-
-                    // Oculta a imagem comprada
-                    const imagemComprada = document.getElementById(imagemId);
-                    imagemComprada.style.display = 'none';
-
-                } catch (error) {
-                    alert('Erro: ' + error.message);
+    
+                if (!response.ok) {
+                    throw new Error('Erro ao criar a preferência de pagamento.');
                 }
-            } else {
-                alert('Por favor, selecione um plano antes de continuar.');
+    
+                const data = await response.json();
+                window.location.href = data.init_point; // Redireciona para o checkout do Mercado Pago
+    
+            } catch (error) {
+                alert('Erro: ' + error.message);
             }
         }
 

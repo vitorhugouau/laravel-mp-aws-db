@@ -112,7 +112,6 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 use App\Http\Controllers\PagamentoController;
 
 
-Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
 
 Route::get('/biblioteca', function () {
     $imagens = Imagem::all(); 
@@ -121,6 +120,8 @@ Route::get('/biblioteca', function () {
 
 
 use App\Http\Controllers\MercadoPagoController;
+
+Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
 
 Route::get('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
 Route::get('/mercadopago/success', function () {

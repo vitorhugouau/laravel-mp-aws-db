@@ -23,19 +23,21 @@ class MercadoPagoController extends Controller
     }
 
     // Função para criar uma nova preferência de pagamento
-    public function createPaymentPreference()
+    public function createPaymentPreference(Request $request)
     {
         // Chama a função para autenticar o SDK do Mercado Pago
         $this->authenticate();
 
+        // Obtém o valor selecionado
+        $valorSelecionado = $request->input('valor'); // Valor selecionado
+
         // Define o item (produto)
         $product1 = [
-            "id" => "1234567890",
-            "title" => "Produto 1",
-            "description" => "Descrição do Produto 1",
+            "title" => "Imagem de Produto",
+            "description" => "Descrição da imagem",
             "currency_id" => "BRL",
             "quantity" => 1,
-            "unit_price" => 10.00  // Preço unitário do produto
+            "unit_price" => 15 // Preço unitário do produto
         ];
 
         // Definir os itens da compra
@@ -49,20 +51,21 @@ class MercadoPagoController extends Controller
         ];
 
         // Chama a função para montar a requisição
-        $request = $this->createPreferenceRequest($items, $payer);
+        $requestPayload = $this->createPreferenceRequest($items, $payer);
 
         // Inicializa o cliente de preferências
         $client = new PreferenceClient();
 
         try {
             // Cria a preferência e obtém o link de pagamento
-            $preference = $client->create($request);
+            $preference = $client->create($requestPayload);
 
-            // Redireciona o usuário para o Checkout do Mercado Pago
-            return redirect($preference->init_point);
+            // Retorna o link de pagamento
+            return response()->json(['init_point' => $preference->init_point]);
 
         } catch (MPApiException $error) {
             // Retorna uma mensagem de erro em caso de falha
+            \Log::error('Erro ao criar preferência de pagamento: ' . $error->getMessage());
             return response()->json(['error' => $error->getMessage()], 500);
         }
     }
@@ -77,7 +80,7 @@ class MercadoPagoController extends Controller
         ];
 
         $backUrls = [
-           'success' => route('biblioteca'),
+            'success' => route('biblioteca'),
             'failure' => route('mercadopago.failure'),
         ];
 
