@@ -119,9 +119,11 @@ Route::get('/biblioteca', function () {
     })->name('biblioteca');
 
 
-use App\Http\Controllers\MercadoPagoController;
+
 
 Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
+
+use App\Http\Controllers\MercadoPagoController;
 
 Route::get('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
 Route::get('/mercadopago/success', function () {
@@ -132,6 +134,7 @@ Route::get('/mercadopago/failure', function () {
 })->name('mercadopago.failure');
 
 Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
+
 
 Route::get('/pagar', [MercadoPagoController::class, 'createPaymentPreference'])->name('pagar');
 
