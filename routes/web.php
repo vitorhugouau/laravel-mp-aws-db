@@ -23,8 +23,6 @@ Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.c
 Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
 
 
-use App\Models\Imagem;
-
 Route::GET('/biblioteca', function () {
     // Busca as imagens do banco de dados
     $imagens = Imagem::all();
