@@ -11,70 +11,59 @@ class MercadoPagoController extends Controller
 {
     // Função para autenticar o Mercado Pago
     protected function authenticate()
-{
-    // Obtém o access token do arquivo .env
-    $mpAccessToken = env('MERCADO_PAGO_ACCESS_TOKEN');
-    
-    // Configura o token no SDK do Mercado Pago
-    MercadoPagoConfig::setAccessToken($mpAccessToken);
-    
-    // Remover a linha do ambiente
-    // MercadoPagoConfig::setRuntimeEnvironment(MercadoPagoConfig::LOCAL); // Remova esta linha
-}
+    {
+        // Obtém o access token do arquivo .env
+        $mpAccessToken = env('MERCADO_PAGO_ACCESS_TOKEN');
+        
+        // Configura o token no SDK do Mercado Pago
+        MercadoPagoConfig::setAccessToken($mpAccessToken);
+        
+        // Opcional: Configura o ambiente para testes locais
+        MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::LOCAL);
+    }
 
     // Função para criar uma nova preferência de pagamento
-    public function createPaymentPreference(Request $request)
+    public function createPaymentPreference()
     {
-        // Valida os dados recebidos
-        $request->validate([
-            'imagem_id' => 'required|integer',
-            'valor' => 'required|numeric|min:0',
-        ]);
-    
         // Chama a função para autenticar o SDK do Mercado Pago
         $this->authenticate();
-    
-        // Define o item (produto) usando o valor recebido
+
+        // Define o item (produto)
         $product1 = [
-            "id" => (string) $request->imagem_id,
-            "title" => "Produto " . $request->imagem_id,
-            "description" => "Descrição do Produto " . $request->imagem_id,
+            "id" => "1234567890",
+            "title" => "Produto 1",
+            "description" => "Descrição do Produto 1",
             "currency_id" => "BRL",
             "quantity" => 1,
-            "unit_price" => (float) $request->valor
+            "unit_price" => 10.00  // Preço unitário do produto
         ];
-    
+
         // Definir os itens da compra
         $items = [$product1];
-    
+
         // Definir o pagador (cliente)
         $payer = [
             "name" => "Vitor",
             "surname" => "Hugo",
             "email" => "nicolas@gmail.com"
         ];
-    
-        // Monta a requisição
-        $requestData = $this->createPreferenceRequest($items, $payer);
-        
+
+        // Chama a função para montar a requisição
+        $request = $this->createPreferenceRequest($items, $payer);
+
         // Inicializa o cliente de preferências
         $client = new PreferenceClient();
-    
+
         try {
             // Cria a preferência e obtém o link de pagamento
-            $preference = $client->create($requestData);
-    
-            // Retorna o link de pagamento como resposta JSON
-            return response()->json(['init_point' => $preference->init_point]);
+            $preference = $client->create($request);
+
+            // Redireciona o usuário para o Checkout do Mercado Pago
+            return redirect($preference->init_point);
 
         } catch (MPApiException $error) {
-            // Registra o erro e retorna uma mensagem
-            \Log::error('Erro ao criar preferência de pagamento: ', [
-                'message' => $error->getMessage(),
-                'code' => $error->getCode(),
-                'response' => $error->getResponseBody() // Registra a resposta completa
-            ]);
-            return response()->json(['error' => 'Erro ao criar a preferência de pagamento.'], 500);
+            // Retorna uma mensagem de erro em caso de falha
+            return response()->json(['error' => $error->getMessage()], 500);
         }
     }
 
@@ -88,7 +77,7 @@ class MercadoPagoController extends Controller
         ];
 
         $backUrls = [
-            'success' => route('biblioteca'),
+           'success' => route('biblioteca'),
             'failure' => route('mercadopago.failure'),
         ];
 

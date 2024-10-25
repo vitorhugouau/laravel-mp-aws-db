@@ -125,7 +125,7 @@ Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamen
 
 use App\Http\Controllers\MercadoPagoController;
 
-Route::get('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
+Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
 Route::get('/mercadopago/success', function () {
     return "Pagamento aprovado!";
 })->name('mercadopago.success');
@@ -136,5 +136,5 @@ Route::get('/mercadopago/failure', function () {
 Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
 
 
-Route::get('/pagar', [MercadoPagoController::class, 'createPaymentPreference'])->name('pagar');
+// Route::get('/pagar', [MercadoPagoController::class, 'createPaymentPreference'])->name('pagar');
 
