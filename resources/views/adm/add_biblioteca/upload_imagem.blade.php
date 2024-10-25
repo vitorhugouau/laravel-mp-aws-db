@@ -9,9 +9,7 @@
 <body background="../../assets/img/ti2.jpg">
     <nav>
         <ul class="menu">
-            <li><a href="biblioteca.php">BIBLIOTECA</a></li>
-            <li><a href="album.php">ÁLBUM</a></li>
-            <li><a href="control.php">VOLTAR</a></li>
+            <li><a href="{{ route('control') }}">VOLTAR</a></li>
         </ul>
     </nav>
     

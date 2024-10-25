@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Adm extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable;
 

@@ -13,9 +13,15 @@ return [
             'provider' => 'users',
         ],
 
+        'AdminAuthMiddleware' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        // Se você precisa de um guard diferente para 'adm', mantenha-o
         'adm' => [
             'driver' => 'session',
-            'provider' => 'adm', 
+            'provider' => 'admins',
         ],
     ],
 
@@ -25,9 +31,9 @@ return [
             'model' => env('AUTH_MODEL', App\Models\Usuarios::class),
         ],
 
-        'adm' => [ 
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Adm::class, 
+            'model' => App\Models\Admin::class,
         ],
     ],
 
@@ -39,8 +45,8 @@ return [
             'throttle' => 60,
         ],
 
-        'adm' => [ 
-            'provider' => 'adm',
+        'admins' => [
+            'provider' => 'admins',  // Corrigido para 'admins'
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
