@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload de Imagem</title>
     <link rel="stylesheet" href="/css/adm/upload.css">
 </head>
+
 <body background="../../assets/img/ti2.jpg">
     <nav>
         <ul class="menu">
             <li><a href="{{ route('control') }}">VOLTAR</a></li>
         </ul>
     </nav>
-    
+
     <!-- SELECIONE UMA IMAGEM -->
     <div class="container">
         <h1 class="heading">SELECIONE UMA FOTO</h1>
@@ -23,7 +25,8 @@
         <form action="{{ route('imagem-store') }}" method="POST" enctype="multipart/form-data" id="file">
             @csrf
             <div class="area">
-                <input type="file" accept="image/jpeg" name="imagem" id="fileInput" onchange="previewImage(event)" required><br>
+                <input type="file" accept="image/jpeg" name="imagem" id="fileInput" onchange="previewImage(event)"
+                    required><br>
             </div>
             <div>
                 <input type="submit" class="submit" value="Enviar" name="submit" id="submit">
@@ -82,11 +85,12 @@
             var imagemExibida = document.getElementById('imagemExibida');
             imagemExibida.style.display = 'block';
             var reader = new FileReader();
-            reader.onload = function() {
+            reader.onload = function () {
                 imagemExibida.src = reader.result;
             };
             reader.readAsDataURL(input.files[0]);
         }
     </script>
 </body>
+
 </html>

@@ -19,11 +19,11 @@
         <li><a href="#">CONTATO</a>
             <ul><a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a></ul>
         </li>
-        <li><a href="#">SERVIÇOS</a>
+        <!-- <li><a href="#">SERVIÇOS</a>
             <ul>
                 <li><a href="cliente/serviço.php">CONTRATAR SERVIÇO</a></li>
             </ul>
-        </li>
+        </li> -->
         <li><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a>
         <li class="logout">
             <div class="card">
@@ -78,10 +78,10 @@
                 <!-- Exibe a imagem armazenada no banco de dados em Base64 -->
                 <!-- <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="{{ $imagem->nome }}" oncontextmenu="bloquearBotaoDireito(event)"> -->
                 <img id="{{ $imagem->id }}" class="imagemaaa" src="{{ asset("assets/image.png") }}" style="height: auto !important; width: 60% !important; opacity: 0.6 !important; user-select: none">
-                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; width: 100%">
+                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; width: 100%; border-radius: 0 0 52% 5%;">
                      {{-- <h3>{{ $imagem->nome }}</h3> --}}
                      <div class="compra">
-                         <!-- <button id="boton" onclick="window.location.href='{{ route('teste') }}'">COMPRAR IMAGEM</button> -->
+                         
                          <button id="boton" onclick="buyImage({{ $imagem->id }})">COMPRAR IMAGEM</button>
                      </div>
                  </div>

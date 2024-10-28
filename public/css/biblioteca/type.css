@@ -180,6 +180,7 @@ header{
     background-color: #d8d7e2;
     /* padding: 1px; */
     animation: fadeIn .2s linear;
+    border-radius: 5%;
 }
 .container .container-image .image img{
     width: 100%;

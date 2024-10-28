@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imagens Armazenadas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
 </head>
+
 <body class="bg-gray-100">
     <div class="container mx-auto mt-10">
         <h1 class="text-center text-3xl font-bold mb-6">Imagens Armazenadas</h1>
-        
+
         @if (isset($imagens) && count($imagens) > 0)
             <div class="grid grid-cols-3 gap-6">
                 @foreach ($imagens as $imagem)
@@ -24,4 +26,5 @@
         @endif
     </div>
 </body>
+
 </html>
