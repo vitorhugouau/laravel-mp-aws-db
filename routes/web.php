@@ -20,6 +20,8 @@ Route::post('/', [AuthController::class, 'login']);
 Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.create');
 Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
 
+Route::resource('usuarios', UsuariosController::class);
+
 // auth 
 Route::middleware('auth')->group(function () {
 
@@ -68,7 +70,6 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
     Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
 
-    Route::resource('usuarios', UsuariosController::class);
 
     Route::get('/control', function () {
         return view('adm.control');

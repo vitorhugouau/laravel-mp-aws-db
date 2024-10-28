@@ -59,52 +59,50 @@
             </div>
         </div>
         <form action="{{ route('mercadopago.create') }}" method="post" id="paymentForm">
-            @csrf
-            <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
-            <div class="container1">
-                <h2>Área de Confirmação</h2>
-                <div class="planos">
-                    <label>
-                        <input type="radio" name="valor" value="100" style="margin-right: 8px;">
-                        R$ 100 por esta imagem<br>
-                    </label>
-                    <strong>→ Confirme Clicando no Botão Abaixo</strong>
-                </div>
-                <button class="button">Continuar compra</button>
+    @csrf
+    <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
+    <div class="container1">
+        <h2>Área de Confirmação</h2>
+        <div class="planos">
+            <label>
+                <input type="radio" name="valor" value="{{ $imagem->valor }}" style="margin-right: 8px;">
+                R$ {{ number_format($imagem->valor, 2, ',', '.') }} por esta imagem<br>
+            </label>
+            <strong>→ Confirme Clicando no Botão Abaixo</strong>
+        </div>
+        <button class="button">Continuar compra</button>
 
-                <div class="info">
-                    Inclui a nossa <a href="#">licença padrão</a>.<br>
-                </div>
-            </div>
-        </form>
-        <script>
+        <div class="info">
+            Inclui a nossa <a href="#">licença padrão</a>.<br>
+        </div>
+    </div>
+</form>
 
-            document.getElementById('paymentForm').addEventListener('submit', function (event) {
-                event.preventDefault();
+<script>
+    document.getElementById('paymentForm').addEventListener('submit', function (event) {
+        event.preventDefault();
 
-                const formData = new FormData(this);
+        const formData = new FormData(this);
 
-                fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.init_point) {
-                            window.location.href = data.init_point; // Redireciona para o Mercado Pago
-                        } else {
-                            // Trate o erro, se necessário
-                            alert(data.error || 'Erro ao processar o pagamento.');
-                        }
-                    })
-                    .catch(error => console.error('Erro:', error));
-            });
-
-
-        </script>
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.init_point) {
+                window.location.href = data.init_point; // Redireciona para o Mercado Pago
+            } else {
+                // Trate o erro, se necessário
+                alert(data.error || 'Erro ao processar o pagamento.');
+            }
+        })
+        .catch(error => console.error('Erro:', error));
+    });
+</script>
 
 
         <script>

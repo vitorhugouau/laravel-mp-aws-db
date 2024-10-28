@@ -8,8 +8,9 @@ class Imagem extends Model
 {
     protected $table = 'imagens';
 
-    protected $fillable = ['id', 'nome', 'imagem'];
+    // Adicionando 'valor' ao array $fillable
+    protected $fillable = ['nome', 'imagem', 'valor']; 
 
-    // Se você não quiser timestamps automáticos
+    // Se você não quiser timestamps automáticos, defina como false
     public $timestamps = true;
 }
