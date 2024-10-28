@@ -41,7 +41,7 @@
                             <button type="submit" class="submit">ENTRAR</button>
                         </div>
                         <div class="card-cadastro">
-                            <button type="button" class="teste" id="teste" onclick="window.location.href='{{ route('usuarios.create') }}'">FAÇA SEU CADASTRO</button>
+                             <button type="button" class="teste" id="teste" data-url="{{ route('usuarios.create') }}">FAÇA SEU CADASTRO</button>
                         </div>
                     </div>
                 </form>
@@ -50,3 +50,9 @@
     </div>
 </body>
 </html>
+
+<script>
+    document.getElementById("teste").onclick = function() {
+        window.location.href = this.getAttribute("data-url");
+    }
+</script>
