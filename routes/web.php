@@ -13,7 +13,6 @@ use App\Http\Middleware\AdminAuth;
 use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\MercadoPagoController;
 
-
 // ------------------------------------------------------------------------------------------------------------------------- 
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/', [AuthController::class, 'login']);
