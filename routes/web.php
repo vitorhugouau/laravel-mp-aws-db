@@ -89,12 +89,19 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 use App\Http\Controllers\ClienteController;
 
 
-Route::post('/clientes/delete', [ClienteController::class, 'destroy'])->name('clientes.destroy');
-Route::get('/clientes/edit/{id}', [ClienteController::class, 'edit'])->name('clientes.edit');
-Route::post('/clientes/update/{id}', [ClienteController::class, 'update'])->name('clientes.update');
+// Route::post('/clientes/delete', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+// Route::get('/clientes/edit/{id}', [ClienteController::class, 'edit'])->name('clientes.edit');
+// Route::post('/clientes/update/{id}', [ClienteController::class, 'update'])->name('clientes.update');
 
-Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
+// Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
 
+// Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
+// Route::get('/clientesx', [ClienteController::class, 'index'])->name('clientes.index');
+
+// Route::resource('clientes', ClienteController::class);
+
+Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+Route::get('/clientes/{id}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+Route::put('/clientes/{id}', [ClienteController::class, 'update'])->name('clientes.update');
 Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
-
-Route::resource('clientes', ClienteController::class);
+Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');

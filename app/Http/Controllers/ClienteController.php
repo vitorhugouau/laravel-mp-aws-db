@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
     public function index()
-    {
-        $clientes = Cliente::all();
-        return view('clientes.create', compact('clientes'));
-    }
+{
+    $clientes = Cliente::all();  // Usando nome plural para indicar coleção
+    return view('clientes.index', compact('clientes'));
+}
+
 
     public function destroy(Request $request)
     {
@@ -22,9 +23,10 @@ class ClienteController extends Controller
 
     public function edit($id)
     {
-        $cliente = Cliente::findOrFail($id);
+        $cliente = Cliente::findOrFail($id);  // Buscar um único cliente
         return view('clientes.edit', compact('cliente'));
     }
+    
 
     public function update(Request $request, $id)
     {

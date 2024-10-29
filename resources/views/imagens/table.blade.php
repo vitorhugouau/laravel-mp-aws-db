@@ -1,5 +1,3 @@
-<!-- resources/views/imagens/index.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,15 +21,18 @@
 
     <table class="table">
         <thead>
-            <th>ID</th>
-            <th>NOME</th>
-            <th>IMAGEM</th>
-            <th>AÇÕES</th>
+            <tr>
+                <th>ID</th>
+                <th>NOME</th>
+                <th>IMAGEM</th>
+                <th>VALOR</th>
+                <th>AÇÕES</th>
+            </tr>
         </thead>
         <tbody>
             @if($imagens->isEmpty())
                 <tr>
-                    <td colspan="4">Nenhuma imagem encontrada.</td>
+                    <td colspan="5">Nenhuma imagem encontrada.</td>
                 </tr>
             @else
                 @foreach($imagens as $imagem)
@@ -41,6 +42,7 @@
                         <td class="center-align">
                             <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="Imagem" style="max-width: 350px;">
                         </td>
+                        <td class="center-align">R$ {{ number_format($imagem->valor, 2, ',', '.') }}</td>
                         <td class="center-align">
                             <!-- Botão de EDITAR -->
                             <form method="GET" action="{{ route('imagens.edit', $imagem->id) }}" style="display:inline-block;">
@@ -57,9 +59,6 @@
                             </form>
                         </td>
                     </tr>
-
-
-
                 @endforeach
             @endif
         </tbody>

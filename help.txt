@@ -13,3 +13,8 @@ MERCADO_PAGO_PUBLIC_KEY=
 MERCADO_PAGO_ACCESS_TOKEN=
 
 composer require mercadopago/dx-php
+
+php artisan migrate:fresh
+
+php artisan db:seed
+
