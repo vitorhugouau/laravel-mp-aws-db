@@ -12,14 +12,20 @@ class ClienteController extends Controller
     $clientes = Cliente::all();  // Usando nome plural para indicar coleção
     return view('clientes.create', compact('clientes'));
 }
+public function index2()
+{
+    $clientes = Cliente::all();  // Usando nome plural para indicar coleção
+    return view('clientes.index', compact('clientes'));
+}
 
 
-    public function destroy(Request $request)
-    {
-        $cliente = Cliente::findOrFail($request->delete_id);
-        $cliente->delete();
-        return redirect()->route('clientes.index')->with('success', 'Registro deletado com sucesso.');
-    }
+public function destroy($id)
+{
+    $cliente = Cliente::findOrFail($id);
+    $cliente->delete();
+    return redirect()->route('clientes.index2')->with('success', 'Registro deletado com sucesso.');
+}
+
 
     public function edit($id)
     {
@@ -32,7 +38,7 @@ class ClienteController extends Controller
     {
         $cliente = Cliente::findOrFail($id);
         $cliente->update($request->all());
-        return redirect()->route('clientes.index')->with('success', 'Registro atualizado com sucesso.');
+        return redirect()->route('clientes.index2')->with('success');
     }
     public function store(Request $request)
 {

@@ -12,6 +12,7 @@ use App\Http\Controllers\ImagemController;
 use App\Http\Middleware\AdminAuth;
 use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\MercadoPagoController;
+use App\Http\Controllers\ClienteController;
 
 // ------------------------------------------------------------------------------------------------------------------------- 
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -21,6 +22,7 @@ Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.c
 Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
 
 Route::resource('usuarios', UsuariosController::class);
+Route::resource('clientes', ClienteController::class);
 
 // auth 
 Route::middleware('auth')->group(function () {
@@ -35,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+
     Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
 
     Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
@@ -46,8 +50,9 @@ Route::middleware('auth')->group(function () {
     })->name('mercadopago.failure');
 
     Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
-    
 
+    Route::resource('clientes', ClienteController::class);
+    
 });
 
 // middleware 
@@ -80,13 +85,22 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     })->name('control_biblioteca');
 
 
-    // Route::get('/adm', function () {
-    //     return view('adm.adm');
-    // })->name('adm');
+    // ---------------------------------------------------------------------------------------------------------------------------------
+
+    Route::get('/clientes-table', [ClienteController::class, 'index2'])->name('clientes.index2');
+
+    Route::get('/clientes/{id}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+
+    Route::put('/clientes/{id}', [ClienteController::class, 'update'])->name('clientes.update');
+
+    Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+   
+
 
 });
 
-use App\Http\Controllers\ClienteController;
+
+
 
 
 // Route::post('/clientes/delete', [ClienteController::class, 'destroy'])->name('clientes.destroy');
@@ -96,12 +110,4 @@ use App\Http\Controllers\ClienteController;
 // Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
 
 // Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
-// Route::get('/clientesx', [ClienteController::class, 'index'])->name('clientes.index');
 
-Route::resource('clientes', ClienteController::class);
-
-Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
-Route::get('/clientes/{id}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
-Route::put('/clientes/{id}', [ClienteController::class, 'update'])->name('clientes.update');
-
-Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');

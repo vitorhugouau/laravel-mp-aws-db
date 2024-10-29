@@ -24,6 +24,7 @@
                         {{-- <li><a href="consult_img/consult_control.php">Consultar Imagem</a></li> --}}
                         <li><a href="{{route('uploads')}}">Adicionando Imagens na Biblioteca</a></li>
                         <li><a href="{{route('imagens.table')}}">Consultar Imagens</a></li>
+                        <li><a href="{{route('clientes.index2')}}">Gerenciar Clientes</a></li>
                         {{-- <li><a href="add_img/panel_control.php">Adicionando Imagens nos Albuns</a></li> --}}
                         <!-- <li><a href="cliente/crud_serviço.php">Gerenciador de clientes</a></li> -->
                         <!-- <li><a href="artista/crud_artista.php">Artistas</a></li> -->
