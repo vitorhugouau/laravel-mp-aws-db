@@ -55,7 +55,7 @@ class ClienteController extends Controller
     Cliente::create($request->all());
 
     // Redireciona para a lista de clientes com uma mensagem de sucesso
-    return redirect()->route('clientes.index')->with('success', 'Cliente inserido com sucesso.');
+    return redirect()->route('biblioteca')->with('success', 'Cliente inserido com sucesso.');
 }
 
 }
