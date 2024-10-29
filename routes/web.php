@@ -95,19 +95,6 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
     Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
    
-
-
 });
 
-
-
-
-
-// Route::post('/clientes/delete', [ClienteController::class, 'destroy'])->name('clientes.destroy');
-// Route::get('/clientes/edit/{id}', [ClienteController::class, 'edit'])->name('clientes.edit');
-// Route::post('/clientes/update/{id}', [ClienteController::class, 'update'])->name('clientes.update');
-
-// Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
-
-// Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
 
