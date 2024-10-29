@@ -4,89 +4,104 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/biblioteca/type.css">
+    <link rel="stylesheet" href="/css/alterando.css">
     <title>Document</title>
     
 </head>
 <body background="../../assets/img/rio.jpg">
-<nav>
-    <ul class="menu">
-        <li><a href="#">HOME</a></li> 
-        {{-- <li><a href="#">SOBRE</a> --}}
-        </li>
-        {{-- <li><a href="album.php">ÁLBUM</a>
-        </li> --}}
-        <li><a href="#">CONTATO</a>
-            <ul><a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a></ul>
-        </li>
-        <!-- <li><a href="#">SERVIÇOS</a>
-            <ul>
-                <li><a href="cliente/serviço.php">CONTRATAR SERVIÇO</a></li>
-            </ul>
-        </li> -->
-        <li><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a>
-        <li class="logout">
-            <div class="card">
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-                <button type="button" class="submit" id="sair">SAIR</button>                
-            </div>
-        </li>
-    </ul>
-</nav>
+    <nav>
+        <ul class="menu">
+            <li><a href="{{ route('biblioteca') }}">BIBLIOTECA</a></li>
+            <li><a href="{{ route('control') }}">VOLTAR</a></li>
+        </ul>
+    </nav>
+<br><br>
+<div class="cont">
+    <h1>Editar Cliente</h1>
+    <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
+        @csrf
+        @method('PUT') <!-- Define o método PUT para atualização -->
 
-<div class="container">
-    <h1>Clientes</h1>
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Data de Nascimento</th>
-                <th>Sexo</th>
-                <th>Estado Civil</th>
-                <th>Estado</th>
-                <th>Logradouro</th>
-                <th>Número</th>
-                <th>Complemento</th>
-                <th>Cidade</th>
-                <th>Email</th>
-                <th>Opções</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($clientes as $cliente)
-                <tr>
-                    <td>{{ $cliente->id }}</td>
-                    <td>{{ $cliente->nome }}</td>
-                    <td>{{ $cliente->cpf }}</td>
-                    <td>{{ $cliente->datadenascimento }}</td>
-                    <td>{{ $cliente->sexo }}</td>
-                    <td>{{ $cliente->estadocivil }}</td>
-                    <td>{{ $cliente->estado }}</td>
-                    <td>{{ $cliente->logradouro }}</td>
-                    <td>{{ $cliente->numero }}</td>
-                    <td>{{ $cliente->complemento }}</td>
-                    <td>{{ $cliente->cidade }}</td>
-                    <td>{{ $cliente->email }}</td>
-                    <td>
-                        <form action="{{ route('clientes.destroy') }}" method="POST" onsubmit="return confirm('EXCLUIR ESTE REGISTRO?')">
-                            @csrf
-                            <input type="hidden" name="delete_id" value="{{ $cliente->id }}">
-                            <button type="submit" class="btn btn-danger">EXCLUIR</button>
-                        </form>
-                        <a href="{{ route('clientes.edit', $cliente->id) }}" class="btn btn-success">EDITAR</a>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+        <!-- Nome -->
+        <div class="area">
+            <label for="nome">Nome:</label>
+            <input type="text" class="form-control" id="nome" name="nome" value="{{ $cliente->nome }}">
+        </div>
+
+        <!-- CPF -->
+        <div class="area">
+            <label for="cpf">CPF:</label>
+            <input type="text" class="form-control" id="cpf" name="cpf" value="{{ $cliente->cpf }}">
+        </div>
+
+        <!-- Data de Nascimento -->
+        <div class="area">
+            <label for="datadenascimento">Data de Nascimento:</label>
+            <input type="date" class="form-control" id="datadenascimento" name="datadenascimento" value="{{ $cliente->datadenascimento }}">
+        </div>
+
+        <!-- Sexo -->
+        <div class="area">
+            <label for="sexo">Sexo:</label>
+            <select class="form-control" id="sexo" name="sexo">
+                <option value="Masculino" {{ $cliente->sexo == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+                <option value="Feminino" {{ $cliente->sexo == 'Feminino' ? 'selected' : '' }}>Feminino</option>
+                <option value="Outro" {{ $cliente->sexo == 'Outro' ? 'selected' : '' }}>Outro</option>
+            </select>
+        </div>
+
+        <!-- Estado Civil -->
+        <div class="area">
+            <label for="estadocivil">Estado Civil:</label>
+            <select class="form-control" id="estadocivil" name="estadocivil">
+                <option value="Solteiro" {{ $cliente->estadocivil == 'Solteiro' ? 'selected' : '' }}>Solteiro</option>
+                <option value="Casado" {{ $cliente->estadocivil == 'Casado' ? 'selected' : '' }}>Casado</option>
+                <option value="Divorciado" {{ $cliente->estadocivil == 'Divorciado' ? 'selected' : '' }}>Divorciado</option>
+                <option value="Viúvo" {{ $cliente->estadocivil == 'Viúvo' ? 'selected' : '' }}>Viúvo</option>
+            </select>
+        </div>
+
+        <!-- Estado -->
+        <div class="area">
+            <label for="estado">Estado:</label>
+            <input type="text" class="form-control" id="estado" name="estado" value="{{ $cliente->estado }}">
+        </div>
+
+        <!-- Logradouro -->
+        <div class="area">
+            <label for="logradouro">Logradouro:</label>
+            <input type="text" class="form-control" id="logradouro" name="logradouro" value="{{ $cliente->logradouro }}">
+        </div>
+
+        <!-- Número -->
+        <div class="area">
+            <label for="numero">Número:</label>
+            <input type="text" class="form-control" id="numero" name="numero" value="{{ $cliente->numero }}">
+        </div>
+
+        <!-- Complemento -->
+        <div class="area">
+            <label for="complemento">Complemento:</label>
+            <input type="text" class="form-control" id="complemento" name="complemento" value="{{ $cliente->complemento }}">
+        </div>
+
+        <!-- Cidade -->
+        <div class="area">
+            <label for="cidade">Cidade:</label>
+            <input type="text" class="form-control" id="cidade" name="cidade" value="{{ $cliente->cidade }}">
+        </div>
+
+        <!-- Email -->
+        <div class="area">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ $cliente->email }}">
+        </div>
+
+        <!-- Botão de Enviar -->
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
 </div>
+
 
 
   

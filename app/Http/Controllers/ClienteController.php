@@ -10,7 +10,7 @@ class ClienteController extends Controller
     public function index()
 {
     $clientes = Cliente::all();  // Usando nome plural para indicar coleção
-    return view('clientes.index', compact('clientes'));
+    return view('clientes.create', compact('clientes'));
 }
 
 

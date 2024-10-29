@@ -19,11 +19,11 @@
         <li><a href="#">CONTATO</a>
             <ul><a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a></ul>
         </li>
-        <!-- <li><a href="#">SERVIÇOS</a>
+        <li><a href="#">SERVIÇOS</a>
             <ul>
-                <li><a href="cliente/serviço.php">CONTRATAR SERVIÇO</a></li>
+                <li><a href="{{ route('clientes.store') }}">CONTRATAR SERVIÇO</a></li>
             </ul>
-        </li> -->
+        </li> 
         <li><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a>
         <li class="logout">
             <div class="card">
