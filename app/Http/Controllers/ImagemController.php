@@ -87,4 +87,5 @@ class ImagemController extends Controller
 
         return redirect()->route('imagens.table')->with('success', 'Registro atualizado com sucesso!');
     }
+    
 }

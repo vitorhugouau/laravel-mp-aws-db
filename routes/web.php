@@ -42,9 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
 
     Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
-    Route::get('/mercadopago/success', function () {
-        return "Pagamento aprovado!";
-    })->name('mercadopago.success');
+    Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
+
     Route::get('/mercadopago/failure', function () {
         return "Falha no pagamento!";
     })->name('mercadopago.failure');
@@ -96,5 +95,6 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
    
 });
+
 
 

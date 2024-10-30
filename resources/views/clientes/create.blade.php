@@ -178,7 +178,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     {{-----------------------------------------ESTADO---CIDADE--------------------------------}}
-    <script> 
+    <!-- <script> 
         async function getEstados() {
             try {
                 const response = await axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
@@ -223,7 +223,7 @@
     
         // Chamar a função para preencher os estados ao carregar a página
         document.addEventListener('DOMContentLoaded', getEstados);
-    </script>
+    </script> -->
     {{-----------------------------------------VALIDAÇÃO-DE-CPF--------------------------------}}
     <script>
         function validarCPF() {
@@ -319,6 +319,7 @@
                     document.getElementById('enviar').disabled = true; // Desabilita o botão de envio
                 } else {
                     // Preencha os campos de endereço conforme a resposta da API
+                    document.getElementById('bairro').value = data.bairro || '';
                     document.getElementById('logradouro').value = data.logradouro || '';
                     document.getElementById('cidade').value = data.localidade || '';
                     document.getElementById('estado').value = data.uf || '';

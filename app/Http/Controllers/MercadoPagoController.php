@@ -6,6 +6,8 @@ use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
 use Illuminate\Http\Request;
+use App\Models\Imagem;
+
 
 class MercadoPagoController extends Controller
 {
@@ -20,51 +22,52 @@ class MercadoPagoController extends Controller
     }
 
     public function createPaymentPreference(Request $request)
-    {
-        $request->validate([
-            'imagem_id' => 'required|integer',
-            'valor' => 'required|numeric|min:0',
+{
+    // Valida os campos de entrada
+    $request->validate([
+        'imagem_id' => 'required|integer',
+        'valor' => 'required|numeric|min:0',
+    ]);
+
+    $this->authenticate();
+
+    // Cria os detalhes do produto
+    $product1 = [
+        "id" => (string) $request->imagem_id,
+        "title" => "Produto " . $request->imagem_id,
+        "description" => "Descrição do Produto " . $request->imagem_id,
+        "currency_id" => "BRL",
+        "quantity" => 1,
+        "unit_price" => (float) $request->valor
+    ];
+
+    $items = [$product1];
+
+    $payer = [
+        "name" => "Vitor",
+        "surname" => "Hugo",
+        "email" => "nicolas@gmail.com"
+    ];
+
+    // Inclui o imagem_id como referência externa
+    $requestData = $this->createPreferenceRequest($items, $payer);
+    $requestData['external_reference'] = $request->imagem_id;
+
+    $client = new PreferenceClient();
+
+    try {
+        $preference = $client->create($requestData);
+        return response()->json(['init_point' => $preference->init_point]);
+
+    } catch (MPApiException $error) {
+        \Log::error('Erro ao criar preferência de pagamento: ', [
+            'message' => $error->getMessage(),
+            'code' => $error->getCode(),
+            'response' => $error->getResponseBody()
         ]);
-
-        $this->authenticate();
-
-        $product1 = [
-            "id" => (string) $request->imagem_id,
-            "title" => "Produto " . $request->imagem_id,
-            "description" => "Descrição do Produto " . $request->imagem_id,
-            "currency_id" => "BRL",
-            "quantity" => 1,
-            "unit_price" => (float) $request->valor
-        ];
-
-        $items = [$product1];
-
-        $payer = [
-            "name" => "Vitor",
-            "surname" => "Hugo",
-            "email" => "nicolas@gmail.com"
-        ];
-
-        $requestData = $this->createPreferenceRequest($items, $payer);
-
-        $client = new PreferenceClient();
-
-        try {
-
-            $preference = $client->create($requestData);
-
-            return response()->json(['init_point' => $preference->init_point]);
-
-        } catch (MPApiException $error) {
-
-            \Log::error('Erro ao criar preferência de pagamento: ', [
-                'message' => $error->getMessage(),
-                'code' => $error->getCode(),
-                'response' => $error->getResponseBody()
-            ]);
-            return response()->json(['error' => 'Erro ao criar a preferência de pagamento.'], 500);
-        }
+        return response()->json(['error' => 'Erro ao criar a preferência de pagamento.'], 500);
     }
+}
 
 
     private function createPreferenceRequest($items, $payer): array
@@ -76,7 +79,7 @@ class MercadoPagoController extends Controller
         ];
 
         $backUrls = [
-            'success' => route('biblioteca'),
+            'success' => route('mercadopago.success'),
             'failure' => route('mercadopago.failure'),
         ];
 
@@ -106,4 +109,17 @@ class MercadoPagoController extends Controller
             return response()->json(['error' => $error->getMessage()], 500);
         }
     }
+    public function paymentSuccess(Request $request)
+    {
+        $payment_id = $request->query('payment_id');
+        $status = $request->query('status');
+        $imagem_id = $request->query('external_reference');
+    
+        // Recupera a imagem usando o ID
+        $imagem = Imagem::find($imagem_id);
+    
+        return view('pagamento.success', compact('payment_id', 'status', 'imagem'));
+    }
+    
+
 }
