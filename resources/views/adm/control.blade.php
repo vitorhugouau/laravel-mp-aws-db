@@ -18,15 +18,29 @@
                     <h1>PAINEL DE CONTROLE</h1>
                 </div>
                 <div class="panel-content">
-                    <ul>
-                        <li><a href="{{route('usuarios.index')}}">Gerenciar Usuários</a></li>
+                    <ul style="display: flex; align-items: center; gap: 20px; list-style-type: none; padding: 0; margin: 0;"></ul>>
+                    <div style="display: flex; align-items: center; gap:13px;">
+                        <img src="{{ asset("assets/carrinho-de-compras.png") }}" alt="Ícone" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle; filter: invert(1);"> 
+                        <li style="display: flex; align-items: center; gap: 20px; list-style-type: none; padding: 0; margin: 0;">><a href="{{route('usuarios.index')}}">Gerenciar Usuários</a></li>
+                    </div>    
                         <!-- <li><a href="upload.php">Adicionar Imagem ao Banco</a></li> -->
                         {{-- <li><a href="consult_img/consult_control.php">Consultar Imagem</a></li> --}}
+                    <div style="display: flex; align-items: center; gap:13px;">
+                        <img src="{{ asset("assets/carrinho-de-compras.png") }}" alt="Ícone" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle; filter: invert(1);"> 
                         <li><a href="{{route('uploads')}}">Adicionar Imagens na Biblioteca</a></li>
+                    </div>
+                    <div style="display: flex; align-items: center; gap:13px;">
+                        <img src="{{ asset("assets/carrinho-de-compras.png") }}" alt="Ícone" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle; filter: invert(1);"> 
                         <li><a href="{{route('imagens.table')}}">Consultar Imagens</a></li>
+                    </div>
+                    <div style="display: flex; align-items: center; gap:13px;">
+                        <img src="{{ asset("assets/carrinho-de-compras.png") }}" alt="Ícone" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle; filter: invert(1);"> 
                         <li><a href="{{route('clientes.index2')}}">Gerenciar Clientes</a></li>
-                        <img src="{{ asset("assets/carrinho-de-compras.png") }}" alt="Ícone" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle; filter: invert(1);">
+                    </div>
+                    <div style="display: flex; align-items: center; gap:13px;">
+                        <img src="{{ asset("assets/carrinho-de-compras.png") }}" alt="Ícone" style="width: 16px; height: 16px; margin-left: 5px; vertical-align: middle; filter: invert(1);"> 
                         <li><a href="{{route('sales.index')}}">Consultar Vendas</a></li>
+                    </div>
                         {{-- <li><a href="add_img/panel_control.php">Adicionando Imagens nos Albuns</a></li> --}}
                         <!-- <li><a href="cliente/crud_serviço.php">Gerenciador de clientes</a></li> -->
                         <!-- <li><a href="artista/crud_artista.php">Artistas</a></li> -->
