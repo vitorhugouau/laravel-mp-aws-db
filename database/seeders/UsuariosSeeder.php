@@ -8,12 +8,19 @@ use Illuminate\Support\Facades\Hash;
 
 class UsuariosSeeder extends Seeder
 {
+
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+
     public function run()
     {
         Usuarios::create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
+            'name' => 'Teste',
+            'email' => 'teste@teste',
+            'password' => Hash::make('123'),
         ]);
     }
 }

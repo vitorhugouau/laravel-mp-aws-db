@@ -28,6 +28,13 @@
                 <input type="file" accept="image/jpeg" name="imagem" id="fileInput" onchange="previewImage(event)"
                     required><br>
             </div>
+            
+            <!-- Campo para inserir o valor -->
+            <div class="area">
+                <label for="valor">Valor da Foto:</label> <br>
+                <input type="number" name="valor" id="valor" step="1" placeholder="Insira o valor" required><br>
+            </div>
+
             <div>
                 <input type="submit" class="submit" value="Enviar" name="submit" id="submit">
             </div>
@@ -45,24 +52,6 @@
         </div>
     </div>
 
-    <!-- MENSAGEM PARA CONFIRMAÇÃO DE EXCLUSÃO -->
-    <!-- @if (session('success'))
-        <div class="bg-green-500 text-white p-3 rounded mb-6">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="bg-red-500 text-white p-3 rounded mb-6">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif -->
-
-    <!-- Imagens Enviadas -->
     @if (isset($imagens) && count($imagens) > 0)
         <div class="container mt-10">
             <h2 class="heading">Imagens enviadas</h2>
@@ -73,6 +62,7 @@
                             <img src="{{ route('imagem-show', $imagem->id) }}" alt="{{ $imagem->nome }}" width="500px">
                         </div>
                         <p>{{ $imagem->nome }}</p>
+                        <p>Valor: R$ {{ number_format($imagem->valor, 2, ',', '.') }}</p> <!-- Exibe o valor -->
                     </div>
                 @endforeach
             </div>

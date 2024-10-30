@@ -7,21 +7,21 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Execute a migração.
      */
     public function up(): void
     {
         Schema::create('imagens', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');      // Nome do arquivo da imagem
-            $table->text('imagem');      // Armazena a string base64
+            $table->string('nome');        // Nome do arquivo da imagem
+            $table->text('imagem');        // Armazena a string em base64 da imagem
+            $table->decimal('valor', 8, 2); // Coluna para armazenar um valor numérico, ex: preço
             $table->timestamps();
         });
-        
     }
 
     /**
-     * Reverse the migrations.
+     * Reverte a migração.
      */
     public function down(): void
     {

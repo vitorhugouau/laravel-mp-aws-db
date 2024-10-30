@@ -65,20 +65,35 @@
                 <h2>Área de Confirmação</h2>
                 <div class="planos">
                     <label>
-                        <input type="radio" name="valor" value="100" style="margin-right: 8px;">
-                        R$ 100 por esta imagem<br>
+                        <input type="radio" name="valor" value="{{ $imagem->valor }}" style="margin-right: 8px;">
+                        R$ {{ number_format($imagem->valor, 2, ',', '.') }} por esta imagem<br>
                     </label>
                     <strong>→ Confirme Clicando no Botão Abaixo</strong>
                 </div>
-                <button class="button">Continuar compra</button>
+                <button class="button" onclick="checkSelection()">Continuar compra</button>
 
                 <div class="info">
                     Inclui a nossa <a href="#">licença padrão</a>.<br>
                 </div>
             </div>
         </form>
-        <script>
 
+        <script>
+            function checkSelection() {
+                // Verifica se algum radio está selecionado
+                const radioChecked = document.querySelector('input[name="valor"]:checked');
+                if (!radioChecked) {
+                    // Exibe o alerta caso nenhum radio esteja selecionado
+                    alert("Por favor, selecione um valor antes de continuar.");
+                } else {
+                    // Se um radio está selecionado, envia o formulário
+                    document.getElementById('paymentForm').submit();
+                }
+            }
+        </script>
+
+
+        <script>
             document.getElementById('paymentForm').addEventListener('submit', function (event) {
                 event.preventDefault();
 
@@ -102,8 +117,6 @@
                     })
                     .catch(error => console.error('Erro:', error));
             });
-
-
         </script>
 
 

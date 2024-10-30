@@ -1,0 +1,86 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+  
+    background-size: cover;
+    background-color: white;
+    color: #000;
+    font: normal 12pt Poppins;
+}
+h1{
+    color: #87a5e7;
+    text-align: center;
+    font-size: 45px;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0 auto; /* Centralizar horizontalmente */
+    padding: 0;
+    background-color: #355a92; /* Cor de fundo do menu */
+    text-align: center; /* Centralizar os itens do menu */
+    justify-content: center; /* Centralizar os itens horizontalmente */
+    align-items: center; /* Centralizar os itens verticalmente */
+}
+
+.menu li {
+    display: inline-block;
+    position: relative; /* Para posicionar o submenu */
+}
+
+.menu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.menu li a:hover {
+    background-color: #1159c5; /* Cor de fundo ao passar o mouse */
+}
+
+.cont {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #1818185e;
+}
+
+.area {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: white;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}

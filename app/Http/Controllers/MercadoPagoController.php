@@ -6,6 +6,10 @@ use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
 use Illuminate\Http\Request;
+use App\Models\Imagem;
+use App\Models\Sale;
+use Illuminate\Support\Facades\Auth;
+
 
 class MercadoPagoController extends Controller
 {
@@ -21,6 +25,7 @@ class MercadoPagoController extends Controller
 
     public function createPaymentPreference(Request $request)
     {
+        // Valida os campos de entrada
         $request->validate([
             'imagem_id' => 'required|integer',
             'valor' => 'required|numeric|min:0',
@@ -28,6 +33,7 @@ class MercadoPagoController extends Controller
 
         $this->authenticate();
 
+        // Cria os detalhes do produto
         $product1 = [
             "id" => (string) $request->imagem_id,
             "title" => "Produto " . $request->imagem_id,
@@ -45,18 +51,17 @@ class MercadoPagoController extends Controller
             "email" => "nicolas@gmail.com"
         ];
 
+        // Inclui o imagem_id como referência externa
         $requestData = $this->createPreferenceRequest($items, $payer);
+        $requestData['external_reference'] = $request->imagem_id;
 
         $client = new PreferenceClient();
 
         try {
-
             $preference = $client->create($requestData);
-
             return response()->json(['init_point' => $preference->init_point]);
 
         } catch (MPApiException $error) {
-
             \Log::error('Erro ao criar preferência de pagamento: ', [
                 'message' => $error->getMessage(),
                 'code' => $error->getCode(),
@@ -76,7 +81,7 @@ class MercadoPagoController extends Controller
         ];
 
         $backUrls = [
-            'success' => route('biblioteca'),
+            'success' => route('mercadopago.success'),
             'failure' => route('mercadopago.failure'),
         ];
 
@@ -105,5 +110,34 @@ class MercadoPagoController extends Controller
         } catch (MPApiException $error) {
             return response()->json(['error' => $error->getMessage()], 500);
         }
+    }
+
+    public function saveSale($userId, $productId, $paymentId, $status)
+    {
+        Sale::create([
+            'user_id' => $userId,
+            'product_id' => $productId,
+            'payment_id' => $paymentId,
+            'status' => $status
+        ]);
+    }
+
+    public function paymentSuccess(Request $request)
+    {
+        $payment_id = $request->query('payment_id');
+        $status = $request->query('status');
+        $imagem_id = $request->query('external_reference');
+
+        // Recupera a imagem usando o ID
+        $imagem = Imagem::find($imagem_id);
+
+        if ($imagem) {
+            // Salva a venda no banco de dados
+            $userId = Auth::id(); // Pega o ID do usuário autenticado
+            $this->saveSale($userId, $imagem_id, $payment_id, $status);
+        }
+
+        // Retorna a tela de sucesso com os detalhes
+        return view('pagamento.success', compact('payment_id', 'status', 'imagem'));
     }
 }
