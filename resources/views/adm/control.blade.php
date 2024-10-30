@@ -28,12 +28,15 @@
                         <li><img src="{{ asset('assets/eye.png') }}" alt="Ícone" class="icon"><a href="{{ route('imagens.table') }}">Consultar Imagens</a></li>
                         <li><img src="{{ asset('assets/users-alt.png') }}" alt="Ícone" class="icon"><a href="{{ route('clientes.index2') }}">Gerenciar Clientes</a></li>
                         <li><img src="{{ asset('assets/carrinho-de-compras.png') }}" alt="Ícone" class="icon"><a href="{{ route('sales.index') }}">Consultar Vendas</a></li>
+                        <li><img src="{{ asset('assets/galeria.png') }}" alt="Ícone" class="icon"><a href="{{ route('biblioteca') }}">Biblioteca</a></li>
+                       
+                
                     </ul>
                 </div>
             </div>
             <div class="container-bottom">
 
-                <p><a href="{{ route('biblioteca') }}"><i class="bi bi-box-arrow-right"></i> Biblioteca</a></p>
+                {{-- <p><a href="{{ route('biblioteca') }}"><i class="bi bi-box-arrow-right"></i> Biblioteca</a></p> --}}
 
                 <form id="logout-form" action="{{ route('logoutAdm') }}" method="POST" style="display: none;">
                     @csrf
@@ -42,6 +45,7 @@
                     <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="bi bi-box-arrow-right"></i> Sair </a>
                 </p>
+                
             </div>
         </div>      
         <div class="main-content">
