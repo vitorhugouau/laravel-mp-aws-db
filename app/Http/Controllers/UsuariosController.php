@@ -32,21 +32,18 @@ class UsuariosController extends Controller
     }
 // <------------------------------------------------------------------------------------------->
     public function index(){
-    $usuarios = Usuarios::all(); // Obtendo todos os usuários
-    return view('usuarios.index', compact('usuarios')); // Retorna a view com os usuários
+    $usuarios = Usuarios::all(); 
+    return view('usuarios.index', compact('usuarios')); 
 }
 // <------------------------------------------------------------------------------------------->
 public function edit($id)
 {
-    // Busca o usuário pelo ID
     $usuario = Usuarios::find($id);
 
-    // Verifica se o usuário existe
     if (!$usuario) {
         return redirect()->route('usuarios.index')->with('error', 'Usuário não encontrado.');
     }
 
-    // Retorna a view de edição com os dados do usuário
     return view('usuarios.edit', compact('usuario'));
 }
 
@@ -71,7 +68,6 @@ public function edit($id)
 
 // <------------------------------------------------------------------------------------------->
 
-    // Deleta um usuário (D)
     public function destroy(Usuarios $usuario)
     {
         $usuario->delete();

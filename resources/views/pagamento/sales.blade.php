@@ -10,7 +10,6 @@
 
 <body background="../../assets/img/ti2.jpg">
 
-    <!-- Navegação -->
     <nav>
         <ul class="menu">
             <li><a href="{{ route('biblioteca') }}">BIBLIOTECA</a></li>
@@ -18,7 +17,6 @@
         </ul>
     </nav>
 
-    <!-- Mensagem de sucesso -->
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -35,35 +33,26 @@
                 <th>ID DO PRODUTO</th>
                 <th>PAYMENT ID</th>
                 <th>STATUS</th>
-                <th>VALOR PAGO</th> <!-- Adiciona o cabeçalho para o valor pago -->
-                <th>OPÇÕES</th>
+                <th>VALOR PAGO</th> 
             </tr>
         </thead>
         <tbody>
-            @foreach($sales as $sale) <!-- Loop pelas vendas -->
+            @foreach($sales as $sale) 
                 <tr>
                     <td>{{ $sale->id }}</td>
-                    <td>{{ $sale->user->name }}</td> <!-- Exibe o nome do usuário -->
-                    <td>{{ $sale->product_id }}</td> <!-- Exibe o ID do produto -->
+                    <td>{{ $sale->user->name }}</td> 
+                    <td>{{ $sale->product_id }}</td> 
                     <td>{{ $sale->payment_id }}</td>
                     <td>{{ $sale->status }}</td>
-                    <td>R$ {{ number_format($sale->value, 2, ',', '.') }}</td> <!-- Exibe o valor pago -->
+                    <td>R$ {{ number_format($sale->value, 2, ',', '.') }}</td> 
                     <td style="display:flex;">
-                        <!-- Formulário para excluir a venda -->
-                        <form action="{{ route('sales.destroy', $sale->id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirmarExclusao()" class="btn btn-danger">EXCLUIR</button>
-                        </form>
-                        <!-- Botão para editar a venda -->
-                        <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-success">EDITAR</a>
+                    
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-    <!-- Mensagem de confirmação para exclusão -->
     <script>
         function confirmarExclusao() {
             return confirm("EXCLUIR ESTE REGISTRO?");

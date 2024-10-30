@@ -15,12 +15,10 @@
         </ul>
     </nav>
 
-    <!-- SELECIONE UMA IMAGEM -->
     <div class="container">
         <h1 class="heading">SELECIONE UMA FOTO</h1>
     </div>
 
-    <!-- ADICIONANDO DADOS NA TABELA -->
     <div class="cont">
         <form action="{{ route('imagem-store') }}" method="POST" enctype="multipart/form-data" id="file">
             @csrf
@@ -42,8 +40,6 @@
                 <input type="file" accept="image/jpeg" name="imagem" id="fileInput" onchange="previewImage(event)" required>
             </div>
             
-            
-            <!-- Campo para inserir o valor -->
             <div class="input-group">
                 <input type="number" name="valor" id="valor" step="1" required placeholder=" ">
                 <label for="valor" class="user-label">Valor da Foto</label>
@@ -88,7 +84,6 @@
 }
 
 </style>
-    <!-- IMAGEM NA TELA -->
     <div class="container">
         <div class="container-image">
             <div class="image" data-title="cidade toda">
@@ -109,7 +104,7 @@
                             <img src="{{ route('imagem-show', $imagem->id) }}" alt="{{ $imagem->nome }}" width="500px">
                         </div>
                         <p>{{ $imagem->nome }}</p>
-                        <p>Valor: R$ {{ number_format($imagem->valor, 2, ',', '.') }}</p> <!-- Exibe o valor -->
+                        <p>Valor: R$ {{ number_format($imagem->valor, 2, ',', '.') }}</p> 
                     </div>
                 @endforeach
             </div>

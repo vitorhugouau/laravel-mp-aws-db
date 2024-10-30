@@ -5,15 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
-    <!-- Importando scripts e estilos -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="/css/login/parte.css">
 </head>
 <body>
     <h1>SEJA BEM-VINDO</h1>
 
-    <!-- Conteúdo principal do formulário de login -->
     <div class="meio">
         <div class="form-container">
             <div id="login">

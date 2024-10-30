@@ -8,27 +8,24 @@ use Illuminate\Support\Facades\Auth;
 
 class SaleController extends Controller
 {
-    // Lista todas as vendas
-    // Lista todas as vendas com o usuário associado
+    
     public function index()
     {
-        $sales = Sale::with('user')->get(); // Carrega as vendas com os usuários associados
-        return view('pagamento.sales', compact('sales')); // Certifique-se de que o nome da view está correto
+        $sales = Sale::with('user')->get();
+        return view('pagamento.sales', compact('sales')); 
     }
 
-
-    // Exibe o formulário para criar uma nova venda
     public function create()
     {
-        return view('sales.create'); // Crie uma view para o formulário de criação
+        return view('sales.create'); 
     }
 
     // Armazena uma nova venda
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:usuarios,id', // Validação do usuário
-            'product_id' => 'required|exists:imagens,id', // Validação do produto
+            'user_id' => 'required|exists:usuarios,id', 
+            'product_id' => 'required|exists:imagens,id', 
             'payment_id' => 'required|string',
             'status' => 'required|string',
         ]);
@@ -43,19 +40,18 @@ class SaleController extends Controller
         return redirect()->route('sales.index')->with('success', 'Venda criada com sucesso!');
     }
 
-    // Exibe o formulário para editar uma venda existente
+    
     public function edit($id)
     {
-        $sale = Sale::findOrFail($id); // Recupera a venda pelo ID
-        return view('sales.edit', compact('sale')); // Crie uma view para o formulário de edição
+        $sale = Sale::findOrFail($id); 
+        return view('sales.edit', compact('sale')); 
     }
 
-    // Atualiza uma venda existente
     public function update(Request $request, $id)
     {
         $request->validate([
-            'user_id' => 'required|exists:usuarios,id', // Validação do usuário
-            'product_id' => 'required|exists:imagens,id', // Validação do produto
+            'user_id' => 'required|exists:usuarios,id', 
+            'product_id' => 'required|exists:imagens,id',
             'payment_id' => 'required|string',
             'status' => 'required|string',
         ]);
@@ -71,7 +67,6 @@ class SaleController extends Controller
         return redirect()->route('sales.index')->with('success', 'Venda atualizada com sucesso!');
     }
 
-    // Exclui uma venda existente
     public function destroy($id)
     {
         $sale = Sale::findOrFail($id);

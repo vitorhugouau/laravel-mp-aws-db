@@ -83,7 +83,6 @@
             @foreach ($imagens as $imagem)
                 <div style="background-image: url('data:image/jpeg;base64,{{ $imagem->imagem }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important"
                     class="image" data-title="{{ $imagem->nome }}">
-                    <!-- Exibe a imagem armazenada no banco de dados em Base64 -->
                     <!-- <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="{{ $imagem->nome }}" oncontextmenu="bloquearBotaoDireito(event)"> -->
                     <img id="{{ $imagem->id }}" class="imagemaaa" src="{{ asset("assets/image.png") }}"
                         style="height: auto !important; width: 60% !important; opacity: 0.6 !important; user-select: none">
@@ -102,20 +101,6 @@
         </div>
     </div>
 
-
-
-
-    {{-- <input type="text" placeholder="Pesquisar Imagem" id="search-box"> --}}
-
-    {{-- fotos aqui --}}
-    {{--
-    <script src="/js/main.js"></script>
-    <script>
-        document.getElementById("sair").addEventListener("click", function (event) {
-            event.preventDefault();
-            window.location.href = "logout.php";
-        });
-    </script> --}}
     <script>
 
 

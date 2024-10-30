@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Imagem; // Supondo que você tenha um modelo de Imagem
+use App\Models\Imagem; 
 
 class PagamentoController extends Controller
 {
     public function mostrarTelaDePagamento($id)
     {
-        $imagem = Imagem::find($id); // Encontra a imagem com base no ID
+        $imagem = Imagem::find($id); 
         return view('pagamento.pagamento', compact('imagem'));
     }
 

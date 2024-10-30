@@ -11,7 +11,6 @@ use App\Models\Admin;
 
 class AdminController extends Controller
 {
-    // Exibe o formulário de login
     public function showLoginForm()
     {
         return view('adm.adm');
@@ -25,11 +24,7 @@ class AdminController extends Controller
             'password' => 'required|string',
         ]);
         
-        // Tenta fazer o login usando o guard 'adm'
-        // if (Auth::attempt($credentials)) {
-        //     // Se o login for bem-sucedido, redireciona o usuário
-        //     return redirect()->intended('control');
-        // }
+    
         if (Auth::guard('AdminAuthMiddleware')->attempt($credentials)) {
             return redirect()->intended('control');
         }

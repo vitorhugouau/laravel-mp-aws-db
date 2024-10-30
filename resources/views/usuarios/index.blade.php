@@ -10,7 +10,6 @@
 
 <body background="../../assets/img/ti2.jpg">
 
-    <!-- Navegação -->
     <nav>
         <ul class="menu">
             <li><a href="{{ route('biblioteca') }}">BIBLIOTECA</a></li>
@@ -18,7 +17,6 @@
         </ul>
     </nav>
 
-    <!-- Mensagem de sucesso -->
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -36,13 +34,12 @@
         </tr>
         </thead>
         <tbody>
-            @foreach($usuarios as $usuario) <!-- Loop pelos usuários -->
+            @foreach($usuarios as $usuario)
                 <tr>
                     <td>{{ $usuario->id }}</td>
                     <td>{{ $usuario->name }}</td>
                     <td>{{ $usuario->email }}</td>
                     <td style="display:flex;">
-                        <!-- Formulário para excluir o usuário -->
                         <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST"
                             style="display:inline-block;">
                             @csrf
@@ -50,7 +47,7 @@
                             <button type="submit" onclick="return confirmarExclusao()"
                                 class="btn btn-danger">EXCLUIR</button>
                         </form>
-                        <!-- Botão para editar o usuário -->
+                     
                         <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-success">EDITAR</a>
                     </td>
                 </tr>
@@ -58,7 +55,6 @@
         </tbody>
     </table>
 
-    <!-- Mensagem de confirmação para exclusão -->
     <script>
         function confirmarExclusao() {
             return confirm("EXCLUIR ESTE REGISTRO?");

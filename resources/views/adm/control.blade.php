@@ -35,9 +35,6 @@
                 </div>
             </div>
             <div class="container-bottom">
-
-                {{-- <p><a href="{{ route('biblioteca') }}"><i class="bi bi-box-arrow-right"></i> Biblioteca</a></p> --}}
-
                 <form id="logout-form" action="{{ route('logoutAdm') }}" method="POST" style="display: none;">
                     @csrf
                 </form>

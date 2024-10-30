@@ -12,9 +12,7 @@
     <nav>
         <ul class="menu">
             <li><a href="{{ route('biblioteca') }}">HOME</a></li>
-            {{-- <li><a href="#">SOBRE</a> --}}
             </li>
-            {{-- <li><a href="album.php">ÁLBUM</a> --}}
             </li>
             <li><a href="#">CONTATO</a>
                 <ul><a
@@ -91,20 +89,6 @@
                                     <option value="uniao_estavel">União Estável</option>
                                 </select>
                             </div>
-                            
-                            {{-- <div class="card-content-area">
-                                <label for="estado" class="form-label">Estado</label>
-                                <select id="estado" name="estado" class="form-control" onchange="getCidades(this.value, 'cidade')" required>
-                                    <option value="">Selecione um Estado</option>
-                                </select>
-                            </div>
-                            <div class="card-content-area">
-                                <label for="cidade" class="form-label">Cidade</label>
-                                <select id="cidade" name="cidade" class="form-control" required>
-                                    <option value="">Selecione uma Cidade</option>
-                                </select>
-                            </div> --}}
-                           {{-------------------------------------------------------------------------------- teste --}}
                            <div class="card-content-area">
                             <label for="cep" class="form-label">CEP</label>
                             <input type="text" class="form-control" id="cep" name="cep" required onblur="buscarEndereco()">
@@ -135,16 +119,6 @@
                             <label for="estado" class="form-label">Estado</label>
                             <input type="#" class="form-control" id="estado" name="estado" required>
                         </div>
-                        
-                            {{-- <div class="card-content-area">
-                                <label for="logradouro" class="form-label">Logradouro</label>
-                                <input type="text" class="form-control" id="logradouro" name="logradouro" required>
-                            </div>
-                            <div class="card-content-area">
-                                <label for="numero" class="form-label">Número</label>
-                                <input type="text" class="form-control" id="numero" name="numero" required>
-                            </div> --}}
-                            
                             <div class="card-content-area">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" required>
@@ -229,26 +203,26 @@
         function validarCPF() {
             const cpfInput = document.getElementById('cpf');
             const cpfError = document.getElementById('cpf-error');
-            const cpf = cpfInput.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+            const cpf = cpfInput.value.replace(/\D/g, ''); 
 
             if (!isValidCPF(cpf)) {
-                cpfError.style.display = 'inline'; // Mostra mensagem de erro
-                cpfInput.classList.add('is-invalid'); // Adiciona classe de erro
-                document.getElementById('enviar').disabled = true; // Desabilita o botão de envio
+                cpfError.style.display = 'inline'; 
+                cpfInput.classList.add('is-invalid'); 
+                document.getElementById('enviar').disabled = true; 
             } else {
-                cpfError.style.display = 'none'; // Esconde mensagem de erro
-                cpfInput.classList.remove('is-invalid'); // Remove classe de erro
-                document.getElementById('enviar').disabled = false; // Habilita o botão de envio
+                cpfError.style.display = 'none';
+                cpfInput.classList.remove('is-invalid'); 
+                document.getElementById('enviar').disabled = false; 
             }
         }
 
         function isValidCPF(cpf) {
-            if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false; // Verifica se tem 11 dígitos e se não é um número repetido
+            if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false; 
 
             let sum = 0;
             let remainder;
 
-            // Valida o primeiro dígito verificador
+          
             for (let i = 1; i <= 9; i++) {
                 sum += parseInt(cpf[i - 1]) * (11 - i);
             }
@@ -260,7 +234,6 @@
                 return false;
             }
 
-            // Valida o segundo dígito verificador
             sum = 0;
             for (let i = 1; i <= 10; i++) {
                 sum += parseInt(cpf[i - 1]) * (12 - i);
@@ -273,7 +246,7 @@
                 return false;
             }
 
-            return true; // CPF é válido
+            return true; 
     }       
 
     </script>
@@ -283,47 +256,43 @@
             function buscarEndereco() {
             const cepInput = document.getElementById('cep');
             const cepError = document.getElementById('cep-error');
-            const cep = cepInput.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+            const cep = cepInput.value.replace(/\D/g, ''); 
 
-            // Verifica se o CEP é válido
             if (!isValidCEP(cep)) {
-                cepError.style.display = 'inline'; // Mostra mensagem de erro
-                cepInput.classList.add('is-invalid'); // Adiciona classe de erro
-                document.getElementById('enviar').disabled = true; // Desabilita o botão de envio
+                cepError.style.display = 'inline'; 
+                cepInput.classList.add('is-invalid'); 
+                document.getElementById('enviar').disabled = true; 
                 return;
             } else {
-                cepError.style.display = 'none'; // Esconde mensagem de erro
-                cepInput.classList.remove('is-invalid'); // Remove classe de erro
-                document.getElementById('enviar').disabled = false; // Habilita o botão de envio
+                cepError.style.display = 'none'; 
+                cepInput.classList.remove('is-invalid'); 
+                document.getElementById('enviar').disabled = false;
             }
 
-            // Se o CEP for válido, busque o endereço (opcional)
             fetchEndereco(cep);
         }
 
         function isValidCEP(cep) {
-            // O CEP deve ter 8 dígitos
             return cep.length === 8;
         }
 
-        // Exemplo de função para buscar o endereço (usando uma API fictícia ou real)
         async function fetchEndereco(cep) {
             try {
                 const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
                 const data = await response.json();
 
                 if (data.erro) {
-                    // Caso o CEP não exista
+                   
                     document.getElementById('cep-error').innerText = 'CEP não encontrado!';
                     document.getElementById('cep-error').style.display = 'inline';
-                    document.getElementById('enviar').disabled = true; // Desabilita o botão de envio
+                    document.getElementById('enviar').disabled = true; 
                 } else {
-                    // Preencha os campos de endereço conforme a resposta da API
+                    
                     document.getElementById('bairro').value = data.bairro || '';
                     document.getElementById('logradouro').value = data.logradouro || '';
                     document.getElementById('cidade').value = data.localidade || '';
                     document.getElementById('estado').value = data.uf || '';
-                    // Adicione outros campos conforme necessário
+                    
                 }
             } catch (error) {
                 console.error('Erro ao buscar endereço:', error);

@@ -20,7 +20,7 @@
     <h1>Editar Cliente</h1>
     <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
         @csrf
-        @method('PUT') <!-- Define o método PUT para atualização -->
+        @method('PUT') 
 
         <!-- Nome -->
         <div class="area">

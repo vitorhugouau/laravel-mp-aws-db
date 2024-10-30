@@ -30,7 +30,6 @@
                                 <div
                                     style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
                                     <div class="compra">
-                                        <!-- Exibição de outros detalhes, caso necessário -->
                                     </div>
                                 </div>
                             </div>

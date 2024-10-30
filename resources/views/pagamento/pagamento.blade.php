@@ -14,9 +14,7 @@
     <nav>
         <ul class="menu">
             <li><a href="{{ route('biblioteca') }}">HOME</a></li>
-            {{-- <li><a href="#">SOBRE</a> --}}
             </li>
-            {{-- <li><a href="album.php">ÁLBUM</a> --}}
             </li>
             <li><a href="#">CONTATO</a>
                 <ul><a
@@ -51,7 +49,6 @@
                         <div
                             style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
                             <div class="compra">
-                                <!-- Exibição do botão de compra -->
                             </div>
                         </div>
                     </div>
@@ -80,18 +77,14 @@
 
         <script>
             function checkSelection() {
-                // Verifica se algum radio está selecionado
                 const radioChecked = document.querySelector('input[name="valor"]:checked');
                 if (!radioChecked) {
-                    // Exibe o alerta caso nenhum radio esteja selecionado
                     alert("Por favor, selecione um valor antes de continuar.");
                 } else {
-                    // Se um radio está selecionado, envia o formulário
                     document.getElementById('paymentForm').submit();
                 }
             }
         </script>
-
 
         <script>
             document.getElementById('paymentForm').addEventListener('submit', function (event) {
@@ -109,9 +102,8 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.init_point) {
-                            window.location.href = data.init_point; // Redireciona para o Mercado Pago
+                            window.location.href = data.init_point; 
                         } else {
-                            // Trate o erro, se necessário
                             alert(data.error || 'Erro ao processar o pagamento.');
                         }
                     })

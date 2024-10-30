@@ -13,7 +13,6 @@
             <img src="" alt="">
         </a>
         <nav class="navbar">
-        <!-- NADA -->
         </nav>
     </header>
 

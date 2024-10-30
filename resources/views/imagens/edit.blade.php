@@ -1,5 +1,3 @@
-<!-- resources/views/imagens/edit.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 
