@@ -13,6 +13,8 @@ use App\Http\Middleware\AdminAuth;
 use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\MercadoPagoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\SaleController;
+
 
 // ------------------------------------------------------------------------------------------------------------------------- 
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -23,6 +25,7 @@ Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.s
 
 Route::resource('usuarios', UsuariosController::class);
 Route::resource('clientes', ClienteController::class);
+
 
 // auth 
 Route::middleware('auth')->group(function () {
@@ -44,8 +47,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
     Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
     
-
-
     Route::get('/mercadopago/failure', function () {
         return "Falha no pagamento!";
     })->name('mercadopago.failure');
@@ -86,8 +87,6 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     })->name('control_biblioteca');
 
 
-    // ---------------------------------------------------------------------------------------------------------------------------------
-
     Route::get('/clientes-table', [ClienteController::class, 'index2'])->name('clientes.index2');
 
     Route::get('/clientes/{id}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
@@ -95,6 +94,11 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::put('/clientes/{id}', [ClienteController::class, 'update'])->name('clientes.update');
 
     Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+
+     // ---------------------------------------------------------------------------------------------------------------------------------
+
+     Route::resource('sales', SaleController::class);
+
    
 });
 

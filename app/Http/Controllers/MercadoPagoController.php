@@ -112,32 +112,44 @@ class MercadoPagoController extends Controller
         }
     }
 
-    public function saveSale($userId, $productId, $paymentId, $status)
+    public function saveSale($userId, $userName, $productId, $paymentId, $status)
     {
+        // Recupera o valor da imagem
+        $imagem = Imagem::find($productId);
+        $value = $imagem ? $imagem->valor : 0; // Se a imagem existir, pega o valor, senão coloca 0
+    
         Sale::create([
-            'user_id' => $userId,
+            'user_id' => $userId, // Armazena o ID do usuário
+            'user_name' => $userName, // Armazena o nome do usuário
             'product_id' => $productId,
             'payment_id' => $paymentId,
-            'status' => $status
+            'status' => $status,
+            'value' => $value, // Armazena o valor da venda
         ]);
     }
+    
+
 
     public function paymentSuccess(Request $request)
     {
         $payment_id = $request->query('payment_id');
         $status = $request->query('status');
         $imagem_id = $request->query('external_reference');
-
+    
         // Recupera a imagem usando o ID
         $imagem = Imagem::find($imagem_id);
-
+    
         if ($imagem) {
             // Salva a venda no banco de dados
-            $userId = Auth::id(); // Pega o ID do usuário autenticado
-            $this->saveSale($userId, $imagem_id, $payment_id, $status);
+            $user = Auth::user(); // Obtém o usuário autenticado
+            if ($user) {
+                $userName = $user->name; // Obtém o nome do usuário autenticado
+                $this->saveSale($user->id, $userName, $imagem_id, $payment_id, $status);
+            }
         }
-
+    
         // Retorna a tela de sucesso com os detalhes
         return view('pagamento.success', compact('payment_id', 'status', 'imagem'));
     }
+    
 }
