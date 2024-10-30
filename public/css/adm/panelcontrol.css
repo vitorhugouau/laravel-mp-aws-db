@@ -40,7 +40,7 @@ a {
     margin: 15px 10px 10px 30px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 50px;
 }
 
 .panel-content ul {
@@ -50,12 +50,17 @@ a {
     align-items: flex-start;
     justify-content: center;
     gap: 30px;
+    
 }
 
 .panel-content ul li {
-    font-size: 15px;
+    font-size: 13px;
     transition: 0.4s ease;
     color: white;
+    white-space: nowrap; /* Evita quebra de linha */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Ajuste de espaço entre o ícone e o texto */
 }
 
 .panel-content ul li:hover {
@@ -65,4 +70,5 @@ a {
 
 .container-bottom {
     margin-top: 20px;
+    white-space: nowrap; /* Evita quebra de linha */
 }
