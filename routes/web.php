@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
     Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
+    
+
 
     Route::get('/mercadopago/failure', function () {
         return "Falha no pagamento!";
