@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minhas Compras</title>
-    <link rel="stylesheet" href="/css/biblioteca/type2.css">
+    <link rel="stylesheet" href="/css/biblioteca/type3.css">
 </head>
 @include('partials.nav')
 <body>
-
-    <h2>Compras de {{ Auth::user()->name }}</h2>
-
+<br>
+    <h1 class="heading">Compras de {{ Auth::user()->name }}</h1>
+<br><br><br><br>    
     <table class="table">
         <thead>
             <tr>

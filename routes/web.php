@@ -56,7 +56,12 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
     Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+
     
+    Route::get('/minhas-compras', [UsuariosController::class, 'minhasCompras'])->name('minhas.compras');
+
+    Route::get('/compras/{id}', [UsuariosController::class, 'show'])->name('compras.show');
+        
 });
 
 // middleware 
@@ -109,11 +114,6 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 });    
 
 
-
-
-Route::get('/minhas-compras', [UsuariosController::class, 'minhasCompras'])->name('minhas.compras');
-
-Route::get('/compras/{id}', [UsuariosController::class, 'show'])->name('compras.show');
 
 
 
