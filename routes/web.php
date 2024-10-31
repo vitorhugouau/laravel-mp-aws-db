@@ -111,4 +111,10 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
 
 
+Route::get('/minhas-compras', [UsuariosController::class, 'minhasCompras'])->name('minhas.compras');
+
+Route::get('/compras/{id}', [UsuariosController::class, 'show'])->name('compras.show');
+
+
+
 

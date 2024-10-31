@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Sale;
+use App\Models\Imagem;
 
 
 class UsuariosController extends Controller
@@ -72,5 +75,50 @@ public function edit($id)
     {
         $usuario->delete();
         return redirect()->route('usuarios.index')->with('success', 'Usuário deletado com sucesso!');
+    }
+
+// <------------------------------------------------------------------------------------------->
+
+    public function minhasCompras()
+    {
+        $user = Auth::user();
+        $compras = Sale::where('user_id', $user->id)->with('product')->get();
+
+        return view('compras.index', compact('compras'));
+    }
+
+
+// <------------------------------------------------------------------------------------------->
+
+public function show($id)
+{
+    // Encontra a compra pelo ID
+    $compra = Sale::with('product')->findOrFail($id);
+
+    // Verifica se o usuário está autenticado
+    $user = Auth::user();
+
+    if ($user) {
+        
+        $imagem_id = $compra->product_id; 
+        $payment_id = $compra->payment_id; 
+        $status = $compra->status; 
+
+       
+        $imagem = Imagem::find($imagem_id);
+
+       
+        return view('compras.show', compact('compra', 'payment_id', 'status', 'imagem'));
+    }
+
+    return redirect()->route('biblioteca')->with('error', 'Você precisa estar logado para visualizar suas compras.');
+}
+
+public function show1($id)
+    {
+
+        $compra = Sale::with('product')->findOrFail($id);
+
+        return view('compras.show', compact('compra'));
     }
 }

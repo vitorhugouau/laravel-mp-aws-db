@@ -13,7 +13,10 @@ body {
     background-color: white;
     color: #000;
     font: normal 12pt Poppins;
+    user-select: text;
 }
+
+
 
 .caixa{
     background-color: rgba(19, 19, 19, 0.3);
@@ -311,11 +314,6 @@ header{
     background-color: #0056b3;
 }
 
-
-
-*{
-    user-select: none;
-}
 .compra{
     left: 20px;
     align-items: center;
