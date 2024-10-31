@@ -46,6 +46,18 @@
 
     </div>
     <script>
+
+        if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+            if (sessionStorage.getItem('formSubmitted')) {
+                // Redireciona para evitar duplicidade no reload
+                window.location.href = "{{route('minhas.compras') }}";
+            } else {
+                sessionStorage.setItem('formSubmitted', true);
+            }
+}
+
+    </script>
+    <script>
         const imagemElement = document.getElementById('imagemkk');
         const imagemUrl = imagemElement.style.backgroundImage.slice(5, -2);
 
@@ -57,6 +69,8 @@
             link.click(); 
             document.body.removeChild(link);
         }
+
+
     </script>
     <style>
             .btn {

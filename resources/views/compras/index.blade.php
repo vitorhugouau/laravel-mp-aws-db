@@ -10,8 +10,9 @@
 @include('partials.nav')
 <body>
 <br>
-    <h1 class="heading">Compras de {{ Auth::user()->name }}</h1>
-<br><br><br><br>    
+    {{-- <h1 class="heading">Compras de {{ Auth::user()->name }}</h1> --}}
+    <h1 class="heading">Minhas Compras</h1>
+<br><br>    
     <table class="table">
         <thead>
             <tr>
@@ -28,7 +29,7 @@
                     <td>{{ $compra->value }}</td>
                     <td>{{ $compra->status }}</td>
                     <td>
-                        <a href="{{ route('compras.show', $compra->id) }}" class="btn btn-primary">Visualizar</a>
+                        <a href="{{ route('compras.show', $compra->id) }}" class="btn btn-success">Visualizar Imagem</a>
                     </td>
                 </tr>
             @endforeach

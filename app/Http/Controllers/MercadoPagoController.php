@@ -71,7 +71,6 @@ class MercadoPagoController extends Controller
         }
     }
 
-
     private function createPreferenceRequest($items, $payer): array
     {
         $paymentMethods = [
@@ -114,40 +113,39 @@ class MercadoPagoController extends Controller
 
     public function saveSale($userId, $userName, $productId, $paymentId, $status)
     {
-       
-        $imagem = Imagem::find($productId);
-        $value = $imagem ? $imagem->valor : 0; 
+        $existingSale = Sale::where('payment_id', $paymentId)->first();
     
-        Sale::create([
-            'user_id' => $userId, 
-            'user_name' => $userName, 
-            'product_id' => $productId,
-            'payment_id' => $paymentId,
-            'status' => $status,
-            'value' => $value, 
-        ]);
+        if (!$existingSale) {
+            $imagem = Imagem::find($productId);
+            $value = $imagem ? $imagem->valor : 0;
+    
+            Sale::create([
+                'user_id' => $userId,
+                'user_name' => $userName,
+                'product_id' => $productId,
+                'payment_id' => $paymentId,
+                'status' => $status,
+                'value' => $value,
+            ]);
+        }
     }
     
-
-
     public function paymentSuccess(Request $request)
     {
         $payment_id = $request->query('payment_id');
         $status = $request->query('status');
         $imagem_id = $request->query('external_reference');
     
-       
         $imagem = Imagem::find($imagem_id);
     
         if ($imagem) {
-           
-            $user = Auth::user(); 
+            $user = Auth::user();
             if ($user) {
-                $userName = $user->name; 
+                $userName = $user->name;
                 $this->saveSale($user->id, $userName, $imagem_id, $payment_id, $status);
             }
         }
-    
+        
         return view('pagamento.success', compact('payment_id', 'status', 'imagem'));
     }
     

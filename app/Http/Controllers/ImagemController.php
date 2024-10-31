@@ -11,7 +11,7 @@ class ImagemController extends Controller
     {
        
         $request->validate([
-            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
             'valor' => 'required|numeric|min:0', 
         ]);
 
