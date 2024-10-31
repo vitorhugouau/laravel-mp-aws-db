@@ -59,7 +59,7 @@ class MercadoPagoController extends Controller
 
         try {
             $preference = $client->create($requestData);
-            return response()->json(['init_point' => $preference->init_point]);
+            return redirect($preference->init_point);
 
         } catch (MPApiException $error) {
             \Log::error('Erro ao criar preferência de pagamento: ', [
