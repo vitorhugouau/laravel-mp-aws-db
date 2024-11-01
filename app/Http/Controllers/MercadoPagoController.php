@@ -10,6 +10,7 @@ use App\Models\Imagem;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Models\ImgApi;
 
 
 class MercadoPagoController extends Controller
@@ -137,7 +138,7 @@ class MercadoPagoController extends Controller
         $status = $request->query('status');
         $imagem_id = $request->query('external_reference');
     
-        $imagem = Imagem::find($imagem_id);
+        $imagem = ImgApi::find($imagem_id);
     
         if ($imagem) {
             $user = Auth::user();

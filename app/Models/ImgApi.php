@@ -19,4 +19,5 @@ class ImgApi extends Model
         'url_marca_dagua',
         'valor',
     ];
+    public $timestamps = true;
 }

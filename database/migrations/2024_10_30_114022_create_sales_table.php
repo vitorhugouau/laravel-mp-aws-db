@@ -12,7 +12,7 @@ class CreateSalesTable extends Migration
         $table->id();
         $table->foreignId('user_id')->constrained('usuarios')->onDelete('cascade'); // Chave estrangeira para 'usuarios'
         $table->string('user_name'); // Nome do usuário
-        $table->foreignId('product_id')->constrained('imagens')->onDelete('cascade');
+        $table->foreignId('product_id')->constrained('imgApi')->onDelete('cascade');
         $table->string('payment_id')->unique();
         $table->string('status');
         $table->decimal('value', 8, 2); // Valor pago
