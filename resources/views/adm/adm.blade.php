@@ -28,7 +28,7 @@
                         <div class="card-content">
                             <div class="card-content-area">
                                 <label for="email">E-MAIL</label>
-                                <input type="text" name="email" id="email" autocomplete="off" value="">
+                                <input type="text" name="email" id="email" autocomplete="off" value="vitor@hugo">
                                 @error('email')
                                     <span style="font-size:11px; color:red;">{{ $message }}</span>
                                 @enderror

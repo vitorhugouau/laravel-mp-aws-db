@@ -115,6 +115,10 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
 
 
+use App\Http\Controllers\ImageUploadController;
 
+Route::get('/upload', function () {
+    return view('upload'); // Certifique-se de que o arquivo upload.blade.php está na pasta resources/views
+});
 
-
+Route::post('/upload', [ImageUploadController::class, 'upload'])->name('upload.image');
