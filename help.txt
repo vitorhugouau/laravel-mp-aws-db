@@ -19,3 +19,15 @@ php artisan migrate:fresh
 php artisan db:seed
 
 
+composer require cloudinary-labs/cloudinary-laravel
+
+
+CLOUDINARY_URL=cloudinary://869112881919475:PngslASB1isk3-h3czNhlZNKwcw@drbiyhu9n
+CLOUDINARY_URL=cloudinary://358585425886775:pXvu4soRhSz23n6c9DTafJH9DWU@drbiyhu9n
+
+
+CLOUDINARY_CONNECTION_STRING=cloudinary://358585425886775:pXvu4soRhSz23n6c9DTafJH9DWU@drbiyhu9n
+
+CLOUDINARY_CLOUD_NAME=drbiyhu9n
+CLOUDINARY_API_KEY=358585425886775
+CLOUDINARY_API_SECRET=pXvu4soRhSz23n6c9DTafJH9DWU

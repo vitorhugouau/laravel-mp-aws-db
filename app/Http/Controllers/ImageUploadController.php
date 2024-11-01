@@ -22,9 +22,11 @@ class ImageUploadController extends Controller
     }
     public function upload(Request $request)
     {
+        $nomeImagem = $request->file('image')->getClientOriginalName();
+
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'nome' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'nome' => $nomeImagem,
             'valor' => 'required|numeric',
         ]);
 
@@ -36,7 +38,7 @@ class ImageUploadController extends Controller
         $uploadedFileWatermarked = Cloudinary::upload($request->file('image')->getRealPath(), [
             'transformation' => [
                 'overlay' => 'imagem_principal',  // substitua pelo ID da marca d'água no Cloudinary
-                'gravity' => 'south_east',           // posição da marca d'água
+                'gravity' => 'center',           // posição da marca d'água
                 'x' => 10,
                 'y' => 10,
                 'opacity' => 60,
@@ -48,12 +50,19 @@ class ImageUploadController extends Controller
 
         // Salva as informações no banco de dados
         ImgApi::create([
-            'nome' => $request->nome,
+            'nome' => $nomeImagem,
             'url_original' => $urlOriginal,
             'url_marca_dagua' => $urlMarcaDagua,
             'valor' => $request->valor,
         ]);
 
-        return redirect()->back()->with('success', 'Imagem enviada e salva com sucesso!');
+        return redirect()->route('control')->with('success', 'Imagem enviada com sucesso!');
+    }
+    public function indexTable2()
+    {
+    
+        $urlMarcaDagua = ImgApi::all();
+
+        return view('biblioteca.biblioteca', compact('urlMarcaDagua'));
     }
 }

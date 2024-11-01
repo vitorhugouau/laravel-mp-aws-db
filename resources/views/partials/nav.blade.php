@@ -3,8 +3,6 @@
         <li><a href="{{route ('biblioteca')}}">HOME</a></li>
         
         </li>
-        {{-- <li><a href="album.php">ÁLBUM</a>
-        </li> --}}
         <li><a href="#">CONTATO</a>
             <ul><a
                     href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a>

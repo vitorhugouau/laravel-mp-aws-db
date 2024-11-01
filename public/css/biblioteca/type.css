@@ -227,3 +227,37 @@ header{
     }
 
 }
+* {
+    user-select: none;
+}
+
+.compra {
+    left: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    /* gap: 15px; */
+    padding: 10px;
+}
+
+#boton {
+    background-color: rgb(243, 0, 0);
+    color: rgb(255, 255, 255);
+    border: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    font-size: 14px;
+    width: 150px;
+    height: 20px;
+    left: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+}
+
+#boton:hover {
+    transform: scale(1.3);
+}

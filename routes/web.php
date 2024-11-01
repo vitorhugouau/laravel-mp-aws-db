@@ -14,6 +14,7 @@ use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\MercadoPagoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ImageUploadController;
 
 // Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.create');
 // Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
@@ -30,10 +31,12 @@ Route::post('/usuarios', [UsuariosController::class, 'store'])->name('usuarios.s
 // auth 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/biblioteca', function () {
-        $imagens = Imagem::all();
-        return view('biblioteca.biblioteca', compact('imagens'));
-    })->name('biblioteca');
+    // Route::get('/biblioteca', function () {
+    //     $imagens = Imagem::all();
+    //     return view('biblioteca.biblioteca', compact('imagens'));
+    // })->name('biblioteca');
+
+    Route::get('/biblioteca', [ImageUploadController::class, 'indexTable2'])->name('biblioteca');
 
     Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
     Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
@@ -44,6 +47,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
 
+// ---------------------------------------------------------------------------------------------------------------------------------
+
     Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
     
     Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
@@ -53,6 +58,8 @@ Route::middleware('auth')->group(function () {
     })->name('mercadopago.failure');
 
     Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
+
+// ---------------------------------------------------------------------------------------------------------------------------------
 
     Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
     Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
@@ -115,10 +122,9 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
 
 
-use App\Http\Controllers\ImageUploadController;
 
-Route::get('/upload', function () {
-    return view('upload'); // Certifique-se de que o arquivo upload.blade.php está na pasta resources/views
+Route::get('/uploadImg', function () {
+    return view('uploadImg'); // Certifique-se de que o arquivo upload.blade.php está na pasta resources/views
 });
 
-Route::post('/upload', [ImageUploadController::class, 'upload'])->name('upload.image');
+Route::post('/uploadImg', [ImageUploadController::class, 'upload'])->name('uploadImg.image');

@@ -48,7 +48,7 @@
                                 @csrf
                                 <button type="submit" class="btn btn-success">EDITAR</button>
                             </form>
-                            
+
                             <form method="POST" action="{{ route('imagens.destroy', $imagem->id) }}"
                                 onsubmit="return confirm('EXCLUIR ESTE REGISTRO?')" style="display:inline-block;">
                                 @csrf
