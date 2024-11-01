@@ -9,12 +9,13 @@ class ClienteController extends Controller
 {
     public function index()
 {
-    $clientes = Cliente::all();  // Usando nome plural para indicar coleção
+    $clientes = Cliente::all();  
     return view('clientes.create', compact('clientes'));
 }
+
 public function index2()
 {
-    $clientes = Cliente::all();  // Usando nome plural para indicar coleção
+    $clientes = Cliente::all();  
     return view('clientes.index', compact('clientes'));
 }
 
@@ -29,7 +30,7 @@ public function destroy($id)
 
     public function edit($id)
     {
-        $cliente = Cliente::findOrFail($id);  // Buscar um único cliente
+        $cliente = Cliente::findOrFail($id);  
         return view('clientes.edit', compact('cliente'));
     }
     
@@ -42,7 +43,6 @@ public function destroy($id)
     }
     public function store(Request $request)
 {
-    // Valida os dados de entrada
     $request->validate([
         'nome' => 'required|string|max:255',
         'cpf' => 'required|string|max:20',
@@ -57,10 +57,10 @@ public function destroy($id)
         'email' => 'required|email|max:255',
     ]);
 
-    // Cria um novo cliente
+    
     Cliente::create($request->all());
 
-    // Redireciona para a lista de clientes com uma mensagem de sucesso
+    
     return redirect()->route('biblioteca')->with('success', 'Cliente inserido com sucesso.');
 }
 

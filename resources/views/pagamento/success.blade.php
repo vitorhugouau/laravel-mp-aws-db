@@ -7,7 +7,7 @@
     <title>Pagamento Aprovado</title>
     <link rel="stylesheet" href="/css/biblioteca/type2.css">
 </head>
-
+@include('partials.nav')
 <body>
     <div class="container">
         <h1>Pagamento Aprovado</h1>
@@ -24,13 +24,12 @@
                             <div id="imagemkk"
                                 style="background-image: url('data:image/jpeg;base64,{{ $imagem->imagem }}'); background-size: cover; background-position: center; width: 100%; height: 20rem; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; border-radius: 10px;">
 
-                                <img id="{{ $imagem->id }}" class="imagemaaa" src="{{ asset("assets/image.png") }}"
+                                <img id="{{ $imagem->id }}" class="imagemaaa" src="{{ asset("") }}"
                                     style="height: 200px; width: 50%; opacity: 0.0;">
 
                                 <div
                                     style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
                                     <div class="compra">
-                                        <!-- Exibição de outros detalhes, caso necessário -->
                                     </div>
                                 </div>
                             </div>
@@ -47,6 +46,18 @@
 
     </div>
     <script>
+
+        if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+            if (sessionStorage.getItem('formSubmitted')) {
+                // Redireciona para evitar duplicidade no reload
+                window.location.href = "{{route('minhas.compras') }}";
+            } else {
+                sessionStorage.setItem('formSubmitted', true);
+            }
+}
+
+    </script>
+    <script>
         const imagemElement = document.getElementById('imagemkk');
         const imagemUrl = imagemElement.style.backgroundImage.slice(5, -2);
 
@@ -58,6 +69,8 @@
             link.click(); 
             document.body.removeChild(link);
         }
+
+
     </script>
     <style>
             .btn {

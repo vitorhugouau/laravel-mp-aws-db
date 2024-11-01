@@ -6,34 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Gerenciador do Sistema</title>
-
-    <!-- Axios para requisições AJAX -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <!-- Arquivo de estilo personalizado -->
     <link rel="stylesheet" href="/css/adm/adm.css">
 </head>
 
 <body background="../../assets/img/ti2.jpg">
     <header class="header">
-        <!-- Seção de cabeçalho (vazia por enquanto) -->
+
     </header>
 
     <h1>GERENCIADOR DO SISTEMA</h1>
 
     <div class="meio">
         <div class="form-container">
-            <!-- Formulário de login -->
             <div id="login">
                 <form id="loginForm" class="card" method="POST" action="{{ route('adm.login.post') }}">
-                    @csrf <!-- CSRF Token obrigatório para formulários POST no Laravel -->
+                    @csrf 
 
                     <h3>ADMINISTRADOR</h3>
                     <div class="card-header">
                         <div class="card-content">
                             <div class="card-content-area">
                                 <label for="email">E-MAIL</label>
-                                <input type="text" name="email" id="email" autocomplete="off" value="vitor@hugo">
+                                <input type="text" name="email" id="email" autocomplete="off" value="">
                                 @error('email')
                                     <span style="font-size:11px; color:red;">{{ $message }}</span>
                                 @enderror

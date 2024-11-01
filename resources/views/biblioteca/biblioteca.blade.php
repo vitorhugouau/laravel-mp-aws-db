@@ -10,35 +10,11 @@
 
 </head>
 
+@include('partials.nav')
+
 <body background="../../assets/img/rio.jpg">
-    <nav>
-        <ul class="menu">
-            <li><a href="#">HOME</a></li>
-            {{-- <li><a href="#">SOBRE</a> --}}
-            </li>
-            {{-- <li><a href="album.php">ÁLBUM</a>
-            </li> --}}
-            <li><a href="#">CONTATO</a>
-                <ul><a
-                        href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a>
-                </ul>
-            </li>
-            <li><a href="#">SERVIÇOS</a>
-                <ul>
-                    <li><a href="{{ route('clientes.store') }}">CONTRATAR SERVIÇO</a></li>
-                </ul>
-            </li>
-            <li><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a>
-            <li class="logout">
-                <div class="card">
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                    <button type="button" class="submit" id="sair">SAIR</button>
-                </div>
-            </li>
-        </ul>
-    </nav>
+
+    
     <style>
         * {
             user-select: none;
@@ -83,7 +59,6 @@
             @foreach ($imagens as $imagem)
                 <div style="background-image: url('data:image/jpeg;base64,{{ $imagem->imagem }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important"
                     class="image" data-title="{{ $imagem->nome }}">
-                    <!-- Exibe a imagem armazenada no banco de dados em Base64 -->
                     <!-- <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="{{ $imagem->nome }}" oncontextmenu="bloquearBotaoDireito(event)"> -->
                     <img id="{{ $imagem->id }}" class="imagemaaa" src="{{ asset("assets/image.png") }}"
                         style="height: auto !important; width: 60% !important; opacity: 0.6 !important; user-select: none">
@@ -102,20 +77,6 @@
         </div>
     </div>
 
-
-
-
-    {{-- <input type="text" placeholder="Pesquisar Imagem" id="search-box"> --}}
-
-    {{-- fotos aqui --}}
-    {{--
-    <script src="/js/main.js"></script>
-    <script>
-        document.getElementById("sair").addEventListener("click", function (event) {
-            event.preventDefault();
-            window.location.href = "logout.php";
-        });
-    </script> --}}
     <script>
 
 

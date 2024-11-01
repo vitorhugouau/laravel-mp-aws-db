@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuários</title>
-    <link rel="stylesheet" href="/css/viewimg.css">
+    <title>Lista de Vendas</title>
+    <link rel="stylesheet" href="/css/viewimg2.css">
 </head>
 
 <body background="../../assets/img/ti2.jpg">
@@ -26,29 +26,27 @@
 
     <br>
     <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>NOME</th>
-            <th>EMAIL</th>
-            <th>OPÇÕES</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOME DO USUÁRIO</th>
+                <th>ID DO PRODUTO</th>
+                <th>PAYMENT ID</th>
+                <th>STATUS</th>
+                <th>VALOR PAGO</th> 
+            </tr>
         </thead>
         <tbody>
-            @foreach($usuarios as $usuario)
+            @foreach($sales as $sale) 
                 <tr>
-                    <td>{{ $usuario->id }}</td>
-                    <td>{{ $usuario->name }}</td>
-                    <td>{{ $usuario->email }}</td>
+                    <td>{{ $sale->id }}</td>
+                    <td>{{ $sale->user->name }}</td> 
+                    <td>{{ $sale->product_id }}</td> 
+                    <td>{{ $sale->payment_id }}</td>
+                    <td>{{ $sale->status }}</td>
+                    <td>R$ {{ number_format($sale->value, 2, ',', '.') }}</td> 
                     <td style="display:flex;">
-                        <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST"
-                            style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirmarExclusao()"
-                                class="btn btn-danger">EXCLUIR</button>
-                        </form>
-                     
-                        <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-success">EDITAR</a>
+                    
                     </td>
                 </tr>
             @endforeach

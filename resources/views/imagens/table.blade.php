@@ -44,13 +44,11 @@
                         </td>
                         <td class="center-align">R$ {{ number_format($imagem->valor, 2, ',', '.') }}</td>
                         <td class="center-align">
-                            <!-- Botão de EDITAR -->
                             <form method="GET" action="{{ route('imagens.edit', $imagem->id) }}" style="display:inline-block;">
                                 @csrf
                                 <button type="submit" class="btn btn-success">EDITAR</button>
                             </form>
-
-                            <!-- Botão de EXCLUIR -->
+                            
                             <form method="POST" action="{{ route('imagens.destroy', $imagem->id) }}"
                                 onsubmit="return confirm('EXCLUIR ESTE REGISTRO?')" style="display:inline-block;">
                                 @csrf

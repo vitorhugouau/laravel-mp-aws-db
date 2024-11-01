@@ -6,26 +6,28 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-
 body {
     background-size: cover;
     background-color: white;
     color: #000;
-    font: normal 12pt Poppins;
 }
 h1{
-    color : #6490f0; 
+    color : #6490f0;
     text-align: center;
     font-size: 80px;
+    font: normal 44pt Impact;
+    opacity: 100%;
+    text-shadow: 9px 3px 3px rgba(0,0,0,0.66);
 }
-
 
 
 .menu {
     list-style-type: none;
     margin: 0 auto; /* Centralizar horizontalmente */
     padding: 0;
-    background-color: #355a92; /* Cor de fundo do menu */
+    background: linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
+    background: -webkit-linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
+    background: -moz-linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
     text-align: center; /* Centralizar os itens do menu */
     justify-content: center; /* Centralizar os itens horizontalmente */
     align-items: center; /* Centralizar os itens verticalmente */
@@ -105,7 +107,7 @@ input[type="submit"]:hover {
 .table th {
     background-color: #007bff;
     color: #fff;
-    padding: 10px;
+    padding: 18px;
     text-align: left;
 }
 

@@ -20,18 +20,18 @@
     <h1>Editar Cliente</h1>
     <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
         @csrf
-        @method('PUT') <!-- Define o método PUT para atualização -->
+        @method('PUT') 
 
         <!-- Nome -->
         <div class="area">
             <label for="nome">Nome:</label>
-            <input type="text" class="form-control" id="nome" name="nome" value="{{ $cliente->nome }}">
+            <input type="text" class="form-control" id="nome" name="nome" value="{{ $cliente->nome }}" required>
         </div>
 
         <!-- CPF -->
         <div class="area">
             <label for="cpf">CPF:</label>
-            <input type="text" class="form-control" id="cpf" name="cpf" value="{{ $cliente->cpf }}">
+            <input type="text" class="form-control" id="cpf" name="cpf" value="{{ $cliente->cpf }}" required>
         </div>
 
         <!-- Data de Nascimento -->
@@ -64,19 +64,19 @@
         <!-- Estado -->
         <div class="area">
             <label for="estado">Estado:</label>
-            <input type="text" class="form-control" id="estado" name="estado" value="{{ $cliente->estado }}">
+            <input type="text" class="form-control" id="estado" name="estado" value="{{ $cliente->estado }}" required>
         </div>
 
         <!-- Logradouro -->
         <div class="area">
             <label for="logradouro">Logradouro:</label>
-            <input type="text" class="form-control" id="logradouro" name="logradouro" value="{{ $cliente->logradouro }}">
+            <input type="text" class="form-control" id="logradouro" name="logradouro" value="{{ $cliente->logradouro }}" required>
         </div>
 
         <!-- Número -->
         <div class="area">
             <label for="numero">Número:</label>
-            <input type="text" class="form-control" id="numero" name="numero" value="{{ $cliente->numero }}">
+            <input type="text" class="form-control" id="numero" name="numero" value="{{ $cliente->numero }}" required>
         </div>
 
         <!-- Complemento -->
@@ -88,20 +88,42 @@
         <!-- Cidade -->
         <div class="area">
             <label for="cidade">Cidade:</label>
-            <input type="text" class="form-control" id="cidade" name="cidade" value="{{ $cliente->cidade }}">
+            <input type="text" class="form-control" id="cidade" name="cidade" value="{{ $cliente->cidade }}" required>
         </div>
 
         <!-- Email -->
         <div class="area">
             <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ $cliente->email }}">
+            <input type="text" class="form-control" id="email" name="email" value="{{ $cliente->email }}" required>
         </div>
 
         <!-- Botão de Enviar -->
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button type="submit" id="boton">Salvar</button>
     </form>
 </div>
+<style>
+    #boton {
+            background-color: rgb(0, 153, 33);
+            color: rgb(255, 255, 255);
+            border: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-size: 14px;
+            width: 560px;
+            height: 40px;
+            left: 20px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
 
+        }
+
+        #boton:hover {
+            transform: scale(1.2);
+        }
+</style>
 
 
   

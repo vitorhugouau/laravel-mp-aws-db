@@ -9,23 +9,20 @@ class ImagemController extends Controller
 {
     public function store(Request $request)
     {
-        // Validação do arquivo de imagem e do valor
+       
         $request->validate([
-            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'valor' => 'required|numeric|min:0', // Validação do campo valor
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'valor' => 'required|numeric|min:0', 
         ]);
 
-        // Obtém o nome original da imagem
         $nomeImagem = $request->file('imagem')->getClientOriginalName();
 
-        // Converte a imagem para base64
         $imagemBase64 = base64_encode(file_get_contents($request->file('imagem')->getRealPath()));
 
-        // Salva a imagem no banco de dados como base64 e com o valor
         Imagem::create([
             'nome' => $nomeImagem,
-            'imagem' => $imagemBase64,  // Armazena a imagem como string base64
-            'valor' => $request->input('valor'), // Armazena o valor no banco de dados
+            'imagem' => $imagemBase64, 
+            'valor' => $request->input('valor'), 
         ]);
 
         return redirect()->route('control')->with('success', 'Imagem enviada com sucesso!');
@@ -33,29 +30,25 @@ class ImagemController extends Controller
 
     public function show($id)
     {
-        // Busca a imagem no banco de dados
         $imagem = Imagem::findOrFail($id);
 
-        // Retorna a imagem com o cabeçalho correto
         return response($imagem->imagem)
-            ->header('Content-Type', 'image/jpeg'); // Ajuste o tipo de conteúdo conforme necessário
+            ->header('Content-Type', 'image/jpeg'); 
     }
 
     public function index()
     {
-        // Busca todas as imagens do banco de dados
+        
         $imagens = Imagem::all();
 
-        // Retorna a view com as imagens
         return view('imagens.index', compact('imagens'));
     }
 
     public function indexTable()
     {
-        // Busca todas as imagens do banco de dados
+    
         $imagens = Imagem::all();
 
-        // Retorna a view com as imagens
         return view('imagens.table', compact('imagens'));
     }
 
@@ -68,22 +61,22 @@ class ImagemController extends Controller
 
     public function edit($id)
     {
-        $imagem = Imagem::findOrFail($id); // Recupera o registro do banco de dados pelo ID
+        $imagem = Imagem::findOrFail($id); 
         return view('imagens.edit', compact('imagem'));
     }
 
-    // Processa a atualização do registro
+   
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nome' => 'required|string|max:255', // Validação do campo nome
-            'valor' => 'required|numeric|min:0', // Validação do campo valor
+            'nome' => 'required|string|max:255', 
+            'valor' => 'required|numeric|min:0', 
         ]);
 
-        $imagem = Imagem::findOrFail($id); // Busca o registro
-        $imagem->nome = $request->input('nome'); // Atualiza o nome
-        $imagem->valor = $request->input('valor'); // Atualiza o valor
-        $imagem->save(); // Salva no banco de dados
+        $imagem = Imagem::findOrFail($id); 
+        $imagem->nome = $request->input('nome'); 
+        $imagem->valor = $request->input('valor'); 
+        $imagem->save(); 
 
         return redirect()->route('imagens.table')->with('success', 'Registro atualizado com sucesso!');
     }

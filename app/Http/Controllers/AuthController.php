@@ -9,13 +9,12 @@ use App\Models\Usuarios;
 
 class AuthController extends Controller
 {
-    // Exibir formulário de login
+
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    // Processar login
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -34,7 +33,6 @@ class AuthController extends Controller
     }
     
 
-    // Processar logout
     public function logout(Request $request)
     {
         Auth::logout();

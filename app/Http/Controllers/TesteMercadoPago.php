@@ -7,7 +7,7 @@ use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
 use Illuminate\Http\Request;
 
-class MercadoPagoController extends Controller
+class TesteMercadoPago extends Controller
 {
     // Função para autenticar o Mercado Pago
     protected function authenticate()
