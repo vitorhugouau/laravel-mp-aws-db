@@ -25,7 +25,7 @@
         <tbody>
             @foreach($compras as $compra)
                 <tr>
-                    <td>{{ $compra->product->nome }}</td>
+                    <!-- <td>{{ $compra->product->nome }}</td> -->
                     <td>{{ $compra->value }}</td>
                     <td>{{ $compra->status }}</td>
                     <td>
