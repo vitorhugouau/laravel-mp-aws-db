@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('imagens', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');        // Nome do arquivo da imagem
-            $table->text('imagem');        // Armazena a string em base64 da imagem
-            $table->decimal('valor', 8, 2); // Coluna para armazenar um valor numérico, ex: preço
+            $table->string('nome');       
+            $table->text('imagem');        
+            $table->decimal('valor', 8, 2); 
             $table->timestamps();
         });
     }

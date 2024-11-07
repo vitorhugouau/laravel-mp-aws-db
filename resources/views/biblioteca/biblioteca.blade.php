@@ -24,7 +24,7 @@
                     style="background-image: url('{{ $imagem->url_marca_dagua }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important">
                         <div class="compra">
                         <form action="/pagamento/{{ $imagem->id }}" method="GET">
-                            @csrf <!-- Token de segurança necessário em formulários POST no Laravel -->
+                            @csrf 
                             <button type="submit" id="boton">COMPRAR IMAGEM</button>
                         </form>
                     </div>

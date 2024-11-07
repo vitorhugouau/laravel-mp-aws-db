@@ -30,25 +30,23 @@ class ImageUploadController extends Controller
             'valor' => 'required|numeric',
         ]);
 
-        // Upload da imagem original para o Cloudinary
+       
         $uploadedFileOriginal = Cloudinary::upload($request->file('image')->getRealPath());
         $urlOriginal = $uploadedFileOriginal->getSecurePath();
 
-        // Upload da imagem com marca d'água, criando uma versão diferente
         $uploadedFileWatermarked = Cloudinary::upload($request->file('image')->getRealPath(), [
             'transformation' => [
-                'overlay' => 'imagem_principal',  // substitua pelo ID da marca d'água no Cloudinary
-                'gravity' => 'center',           // posição da marca d'água
+                'overlay' => 'imagem_principal',  
+                'gravity' => 'center',          
                 'x' => 10,
                 'y' => 10,
                 'opacity' => 60,
             ],
-            'folder' => 'watermarked_images',        // opção para salvar em pasta específica
-            'public_id' => uniqid() . '_watermarked' // identificador único para a imagem com marca d'água
+            'folder' => 'watermarked_images',       
+            'public_id' => uniqid() . '_watermarked' 
         ]);
         $urlMarcaDagua = $uploadedFileWatermarked->getSecurePath();
 
-        // Salva as informações no banco de dados
         ImgApi::create([
             'nome' => $nomeImagem,
             'url_original' => $urlOriginal,

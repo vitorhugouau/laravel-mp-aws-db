@@ -10,10 +10,10 @@ class CreateImgApiTable extends Migration
     {
         Schema::create('imgApi', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');              // Nome da imagem
-            $table->string('url_original');      // URL da imagem original
-            $table->string('url_marca_dagua');   // URL da imagem com marca d'água
-            $table->decimal('valor', 8, 2);      // Valor da imagem
+            $table->string('nome');             
+            $table->string('url_original');      
+            $table->string('url_marca_dagua');  
+            $table->decimal('valor', 8, 2);      
             $table->timestamps();
         });
     }

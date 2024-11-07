@@ -8,7 +8,6 @@
 <body>
     <h1>Upload de Imagem com Cloudinary</h1>
 
-    <!-- Exibe a mensagem de sucesso -->
     @if (session('success'))
         <div style="color: green; font-weight: bold;">
             {{ session('success') }}

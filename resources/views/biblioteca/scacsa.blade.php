@@ -28,7 +28,7 @@
                     style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; width: 100%; border-radius: 0 0 52% 5%;">
                     <div class="compra">
                         <form action="/pagamento/{{ $imagem->id }}" method="GET">
-                            @csrf <!-- Token de segurança necessário em formulários POST no Laravel -->
+                            @csrf 
                             <button type="submit" id="boton">COMPRAR IMAGEM</button>
                         </form>
                     </div>

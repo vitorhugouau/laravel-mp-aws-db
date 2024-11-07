@@ -10,6 +10,7 @@ use App\Models\Imagem;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ImgApi;
+use Illuminate\Support\Facades\Log;
 
 
 class MercadoPagoController extends Controller
@@ -63,7 +64,7 @@ class MercadoPagoController extends Controller
             return redirect($preference->init_point);
 
         } catch (MPApiException $error) {
-            \Log::error('Erro ao criar preferência de pagamento: ', [
+            Log::error('Erro ao criar preferência de pagamento: ', [
                 'message' => $error->getMessage(),
                 'code' => $error->getCode(),
                 'response' => $error->getResponseBody()
