@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Sale;
-use App\Models\Imagem;
+use App\Models\ImgApi;
+
 
 
 class UsuariosController extends Controller
@@ -105,7 +106,7 @@ public function show($id)
         $status = $compra->status; 
 
        
-        $imagem = Imagem::find($imagem_id);
+        $imagem = ImgApi::find($imagem_id);
 
        
         return view('compras.show', compact('compra', 'payment_id', 'status', 'imagem'));

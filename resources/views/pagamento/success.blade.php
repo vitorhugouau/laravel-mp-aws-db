@@ -21,7 +21,7 @@
                 <div class="container">
                     <div class="container-image">
                         <div class="image-container">
-                            <div
+                            <div id="imagemkk"
                                 style="background-image: url('{{ $imagem->url_original }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important">
                                     <div
                                     style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
@@ -50,8 +50,7 @@
             } else {
                 sessionStorage.setItem('formSubmitted', true);
             }
-}
-
+        }
     </script>
     <script>
         const imagemElement = document.getElementById('imagemkk');

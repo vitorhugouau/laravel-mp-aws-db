@@ -38,9 +38,9 @@ class ImageUploadController extends Controller
             'transformation' => [
                 'overlay' => 'imagem_principal',  
                 'gravity' => 'center',          
-                'x' => 10,
-                'y' => 10,
-                'opacity' => 60,
+                'x' => 100,
+                'y' => 100,
+                'opacity' => 50,
             ],
             'folder' => 'watermarked_images',       
             'public_id' => uniqid() . '_watermarked' 
