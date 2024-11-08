@@ -12,7 +12,7 @@
     <nav>
         <ul class="menu">
             <li><a href="{{ url('/biblioteca') }}">BIBLIOTECA</a></li>
-            <li><a href="{{ route('control') }}">VOLTAR</a></li>
+            <li><a href="{{ route('imagens.table') }}">VOLTAR</a></li>
         </ul>
     </nav>
     <div class="container">
@@ -25,6 +25,10 @@
             <div class="area">
                 <label for="nome">NOME</label>
                 <input type="text" name="nome" id="nome" value="{{ old('nome', $imagem->nome) }}">
+            </div>
+            <div class="area">
+                <label for="valor">Valor</label>
+                <input type="text" name="valor" id="valor" value="{{ old('valor', $imagem->valor) }}">
             </div>
             <div>
                 <input type="submit" value="SALVAR ALTERAÇÕES">

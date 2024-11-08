@@ -8,7 +8,7 @@
     <title>Document</title>
     
 </head>
-<body background="../../assets/img/rio.jpg">
+<body background="../../assets/img/ti2.jpg">
     <nav>
         <ul class="menu">
             <li><a href="{{ route('biblioteca') }}">BIBLIOTECA</a></li>
