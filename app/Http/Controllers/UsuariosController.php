@@ -34,25 +34,26 @@ class UsuariosController extends Controller
 
         return redirect()->route('login')->with('success', 'Usuário cadastrado com sucesso!');
     }
-// <------------------------------------------------------------------------------------------->
-    public function index(){
-    $usuarios = Usuarios::all(); 
-    return view('usuarios.index', compact('usuarios')); 
-}
-// <------------------------------------------------------------------------------------------->
-public function edit($id)
-{
-    $usuario = Usuarios::find($id);
+    // <------------------------------------------------------------------------------------------->
+    public function index()
+    {
+        $usuarios = Usuarios::all();
+        return view('usuarios.index', compact('usuarios'));
+    }
+    // <------------------------------------------------------------------------------------------->
+    public function edit($id)
+    {
+        $usuario = Usuarios::find($id);
 
-    if (!$usuario) {
-        return redirect()->route('usuarios.index')->with('error', 'Usuário não encontrado.');
+        if (!$usuario) {
+            return redirect()->route('usuarios.index')->with('error', 'Usuário não encontrado.');
+        }
+
+        return view('usuarios.edit', compact('usuario'));
     }
 
-    return view('usuarios.edit', compact('usuario'));
-}
 
-
-// <------------------------------------------------------------------------------------------->
+    // <------------------------------------------------------------------------------------------->
     public function update(Request $request, Usuarios $usuario)
     {
         $request->validate([
@@ -70,7 +71,7 @@ public function edit($id)
         return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso!');
     }
 
-// <------------------------------------------------------------------------------------------->
+    // <------------------------------------------------------------------------------------------->
 
     public function destroy(Usuarios $usuario)
     {
@@ -78,44 +79,46 @@ public function edit($id)
         return redirect()->route('usuarios.index')->with('success', 'Usuário deletado com sucesso!');
     }
 
-// <------------------------------------------------------------------------------------------->
+    // <------------------------------------------------------------------------------------------->
 
     public function minhasCompras()
     {
         $user = Auth::user();
-        $compras = Sale::where('user_id', $user->id)->with('product')->get();
+        $compras = Sale::where('user_id', $user->id)
+            ->with(['product', 'imagens']) // Ensure `imagens` relationship is defined in the Sale model
+            ->get();
 
         return view('compras.index', compact('compras'));
     }
 
 
-// <------------------------------------------------------------------------------------------->
+    // <------------------------------------------------------------------------------------------->
 
-public function show($id)
-{
-    // Encontra a compra pelo ID
-    $compra = Sale::with('product')->findOrFail($id);
+    public function show($id)
+    {
+        // Encontra a compra pelo ID
+        $compra = Sale::with('product')->findOrFail($id);
 
-    // Verifica se o usuário está autenticado
-    $user = Auth::user();
+        // Verifica se o usuário está autenticado
+        $user = Auth::user();
 
-    if ($user) {
-        
-        $imagem_id = $compra->product_id; 
-        $payment_id = $compra->payment_id; 
-        $status = $compra->status; 
+        if ($user) {
 
-       
-        $imagem = ImgApi::find($imagem_id);
+            $imagem_id = $compra->product_id;
+            $payment_id = $compra->payment_id;
+            $status = $compra->status;
 
-       
-        return view('compras.show', compact('compra', 'payment_id', 'status', 'imagem'));
+
+            $imagem = ImgApi::find($imagem_id);
+
+
+            return view('compras.show', compact('compra', 'payment_id', 'status', 'imagem'));
+        }
+
+        return redirect()->route('biblioteca')->with('error', 'Você precisa estar logado para visualizar suas compras.');
     }
 
-    return redirect()->route('biblioteca')->with('error', 'Você precisa estar logado para visualizar suas compras.');
-}
-
-public function show1($id)
+    public function show1($id)
     {
 
         $compra = Sale::with('product')->findOrFail($id);

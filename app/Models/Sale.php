@@ -18,7 +18,13 @@ class Sale extends Model
 
     public function product()
     {
-        return $this->belongsTo(imgApi::class);
+        return $this->belongsTo(ImgApi::class, 'product_id');
+    }
+
+    
+    public function imagens()
+    {
+        return $this->belongsTo(ImgApi::class, 'product_id'); 
     }
     
 }
