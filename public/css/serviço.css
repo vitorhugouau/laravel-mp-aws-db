@@ -8,16 +8,46 @@
 }
 
 body {
-  
+    background-image: url('../../assets/img/iac.jpg');
     background-size: cover;
     background-color: white;
     color: #000;
     font: normal 12pt Poppins;
 }
-h1{
-   text-align: center;
-    color: #030306a6;
-    font: normal 50pt Impact;
+
+.caixa{
+    background-color: rgba(19, 19, 19, 0.3);
+    padding: 10px;
+    border-radius: 6px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    margin: 10px;
+    position: absolute;
+    right: 20px;
+}
+header{
+    color: rgb(18, 18, 24);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+.container{
+    padding: 25px 4%;
+    text-align: center;
+}
+
+.container .heading{
+    text-align: center;
+    text-align: center;
+    color: #212767;
+    font: normal 63pt Impact;
+    opacity: 100%;
+    text-shadow: 6px 4px 3px rgb(100 100 100 / 60%);
+    
 }
 /*---------------------------------MENU--------------------------------------*/
 .menu {
@@ -96,7 +126,7 @@ h1{
     align-items: center;
 }
 
-.card {
+.card1 {
     background-color: rgb(19 19 19 / 70%);
     padding: 40px;
     border-radius: 6px;
@@ -104,28 +134,28 @@ h1{
 }
 
 /* Formulário */
-.card h3 {
+.card1 h3 {
     color: #c1c1c1;
 }
 
-.card-header {
+.card1-header {
     padding-bottom: 50px;
     opacity: 0.99;
     color: #fff;
 }
 
-.card-content label {
+.card1-content label {
     color: #fff;
     font-size: 12px;
     opacity: 0.8;
 }
 
-.card-content-area {
+.card1-content-area {
     flex-direction: grid;
     padding: 10px 0;
 }
 
-.card-content-area input {
+.card1-content-area input {
     margin-top: 10px;
     padding: 31px 5px;
     background-color: transparent;
@@ -145,14 +175,14 @@ h1{
     font-size: 16px; /* Tamanho da fonte do texto no input */
 }
 
-.card-footer,
-.card-cadastro {
+.card1-footer,
+.card1-cadastro {
     display: flex;
     flex-direction: grid;
 }
 
-.card-footer .submit,
-.card-cadastro .teste {
+.card1-footer .submit,
+.card1-cadastro .teste {
     width: 100%;
     height: 45px;
     margin: 10px 0;
@@ -161,17 +191,17 @@ h1{
     transition: all 0.4s ease;
 }
 
-.card-footer .submit {
+.card1-footer .submit {
     background-color: #008600;
     color: #fff;
 }
 
-.card-footer .submit:hover,
-.card-cadastro .teste:hover {
+.card1-footer .submit:hover,
+.card1-cadastro .teste:hover {
     transform: scale(1.2);
 }
 
-.card-cadastro .teste {
+.card1-cadastro .teste {
     background-color: #2a2083;
     color: #f9f9f9;
 }
@@ -184,15 +214,15 @@ h1{
 }
 
 /* Campos do formulário */
-.card-content-area .form-group {
+.card1-content-area .form-group {
     margin-bottom: 15px;
 }
 
-.card-content-area .form-group label {
+.card1-content-area .form-group label {
     display: block;
 }
 
-.card-content-area .form-group input[type="text"] {
+.card1-content-area .form-group input[type="text"] {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
