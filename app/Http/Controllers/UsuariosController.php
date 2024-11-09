@@ -30,6 +30,7 @@ class UsuariosController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'role' => $validated['role'] ?? 'user', 
         ]);
 
         return redirect()->route('login')->with('success', 'Usuário cadastrado com sucesso!');

@@ -13,6 +13,7 @@ class CreateUsuariosTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('role')->default('user'); // Define o nível de acesso, com valor padrão 'user'
             $table->timestamps();
         });
     }
@@ -22,4 +23,3 @@ class CreateUsuariosTable extends Migration
         Schema::dropIfExists('usuarios');
     }
 }
-

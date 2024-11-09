@@ -18,9 +18,10 @@ class UsuariosSeeder extends Seeder
     public function run()
     {
         Usuarios::create([
-            'name' => 'Teste',
-            'email' => 'teste@teste',
+            'name' => 'Admin',
+            'email' => 'admin@teste.com',
             'password' => Hash::make('123'),
+            'role' => 'admin',
         ]);
     }
 }
