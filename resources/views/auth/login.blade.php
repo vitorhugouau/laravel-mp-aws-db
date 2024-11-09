@@ -22,14 +22,14 @@
                             <div class="card-content-area">
                                 <label for="email">E-MAIL</label>
                                 <input type="email" name="email" id="email" autocomplete="off" value="teste@teste" required>
-                                @error('email')
+                                <!-- @error('email')
                                     <span style="font-size:11px; color:red;">{{ $message }}</span>
-                                @enderror
+                                @enderror -->
                             </div>
                             <div class="card-content-area">
                                 <label for="password">SENHA</label>
                                 <input type="password" name="password" id="password" autocomplete="off" required>
-                                @error('password')
+                                @error('email')
                                     <span style="font-size:11px; color:red;">{{ $message }}</span>
                                 @enderror
                             </div>
