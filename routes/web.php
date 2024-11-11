@@ -78,7 +78,7 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::delete('/imagens/{id}', [ImagemController::class, 'destroy'])->name('imagens.destroy');
     
     Route::get('/uploads', function () {
-        return view('adm.add_bibliotec: Factory|View: Factory|View: Factory|Viewa.upload_imagem');
+        return view('adm.add_biblioteca.upload_imagem');
     })->name('uploads');
     
     Route::get('/imagens', [ImagemController::class, 'index'])->name('imagens.index');
@@ -126,6 +126,23 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::post('/uploadImg', [ImageUploadController::class, 'upload'])->name('uploadImg.image');
     
 });    
+
+
+use App\Http\Controllers\EmailController;
+
+Route::get('/email/form', [EmailController::class, 'showForm'])->name('email.form');
+Route::post('/email/send', [EmailController::class, 'sendEmail'])->name('send.email');
+Route::get('/enviar-email-template', [EmailController::class, 'sendTemplateEmail'])->name('send.template.email');
+
+use App\Http\Controllers\EmailVerificationController;
+
+// Route::get('/verificacao-email', [EmailVerificationController::class, 'showForm'])->name('show.verification.form');
+Route::get('/verificacao-email', [EmailVerificationController::class, 'showForm'])->name('verification.showForm');
+
+Route::post('/enviar-codigo', [EmailVerificationController::class, 'sendVerificationCode'])->name('send.verification.code');
+Route::get('/enviar-codigo', [EmailVerificationController::class, 'sendVerificationCode'])->name('send.verification.code');
+
+Route::post('/verificar-codigo', [EmailVerificationController::class, 'verifyCode'])->name('verify.code');
 
 
 

@@ -14,6 +14,7 @@ class CreateUsuariosTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('role')->default('user'); // Define o nível de acesso, com valor padrão 'user'
+            $table->timestamp('email_verified_at')->nullable(); // Armazena a data de verificação do email
             $table->timestamps();
         });
     }

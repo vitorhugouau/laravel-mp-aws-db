@@ -5,16 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Usuarios;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
 
 class UsuariosSeeder extends Seeder
 {
-
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-
     public function run()
     {
         Usuarios::create([
@@ -22,6 +16,7 @@ class UsuariosSeeder extends Seeder
             'email' => 'admin@teste.com',
             'password' => Hash::make('123'),
             'role' => 'admin',
+            'email_verified_at' => Carbon::now(), 
         ]);
     }
 }

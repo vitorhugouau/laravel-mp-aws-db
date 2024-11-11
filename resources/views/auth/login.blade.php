@@ -40,6 +40,9 @@
                         <div class="card-cadastro">
                              <button type="button" class="teste" id="teste" data-url="{{ route('usuarios.create') }}">FAÇA SEU CADASTRO</button>
                         </div>
+                        <div class="card-cadastro2">
+                             <button type="button" class="teste2" id="teste2" data-url="{{ route('biblioteca') }}">VOLTAR</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -50,6 +53,9 @@
 
 <script>
     document.getElementById("teste").onclick = function() {
+        window.location.href = this.getAttribute("data-url");
+    }
+    document.getElementById("teste2").onclick = function() {
         window.location.href = this.getAttribute("data-url");
     }
 </script>

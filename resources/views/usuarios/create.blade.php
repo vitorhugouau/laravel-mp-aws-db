@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastro</title>
     <link rel="stylesheet" href="/css/cadastro/cadastro.css">
 </head>
+
 <body background="/img/nova1920.jpg">
-   <header class="header">
+    <header class="header">
         <a href="#" class="logo">
             <img src="" alt="">
         </a>
@@ -18,8 +20,12 @@
 
     <h1>TELA DE CADASTRO</h1>
 
+    <!-- Exibe a mensagem de sucesso e redireciona para a verificação de email -->
     @if (session('success'))
-        <div>{{ session('success') }}</div>
+    <div>{{ session('success') }}</div>
+    <div>
+        <a href="{{ route('email.verification.showForm') }}">Clique aqui para verificar seu email</a>
+    </div>
     @endif
 
     <div class="meio">
@@ -57,4 +63,5 @@
         </div>
     </div>
 </body>
+
 </html>

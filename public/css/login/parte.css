@@ -115,7 +115,7 @@ h1 {
     flex-direction: column;
 }
 
-.card-footer .submit, .card-cadastro .teste {
+.card-footer .submit, .card-cadastro .teste, .card-cadastro2 .teste2 {
     width: 100%;
     height: 40px;
     margin: 10px 0;
@@ -139,6 +139,15 @@ h1 {
     color: #f9f9f9;
 }
 .card-cadastro .teste:hover {
+    transform: scale(1.2);
+}
+
+
+.card-cadastro2 .teste2 {
+    background-color: #E0A73F;
+    color: #f9f9f9;
+}
+.card-cadastro2 .teste2:hover {
     transform: scale(1.2);
 }
 
