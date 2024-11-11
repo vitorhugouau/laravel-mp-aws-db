@@ -37,11 +37,16 @@
                         <div class="card-footer">
                             <button type="submit" class="submit">ENTRAR</button>
                         </div>
-                        <div class="card-cadastro">
+                        {{-- aqui --}}
+                        {{-- <div class="card-cadastro">
                              <button type="button" class="teste" id="teste" data-url="{{ route('usuarios.create') }}">FAÇA SEU CADASTRO</button>
-                        </div>
+                        </div> --}}
+                        {{-- aqui --}}
                         <div class="card-cadastro2">
                              <button type="button" class="teste2" id="teste2" data-url="{{ route('biblioteca') }}">VOLTAR</button>
+                        </div>
+                        <div class="card-footer">
+                            <p>Não tem conta? <a href="{{ route('usuarios.create') }}">Clique aqui para se cadastrar.</a></p>
                         </div>
                     </div>
                 </form>
