@@ -57,9 +57,9 @@
 </html>
 
 <script>
-    document.getElementById("teste").onclick = function() {
-        window.location.href = this.getAttribute("data-url");
-    }
+    // document.getElementById("teste").onclick = function() {
+    //     window.location.href = this.getAttribute("data-url");
+    // }
     document.getElementById("teste2").onclick = function() {
         window.location.href = this.getAttribute("data-url");
     }
