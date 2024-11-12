@@ -19,31 +19,26 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
+    
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-
-            // Verifica se o email ainda não foi verificado
+    
             if ($user->email_verified_at == null) {
-                // Armazena o email do usuário na sessão
                 Session::put('verification_email', $user->email);
-
+                
+                Auth::logout();
+    
                 return redirect()->route('verification.showForm')->with('error', 'Por favor, verifique seu email antes de continuar.');
             }
-
-            // Redireciona com base na função do usuário
-            if ($user->role == 'admin') {
-                return redirect()->route('biblioteca');
-            }
-
-            return redirect()->route('biblioteca');
+    
+            return $user->role == 'admin' 
+                ? redirect()->route('biblioteca')
+                : redirect()->route('biblioteca');
         }
-
+    
         return redirect()->back()->withErrors(['email' => 'Credenciais inválidas']);
     }
-
-
-
+    
 
     public function logout(Request $request)
     {

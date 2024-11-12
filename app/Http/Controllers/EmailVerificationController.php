@@ -66,20 +66,17 @@ class EmailVerificationController extends Controller
     }
     public function resendVerificationCode(Request $request)
     {
-        // Verifica se há um email na sessão
+
         $email = Session::get('verification_email');
         if (!$email) {
             return redirect()->route('login')->withErrors('Não encontramos um email para enviar o código. Por favor, faça o login novamente.');
         }
 
-        // Gera um novo código de verificação
         $verificationCode = random_int(100000, 999999);
 
-        // Salva o novo código na sessão
         Session::put('verification_code', $verificationCode);
         Session::put('verification_code_time', now());
 
-        // Envia o novo código para o email
         Mail::to($email)->send(new VerificationCodeEmail($verificationCode));
 
         return redirect()->route('verification.showForm')->with('success', 'Novo código de verificação enviado para seu email.');
