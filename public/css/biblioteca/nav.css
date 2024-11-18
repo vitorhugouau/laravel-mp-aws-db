@@ -1,0 +1,144 @@
+.nav-li-01 {
+    right: 320px;
+    display: flex;
+    color: white;
+}
+
+.nav-li-02 {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    right: 30px;
+}
+
+.logout {
+    left: 15px;
+}
+
+.logout {
+    margin-left: auto;
+}
+
+#sair {
+    background-color: #1159c5;
+    color: white;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#sair:hover {
+    background-color: #0d3a75;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    background: #355a92;
+    background: linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
+    background: -webkit-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
+    background: -moz-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.menu li {
+    display: inline-block;
+    position: relative;
+}
+
+.menu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.menu li a:hover {
+    background-color: #1159c5;
+}
+
+.menu ul {
+    display: none;
+    position: absolute;
+    background-color: #444;
+    min-width: 150px;
+    top: 100%;
+    left: 0;
+}
+
+.menu li:hover>ul {
+    display: block;
+}
+
+.menu ul li {
+    display: block;
+}
+
+.menu ul li a {
+    padding: 10px 15px;
+}
+
+@media screen and (max-width: 1750px) {
+
+    li {
+        font-size: 15px;
+    }
+
+    .nav-li-01 {
+        right: 220px;
+        display: flex;
+        color: white;
+    }
+
+    /* retirar */
+    .container .container-image {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 10px;
+        user-select: none;
+    }
+
+}
+
+@media screen and (max-width: 1530px) {
+
+    li {
+        font-size: 15px;
+    }
+
+    .nav-li-01 {
+        right: 120px;
+        display: flex;
+        color: white;
+    }
+
+}
+
+@media screen and (max-width: 1300px) {
+
+    .container .heading {
+        font-size: 80px;
+    }
+
+    li {
+        font-size: 15px;
+    }
+
+    .nav-li-01 {
+        right: 80px;
+        display: flex;
+        color: white;
+    }
+}
+
+@media screen and (max-width: 1170px) {
+
+}

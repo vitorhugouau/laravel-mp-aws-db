@@ -58,9 +58,6 @@
     </script>
 
     <script>
-        document.getElementById('sair').addEventListener('click', function () {
-            document.getElementById('logout-form').submit();
-        });
         function bloquearBotaoDireito(event) {
             event.preventDefault();
         }

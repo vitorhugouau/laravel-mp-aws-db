@@ -44,7 +44,8 @@
                 </p>
                 
             </div>
-        </div>      
+        </div>  
+            
         <div class="main-content">
             <img style="height: 115vh; width: 100vw;" src="../../assets/img/ti2.jpg" alt="">
         </div>

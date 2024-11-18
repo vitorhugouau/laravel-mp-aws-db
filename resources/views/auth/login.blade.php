@@ -21,7 +21,7 @@
                         <div class="card-content">
                             <div class="card-content-area">
                                 <label for="email">E-MAIL</label>
-                                <input type="email" name="email" id="email" autocomplete="off" value="teste@teste" required>
+                                <input type="email" name="email" id="email" autocomplete="off" value="admin@teste.com" required>
                             </div>
                             <div class="card-content-area">
                                 <label for="password">SENHA</label>
