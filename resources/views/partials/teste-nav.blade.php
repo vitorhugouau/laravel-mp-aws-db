@@ -15,7 +15,6 @@
 </style>
 
 <body>
-
         <div class="container-geral">
             <div class="navbar">
                 <div class="container-top">
@@ -60,20 +59,6 @@
                         </ul>
                     </div>
                 </div>
-                {{-- <div class="container-bottom">
-                <form id="logout-form" action="{{ route('logoutAdm') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-                <p>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="bi bi-box-arrow-right"></i> Sair </a>
-                </p>
-                
-            </div> --}}
-            </div>
-
-            <div class="main-content">
-                <img style="height: 115vh; width: 100vw;" src="../../assets/img/ti2.jpg" alt="">
             </div>
         </div>
     </body>

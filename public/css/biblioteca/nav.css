@@ -85,7 +85,12 @@
     padding: 10px 15px;
 }
 
+#menu {
+    display: none;
+}
+
 @media screen and (max-width: 1750px) {
+    
 
     .container .container-image .image {
         width: 29vw; /* Changed from 100% to 30vw */
