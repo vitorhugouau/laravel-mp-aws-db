@@ -187,6 +187,28 @@
     .nav-01{
         display: none;
     }
+     .container .container-image .image {
+        width: 64vw; /* Changed from 100% to 30vw */
+        height: 39vh; /* Changed from 200px to 20vh */
+        border-radius: 5%;
+        cursor: pointer;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        background-color: #d8d7e2;
+        animation: fadeIn 0.3s linear;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .container .container-image {
+       
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: 20px; 
+        justify-items: center; 
+        align-items: center;   
+        
+        width: 100%;
+        height: 100%;
+        padding: 0vh 1vw; /* Adjusted padding to use vh/vw */
+    }
     
 }
 
