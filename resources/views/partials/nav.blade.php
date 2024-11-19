@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/biblioteca/nav.css">
 
-<nav>
+<nav class="nav-01">
     <ul class="menu">
         @auth
             <li class="nav-li-01">Seja Bem-Vindo, {{ auth()->user()->name }}</li>
@@ -10,8 +10,7 @@
 
         <li class="nav-li-02"><a href="#">CONTATO</a>
             <ul>
-                <li><a
-                        href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a>
+                <li><a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a>
                 </li>
             </ul>
         </li>

@@ -18,12 +18,15 @@ class MercadoPagoController extends Controller
 
     protected function authenticate()
     {
-        $mpAccessToken = env('MERCADO_PAGO_ACCESS_TOKEN');
+        $mpAccessToken = config('services.mercadopago.access_token');
 
-       
-        MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
+        if (!$mpAccessToken) {
+            throw new \Exception("Token de acesso do Mercado Pago não configurado. Verifique o arquivo .env ou config/services.php.");
+        }
 
+        MercadoPagoConfig::setAccessToken($mpAccessToken);
     }
+
 
     public function createPaymentPreference(Request $request)
     {
@@ -67,7 +70,6 @@ class MercadoPagoController extends Controller
             Log::error('Erro ao criar preferência de pagamento: ', [
                 'message' => $error->getMessage(),
                 'code' => $error->getCode(),
-                
             ]);
             return response()->json(['error' => 'Erro ao criar a preferência de pagamento.'], 500);
         }

@@ -87,6 +87,20 @@
 
 @media screen and (max-width: 1750px) {
 
+    .container .container-image .image {
+        width: 29vw; /* Changed from 100% to 30vw */
+        height: 34vh; /* Changed from 200px to 20vh */
+        border-radius: 5%;
+        cursor: pointer;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        background-color: #d8d7e2;
+        animation: fadeIn 0.3s linear;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+}
+@media screen and (max-width: 1750px) {
+
     li {
         font-size: 15px;
     }
@@ -97,17 +111,26 @@
         color: white;
     }
 
-    /* retirar */
+    
+}
+@media screen and (max-width: 1660px) {
+
+    .container .container-image .image {
+        width: 42vw; /* Changed from 100% to 30vw */
+        height: 41vh; /* Changed from 200px to 20vh */
+        border-radius: 5%;
+        cursor: pointer;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        background-color: #d8d7e2;
+        animation: fadeIn 0.3s linear;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
     .container .container-image {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        padding: 10px;
-        user-select: none;
+        grid-template-columns: repeat(2, 1fr);
     }
 
 }
-
 @media screen and (max-width: 1530px) {
 
     li {
@@ -119,9 +142,30 @@
         display: flex;
         color: white;
     }
+    
 
 }
+@media screen and (max-width: 1400px) {
 
+    .container .container-image .image {
+        width: 45vw; /* Changed from 100% to 30vw */
+        height: 40vh; /* Changed from 200px to 20vh */
+        border-radius: 5%;
+        cursor: pointer;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        background-color: #d8d7e2;
+        animation: fadeIn 0.3s linear;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .container .container-image {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        height: 100%;
+        padding: 0vh 1vw; /* Adjusted padding to use vh/vw */
+    }
+
+}
 @media screen and (max-width: 1300px) {
 
     .container .heading {
@@ -139,6 +183,15 @@
     }
 }
 
-@media screen and (max-width: 1170px) {
-
+@media screen and (max-width: 1200px) {
+    .nav-01{
+        display: none;
+    }
+    
 }
+
+
+
+
+
+
