@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/css/biblioteca/nav2.css">
 
 <nav class="nav-01">
-    <ul class="menu-02">
+    <ul class="menu">
         @auth
             <li class="nav-li-01">Seja Bem-Vindo, {{ auth()->user()->name }}</li>
         @endauth
@@ -44,8 +44,8 @@
     </ul>
 </nav>
 
-<div id="menu-02">
-    <div id="menu-02-bar" onclick="menuOnClick()">
+<div id="menu">
+    <div id="menu-bar" onclick="menuOnClick()">
       <div id="bar1" class="bar"></div>
       <div id="bar2" class="bar"></div>
       <div id="bar3" class="bar"></div>
@@ -99,13 +99,13 @@
     </nav> 
 </div>
 
-<div class="menu-02-bg" id="menu-02-bg"></div>
+<div class="menu-bg" id="menu-bg"></div>
 </nav>
 
 <script>
     function menuOnClick() {
-        document.getElementById("menu-02-bar").classList.toggle("change");
-        document.getElementById("nav").classList.toggle("change");
-        document.getElementById("menu-02-bg").classList.toggle("change-bg");
+    document.getElementById("menu-bar").classList.toggle("change");
+    document.getElementById("nav").classList.toggle("change");
+    document.getElementById("menu-bg").classList.toggle("change-bg");
 }
 </script>
