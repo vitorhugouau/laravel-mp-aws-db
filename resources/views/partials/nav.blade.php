@@ -48,7 +48,9 @@
 
 <div id="menu02">
     <div id="menu02-bar" onclick="menuOnClick()">
-        <img src="{{ asset('assets/menu-bar2.png') }}" alt="Ícone do menu" class="menu-icon">
+        <div id="bar1" class="bar"></div>
+        <div id="bar2" class="bar"></div>
+        <div id="bar3" class="bar"></div>
     </div>
     <nav class="nav" id="nav">
         <div class="container-geral">

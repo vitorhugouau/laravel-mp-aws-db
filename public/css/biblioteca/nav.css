@@ -150,6 +150,58 @@
     
 
 }
+@media screen and (max-width: 1460px) {
+
+    .container .heading {
+        color: #212767;
+        font: normal 63pt Impact;
+        opacity: 100%;
+        text-shadow: 6px 4px 3px rgb(100 100 100 / 60%);
+        position: relative;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid #212767; /* Efeito de cursor piscando */
+        animation: typing 4s steps(40) 1s forwards, blink 0.75s step-end infinite;
+    
+    }
+    
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 60%;
+        }
+    }
+
+}
+@media screen and (max-width: 1448px) {
+
+    .container .heading {
+        color: #212767;
+        font: normal 58pt Impact;
+        opacity: 100%;
+        text-shadow: 6px 4px 3px rgb(100 100 100 / 60%);
+        position: relative;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid #212767; /* Efeito de cursor piscando */
+        animation: typing 4s steps(40) 1s forwards, blink 0.75s step-end infinite;
+    
+    }
+    
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 60%;
+        }
+    }
+
+}
 @media screen and (max-width: 1400px) {
 
     .container .container-image .image {
@@ -169,13 +221,35 @@
         height: 100%;
         padding: 0vh 1vw; /* Adjusted padding to use vh/vw */
     }
+    .container .heading {
+        color: #212767;
+        font: normal 50pt Impact;
+        opacity: 100%;
+        text-shadow: 6px 4px 3px rgb(100 100 100 / 60%);
+        position: relative;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid #212767; /* Efeito de cursor piscando */
+        animation: typing 4s steps(40) 1s forwards, blink 0.75s step-end infinite;
+    
+    }
+    
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 60%;
+        }
+    }
 
 }
 @media screen and (max-width: 1300px) {
 
-    .container .heading {
+    /* .container .heading {
         font-size: 80px;
-    }
+    } */
 
     li {
         font-size: 15px;
@@ -185,6 +259,29 @@
         right: 80px;
         display: flex;
         color: white;
+    }
+
+    .container .heading {
+        color: #212767;
+        font: normal 50pt Impact;
+        opacity: 100%;
+        text-shadow: 6px 4px 3px rgb(100 100 100 / 60%);
+        position: relative;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid #212767; /* Efeito de cursor piscando */
+        animation: typing 4s steps(40) 1s forwards, blink 0.75s step-end infinite;
+    
+    }
+    
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 60%;
+        }
     }
 }
 
@@ -218,7 +315,32 @@
 }
 
 
+@media screen and (max-width: 1165px) {
 
+    .container .heading {
+        color: #212767;
+        font: normal 50pt Impact;
+        opacity: 100%;
+        text-shadow: 6px 4px 3px rgb(100 100 100 / 60%);
+        position: relative;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid #212767; /* Efeito de cursor piscando */
+        animation: typing 4s steps(40) 1s forwards, blink 0.75s step-end infinite;
+    
+    }
+    
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 60%;
+        }
+    }
+
+}
 
 
 

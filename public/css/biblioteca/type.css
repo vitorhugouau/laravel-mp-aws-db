@@ -48,8 +48,30 @@ header {
     font: normal 63pt Impact;
     opacity: 100%;
     text-shadow: 6px 4px 3px rgb(100 100 100 / 60%);
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #212767; /* Efeito de cursor piscando */
+    animation: typing 4s steps(40) 1s forwards, blink 0.75s step-end infinite;
+
 }
 
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 60%;
+    }
+}
+
+/* Efeito de cursor piscando */
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
 .container #search-box {
     border-radius: 9px;
     font-size: 17px;
