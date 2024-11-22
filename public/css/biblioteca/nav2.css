@@ -29,16 +29,30 @@
         cursor: pointer;
         margin: 10px;
         position: absolute;
-        left: 20px;
-        /* Altera para o lado esquerdo */
-        /* size: 20px; */
+        left: 30px; /* Mantém o ícone no lado esquerdo */
+        transition: transform 0.3s ease-in-out; /* Transição para o menu como um todo */
+        top: 27px;
     }
-
+    
+    #menu02-bar:hover {
+        transform: scale(1.1); /* Aumenta ligeiramente o tamanho do menu */
+    }
+    
     .bar {
         width: 30px;
         height: 3px;
         background-color: #ffffff;
-        transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out; /* Transição suave para cor e tamanho */
+        border-radius: 2px; /* Adiciona cantos arredondados para um visual moderno */
+    }
+    
+    #menu02-bar:hover .bar {
+        background-color: #000000; /* Muda a cor das barras ao passar o mouse */
+    }
+    
+    .bar:hover {
+        transform: scaleX(1.2); /* Barra individual cresce na largura */
+        box-shadow: 0px 0px 8px rgba(76, 175, 80, 0.7); /* Adiciona um brilho ao redor */
     }
 
     /* Animação do menu */
