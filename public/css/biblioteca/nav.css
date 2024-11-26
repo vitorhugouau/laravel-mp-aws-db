@@ -39,7 +39,8 @@
     padding: 0;
     background: #355a92;
     background: linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
-    background: -webkit-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
+    /* background: -webkit-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%); */
+    background: -webkit-linear-gradient(180deg, #000000 20%, #35557c 50%, #000000 80%);
     background: -moz-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
     text-align: center;
     justify-content: center;

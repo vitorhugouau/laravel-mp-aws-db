@@ -59,12 +59,12 @@
                 <div class="container-top">
                     <div class="logo">
                         @auth
-                            <h1>Seja Bem-Vindo, {{ auth()->user()->name }}</h1>
+                            <h1>SEJA BEM-VINDO {{ auth()->user()->name }}</h1>
                             <br><br>
                         @endauth
                     </div>
                     <div class="panel-content">
-                        <ul>
+                        <ul class="menu-list">
                             <li><img src="{{ asset('assets/portrait.png') }}" alt="Ícone" class="icon"><a
                                     href="{{ route('biblioteca') }}">Home</a></li>
                             <li><img src="{{ asset('assets/picture.png') }}" alt="Ícone" class="icon"><a

@@ -47,17 +47,18 @@
     }
     
     #menu02-bar:hover .bar {
-        background-color: #000000; /* Muda a cor das barras ao passar o mouse */
+        background-color: #00000000; /* Muda a cor das barras ao passar o mouse */
     }
     
     .bar:hover {
         transform: scaleX(1.2); /* Barra individual cresce na largura */
-        box-shadow: 0px 0px 8px rgba(76, 175, 80, 0.7); /* Adiciona um brilho ao redor */
+        box-shadow: 0px 0px 8px rgb(76 175 80 / 0%); /* Adiciona um brilho ao redor */
     }
 
     /* Animação do menu */
     .change #bar1 {
         transform: rotate(-45deg) translate(-5px, 5px);
+        opacity: 0;
     }
 
     .change #bar2 {
@@ -66,6 +67,7 @@
 
     .change #bar3 {
         transform: rotate(45deg) translate(-5px, -5px);
+        opacity: 0;
     }
 
     /* Estilo do fundo do menu ao abrir */
@@ -92,11 +94,10 @@
         position: fixed;
         top: 0;
         left: -250px;
-        /* Inicialmente fora da tela à esquerda */
+        background-color: rgb(0 0 0 / 68%); 
         width: 250px;
         height: 100%;
-        /* /* background-color: #000000; */
-        background: linear-gradient(0deg, #0008ff 0%, #000 58%, #000 98%);
+        background: linear-gradient(180deg, #000000de 28%, #0d3a75f0 50%);
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         transition: left 0.3s ease-in-out;
         z-index: 10;
@@ -172,24 +173,26 @@
 
     /* Container Bottom */
     .container-bottom {
-        margin-top: auto;
+        margin-top: -10px;
         text-align: center;
-        padding: 20px;
-        border-top: 1px solid #ccc;
+        padding: 50px;
+        border-top: 2px solid #ccc;
     }
 
     .container-bottom p {
+        
         margin: 0;
     }
 
     .container-bottom a {
-        color: #d9534f;
+        margin-top: -20px;
+        color: #dd1c16;
         text-decoration: none;
         font-weight: bold;
     }
 
     .container-bottom a:hover {
-        color: #c9302c;
+        color: #ff0600;
     }
 
     /* Botão de fechar */
@@ -199,7 +202,7 @@
         right: 10px;
         background: none;
         border: none;
-        font-size: 24px;
+        font-size: 26px;
         font-weight: bold;
         color: #ffffff;
         cursor: pointer;
@@ -220,9 +223,14 @@
         cursor: pointer;  /* Indicando que é clicável */
         /* filter: invert(1);   */
     }
+    .menu-list {
+        list-style: none;
+        padding: 0;
+    }
     
-
-
-
+    .menu-list li {
+        margin-bottom: 18px;
+    }
+    
 
 }
