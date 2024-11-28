@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
 
-    Route::post('/webhook', [WebhookController::class, 'webhook']);
+    Route::post('/webhook', [MercadoPagoController::class, 'webhook']);
     
     // Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->middleware('mercadopago');
 

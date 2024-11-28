@@ -13,7 +13,7 @@ class VerifyCsrfToken
      * @var array
      */
     protected $except = [
-        'webhook', // Rota para o webhook do MercadoPago
+        'webhook', 
     ];
 
     /**
