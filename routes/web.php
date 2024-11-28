@@ -15,6 +15,8 @@ use App\Http\Controllers\MercadoPagoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\WebhookController;
+
 
 // Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.create');
 // Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
@@ -57,6 +59,11 @@ Route::middleware('auth')->group(function () {
     })->name('mercadopago.failure');
 
     Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
+
+    Route::post('/webhook', [WebhookController::class, 'webhook']);
+    
+    // Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->middleware('mercadopago');
+
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 

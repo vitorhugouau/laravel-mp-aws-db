@@ -43,7 +43,9 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
-
+    protected $except = [
+        'webhook', // Substitua pela sua URL
+    ];
     /**
      * Middlewares individuais (roteamento).
      *
@@ -60,6 +62,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'AdminAuthMiddleware' => AdminAuthMiddleware::class,
+        'mercadopago' => \App\Http\Middleware\VerificaMercadoPago::class,
     ];
 
     /**
