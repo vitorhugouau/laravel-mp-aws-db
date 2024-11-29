@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Middleware\AdminAuthMiddleware;
+use App\Http\Middleware\VerificaMercadoPago;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
@@ -32,6 +33,11 @@ Route::get('/', [ImageUploadController::class, 'indexTable2'])->name('biblioteca
 
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
 
+Route::get('/alguma-coisa', function () {
+    return "Página acessada com sucesso!";
+});
+
+
 // auth 
 Route::middleware('auth')->group(function () {
 
@@ -59,11 +65,7 @@ Route::middleware('auth')->group(function () {
     })->name('mercadopago.failure');
 
     Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
-
-    Route::post('/webhook', [MercadoPagoController::class, 'webhook']);
     
-    // Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->middleware('mercadopago');
-
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 

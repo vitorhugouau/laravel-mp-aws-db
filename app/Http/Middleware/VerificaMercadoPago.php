@@ -16,9 +16,10 @@ class VerificaMercadoPago
      */
     public function handle(Request $request, Closure $next)
     {
-        $signature = $request->header('x-mercadopago-signature'); 
+        $signature = $request->header('x-mercadopago-signature');
+        $expectedSignature = env('MERCADOPAGO_SIGNATURE');
 
-        if (!$signature || $signature !== 'aacc08de693c8381265be1b4b29a830d717305fa07e2e0c5b20010d2b84d34f0') { 
+        if (!$signature || $signature !== $expectedSignature) {
             return response()->json(['error' => 'Não autorizado'], 401);
         }
 

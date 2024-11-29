@@ -4,6 +4,9 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use \App\Http\Middleware\AdminAuthMiddleware as AdminAuthMiddleware;
+use \App\Http\Middleware\VerificaMercadoPago as VerificaMercadoPago;
+
+// use \App\Http\Middleware\VerifyCsrfToken as VerifyCsrfToken;
 
 class Kernel extends HttpKernel
 {
@@ -43,9 +46,6 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
-    protected $except = [
-        'webhook', // Substitua pela sua URL
-    ];
     /**
      * Middlewares individuais (roteamento).
      *
@@ -62,7 +62,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'AdminAuthMiddleware' => AdminAuthMiddleware::class,
-        'mercadopago' => \App\Http\Middleware\VerificaMercadoPago::class,
+        'mercadopago' => VerificaMercadoPago::class,
+        
     ];
 
     /**
