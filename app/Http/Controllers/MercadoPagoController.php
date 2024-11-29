@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\ImgApi;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Usuarios;
 
 class MercadoPagoController extends Controller
 {
@@ -136,51 +137,72 @@ class MercadoPagoController extends Controller
     }
 
     public function webhook(Request $request)
-    {
-        $data = $request->all();
+{
+    $data = $request->all();
 
-        if (!isset($data['data']['id'])) {
-            Log::error('Webhook recebido sem ID de pagamento.');
-            return response()->json(['error' => 'Dados inválidos'], 400);
-        }
+    // Verificar se o ID de pagamento foi enviado no webhook
+    if (!isset($data['data']['id'])) {
+        Log::error('Webhook recebido sem ID de pagamento.');
+        return response()->json(['error' => 'Dados inválidos'], 400);
+    }
 
-        $this->authenticate();
+    $this->authenticate();
 
-        $paymentId = $data['data']['id'];
+    $paymentId = $data['data']['id'];
 
-        try {
-            $client = new \MercadoPago\Client\Payment\PaymentClient();
-            $payment = $client->get($paymentId);
+    try {
+        // Cliente da API do Mercado Pago
+        $client = new \MercadoPago\Client\Payment\PaymentClient();
+        $payment = $client->get($paymentId);
 
-            if ($payment && $payment->status === 'approved') {
-                $externalReference = $payment->external_reference;
+        // Verificar se o pagamento foi aprovado
+        if ($payment && $payment->status === 'approved') {
+            $externalReference = $payment->external_reference;
 
-                $sale = Sale::where('payment_id', $paymentId)->first();
+            // Encontrar a venda pelo ID do pagamento
+            $sale = Sale::where('payment_id', $paymentId)->first();
 
-                if (!$sale) {
-                    $imagem = ImgApi::find($externalReference);
-                    $value = $imagem ? $imagem->valor : 0;
+            if (!$sale) {
+                // Recuperar o ID do produto e do usuário a partir do external_reference
+                list($imagem_id, $user_id) = explode('-', $externalReference);
 
+                // Buscar a imagem pelo ID
+                $imagem = ImgApi::find($imagem_id);
+                $value = $imagem ? $imagem->valor : 0;
+
+                // Buscar o usuário pelo ID (do external_reference)
+                $user = Usuarios::find($user_id);
+
+                // Se o usuário for encontrado, registrar a venda
+                if ($user) {
                     Sale::create([
-                        'user_id' => Auth::check() ? Auth::id() : null,
-                        'user_name' => Auth::check() ? Auth::user()->name : 'Convidado',
-                        'product_id' => $externalReference,
+                        'user_id' => $user->id,
+                        'user_name' => $user->name,
+                        'product_id' => $imagem_id,
                         'payment_id' => $paymentId,
                         'status' => $payment->status,
                         'value' => $value,
                     ]);
+
+                    Log::info('Pagamento aprovado via webhook: ' . $paymentId);
+                    return response()->json(['status' => 'success'], 200);
+                } else {
+                    Log::error('Usuário não encontrado para o pagamento ID: ' . $paymentId);
+                    return response()->json(['error' => 'Usuário não encontrado'], 404); // Erro 404 se não encontrar o usuário
                 }
-
-                Log::info('Pagamento aprovado via webhook: ' . $paymentId);
             } else {
-                Log::info('Pagamento recebido no webhook não foi aprovado. ID: ' . $paymentId);
+                Log::info('Venda já registrada para o pagamento ID: ' . $paymentId);
+                return response()->json(['status' => 'ignored'], 200); // Pagamento já foi processado
             }
-
-        } catch (\Exception $e) {
-            Log::error('Erro ao processar webhook: ' . $e->getMessage());
+        } else {
+            Log::info('Pagamento recebido no webhook não foi aprovado. ID: ' . $paymentId);
+            return response()->json(['status' => 'ignored'], 200); // Pagamento não aprovado
         }
 
-        return response()->json(['status' => 'success'], 200);
+    } catch (\Exception $e) {
+        Log::error('Erro ao processar webhook: ' . $e->getMessage());
+        return response()->json(['error' => 'Erro ao processar o pagamento'], 500);
     }
+}
 
 }

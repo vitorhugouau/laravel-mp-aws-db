@@ -19,9 +19,8 @@ class WebhookController extends Controller
         ]);
         
         $signature = $request->header('x-mercadopago-signature');
-
-        $expectedSignature = hash_hmac('sha256', $request->getContent(), 'aacc08de693c8381265be1b4b29a830d717305fa07e2e0c5b20010d2b84d34f0');
-
+        $expectedSignature = hash_hmac('sha256', $request->getContent(), env('MERCADOPAGO_SIGNATURE'));
+    
         if (!$signature || $signature !== $expectedSignature) {
             Log::error('Assinatura inválida recebida: ' . $signature);
             return response()->json(['error' => 'Assinatura inválida'], 403);

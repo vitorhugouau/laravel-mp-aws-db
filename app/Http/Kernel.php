@@ -63,8 +63,10 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'AdminAuthMiddleware' => AdminAuthMiddleware::class,
         'mercadopago' => VerificaMercadoPago::class,
+        'csrf.exempt' => \App\Http\Middleware\VerifyCsrfToken::class,
         
     ];
+    
 
     /**
      * As middlewares aplicadas a todas as requisições em uma rota específica.

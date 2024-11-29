@@ -33,9 +33,12 @@ Route::get('/', [ImageUploadController::class, 'indexTable2'])->name('biblioteca
 
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
 
-Route::get('/alguma-coisa', function () {
-    return "Página acessada com sucesso!";
-});
+Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
+
+
+// Route::get('/alguma-coisa', function () {
+//     return "Página acessada com sucesso!";
+// });
 
 
 // auth 
