@@ -18,14 +18,14 @@ class EmailVerificationController extends Controller
 
     public function sendVerificationCode(Request $request)
     {
-       
+
         $request->validate(['email' => 'required|email']);
 
         $verificationCode = random_int(100000, 999999);
 
         Session::put('verification_code', $verificationCode);
         Session::put('verification_email', $request->input('email'));
-        Session::put('verification_code_time', now()); 
+        Session::put('verification_code_time', now());
 
         Mail::to($request->input('email'))->send(new VerificationCodeEmail($verificationCode));
 
@@ -34,7 +34,7 @@ class EmailVerificationController extends Controller
 
     public function verifyCode(Request $request)
     {
-       
+
         $request->validate(['code' => 'required|numeric']);
 
         $enteredCode = $request->input('code');
@@ -42,10 +42,10 @@ class EmailVerificationController extends Controller
         $email = Session::get('verification_email');
         $savedTime = Session::get('verification_code_time');
 
-     
+
         if ($enteredCode == $savedCode) {
-           
-            if (Carbon::parse($savedTime)->addMinutes(10)->isPast()) {
+
+            if (Carbon::parse($savedTime)->addMinutes(20)->isPast()) {
                 return back()->withErrors(['code' => 'O código de verificação expirou. Solicite um novo código.']);
             }
 
@@ -59,9 +59,27 @@ class EmailVerificationController extends Controller
             Session::forget('verification_email');
             Session::forget('verification_code_time');
 
-            return redirect()->route('biblioteca')->with('success', 'Email verificado com sucesso!');
+            return redirect()->route('login')->with('success', 'Email verificado com sucesso!');
         } else {
             return back()->withErrors(['code' => 'Código de verificação inválido.']);
         }
     }
+    public function resendVerificationCode(Request $request)
+    {
+
+        $email = Session::get('verification_email');
+        if (!$email) {
+            return redirect()->route('login')->withErrors('Não encontramos um email para enviar o código. Por favor, faça o login novamente.');
+        }
+
+        $verificationCode = random_int(100000, 999999);
+
+        Session::put('verification_code', $verificationCode);
+        Session::put('verification_code_time', now());
+
+        Mail::to($email)->send(new VerificationCodeEmail($verificationCode));
+
+        return redirect()->route('verification.showForm')->with('success', 'Novo código de verificação enviado para seu email.');
+    }
+
 }

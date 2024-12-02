@@ -20,7 +20,6 @@ class SaleController extends Controller
         return view('sales.create'); 
     }
 
-    // Armazena uma nova venda
     public function store(Request $request)
     {
         $request->validate([

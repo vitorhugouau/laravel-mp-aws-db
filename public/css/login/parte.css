@@ -144,11 +144,16 @@ h1 {
 
 
 .card-cadastro2 .teste2 {
-    background-color: #E0A73F;
+    background-color: #2a2083;
     color: #f9f9f9;
 }
 .card-cadastro2 .teste2:hover {
     transform: scale(1.2);
 }
 
-
+p{
+    font-size: 14px; /* Tamanho do texto */
+}
+a{
+    color: green;
+}

@@ -13,15 +13,13 @@ MERCADO_PAGO_PUBLIC_KEY=
 MERCADO_PAGO_ACCESS_TOKEN=
 
 
-
 php artisan migrate:fresh
 
 php artisan db:seed
 
+composer require mercadopago/dx-php
 composer require cloudinary-labs/cloudinary-laravel
 composer require sendgrid/sendgrid
-composer require mercadopago/dx-php
-
 
 
 

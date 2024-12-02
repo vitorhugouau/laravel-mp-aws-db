@@ -61,9 +61,10 @@ h1 {
 
 .card {
     background-color: rgb(8 8 8 / 70%);
-    padding: 42px;
+    padding: 39px;
     border-radius: 45px;
     width: 280px;
+    height: 430px;
     margin: 10px;
 }
 
@@ -125,7 +126,7 @@ h1 {
 }
 
 .card-footer .submit {
-    background-color: #008600;
+    background-color: #2a2083;
     color: #fff;
 
 }
@@ -142,9 +143,8 @@ h1 {
     transform: scale(1.2);
 }
 
-
 .card-cadastro2 .teste2 {
-    background-color: #E0A73F;
+    background-color: #008600;
     color: #f9f9f9;
 }
 .card-cadastro2 .teste2:hover {
@@ -154,4 +154,7 @@ h1 {
 
 p{
     font-size: 14px; /* Tamanho do texto */
+}
+a{
+    color: #00d900;
 }

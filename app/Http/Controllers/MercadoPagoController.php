@@ -67,7 +67,7 @@ class MercadoPagoController extends Controller
             Log::error('Erro ao criar preferência de pagamento: ', [
                 'message' => $error->getMessage(),
                 'code' => $error->getCode(),
-                'response' => $error->getResponseBody()
+                
             ]);
             return response()->json(['error' => 'Erro ao criar a preferência de pagamento.'], 500);
         }

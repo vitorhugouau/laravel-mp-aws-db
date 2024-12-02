@@ -8,13 +8,13 @@ use App\Mail\SiteTemplateEmail;
 
 class EmailController extends Controller
 {
-    // Exibe o formulário de envio de email
+   
     public function showForm()
     {
         return view('email.form');
     }
 
-    // Processa o envio do email com nome e mensagem
+   
     public function sendEmail(Request $request)
     {
         $dados = [
@@ -27,7 +27,7 @@ class EmailController extends Controller
         return back()->with('success', 'Email enviado com sucesso!');
     }
 
-    // Processa o envio do email com template do site
+   
     public function sendTemplateEmail(Request $request)
     {
         $dados = [
