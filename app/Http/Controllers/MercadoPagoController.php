@@ -159,18 +159,27 @@ class MercadoPagoController extends Controller
         if ($payment && $payment->status === 'approved') {
             $externalReference = $payment->external_reference;
 
+            // Log para monitorar o valor do external_reference
+            Log::info('External reference recebido: ' . $externalReference);
+
+            // Validar o formato do external_reference
+            if (strpos($externalReference, '-') === false) {
+                Log::error('Formato inválido para external_reference: ' . $externalReference);
+                return response()->json(['error' => 'Formato inválido de external_reference'], 400);
+            }
+
+            // Dividir o external_reference em imagem_id e user_id
+            list($imagem_id, $user_id) = explode('-', $externalReference);
+
             // Encontrar a venda pelo ID do pagamento
             $sale = Sale::where('payment_id', $paymentId)->first();
 
             if (!$sale) {
-                // Recuperar o ID do produto e do usuário a partir do external_reference
-                list($imagem_id, $user_id) = explode('-', $externalReference);
-
                 // Buscar a imagem pelo ID
                 $imagem = ImgApi::find($imagem_id);
                 $value = $imagem ? $imagem->valor : 0;
 
-                // Buscar o usuário pelo ID (do external_reference)
+                // Buscar o usuário pelo ID
                 $user = Usuarios::find($user_id);
 
                 // Se o usuário for encontrado, registrar a venda
@@ -187,22 +196,22 @@ class MercadoPagoController extends Controller
                     Log::info('Pagamento aprovado via webhook: ' . $paymentId);
                     return response()->json(['status' => 'success'], 200);
                 } else {
-                    Log::error('Usuário não encontrado para o pagamento ID: ' . $paymentId);
-                    return response()->json(['error' => 'Usuário não encontrado'], 404); // Erro 404 se não encontrar o usuário
+                    Log::error('Usuário não encontrado para external_reference: ' . $externalReference);
+                    return response()->json(['error' => 'Usuário não encontrado'], 404);
                 }
             } else {
                 Log::info('Venda já registrada para o pagamento ID: ' . $paymentId);
-                return response()->json(['status' => 'ignored'], 200); // Pagamento já foi processado
+                return response()->json(['status' => 'ignored'], 200);
             }
         } else {
             Log::info('Pagamento recebido no webhook não foi aprovado. ID: ' . $paymentId);
-            return response()->json(['status' => 'ignored'], 200); // Pagamento não aprovado
+            return response()->json(['status' => 'ignored'], 200);
         }
-
     } catch (\Exception $e) {
         Log::error('Erro ao processar webhook: ' . $e->getMessage());
         return response()->json(['error' => 'Erro ao processar o pagamento'], 500);
     }
 }
+
 
 }
