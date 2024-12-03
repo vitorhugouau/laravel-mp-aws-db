@@ -152,5 +152,63 @@ class MercadoPagoController extends Controller
         
         return view('pagamento.success', compact('payment_id', 'status', 'imagem'));
     }
+
+    public function webhook(Request $request)
+{
+    $data = $request->all();
+
+    if (!isset($data['data']['id'])) {
+        Log::error('Webhook recebido sem ID de pagamento.');
+        return response()->json(['error' => 'Dados inválidos'], 400);
+    }
+
+    $this->authenticate();
+
+    $paymentId = $data['data']['id'];
+
+    try {
+        $client = new \MercadoPago\Client\Payment\PaymentClient();
+        $payment = $client->get($paymentId);
+
+        if ($payment && $payment->status === 'approved') {
+            $externalReference = $payment->external_reference;
+            $sale = Sale::where('payment_id', $paymentId)->first();
+
+            if (!$sale) {
+                $imagem = ImgApi::find($externalReference);
+                $value = $imagem ? $imagem->valor : 0;
+
+                // Tentar recuperar o usuário logado (se houver)
+                if ($user = Auth::user()) {
+                    // Criar a venda com os dados do usuário logado
+                    Sale::create([
+                        'user_id' => $user->id,
+                        'user_name' => $user->name,
+                        'product_id' => $externalReference,
+                        'payment_id' => $paymentId,
+                        'status' => $payment->status,
+                        'value' => $value,
+                    ]);
+
+                    Log::info('Pagamento aprovado via webhook: ' . $paymentId);
+                    return response()->json(['status' => 'success'], 200);
+                } else {
+                    Log::error('Usuário não autenticado para o pagamento ID: ' . $paymentId);
+                    return response()->json(['error' => 'Usuário não autenticado'], 401); // Erro 401 se não estiver logado
+                }
+            } else {
+                Log::info('Venda já registrada para o pagamento ID: ' . $paymentId);
+                return response()->json(['status' => 'ignored'], 200); // Pagamento já foi processado
+            }
+        } else {
+            Log::info('Pagamento recebido no webhook não foi aprovado. ID: ' . $paymentId);
+            return response()->json(['status' => 'ignored'], 200); // Pagamento não aprovado
+        }
+
+    } catch (\Exception $e) {
+        Log::error('Erro ao processar webhook: ' . $e->getMessage());
+        return response()->json(['error' => 'Erro ao processar o pagamento'], 500);
+    }
+}
     
 }
