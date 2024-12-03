@@ -34,6 +34,8 @@ Route::get('/', [ImageUploadController::class, 'indexTable2'])->name('biblioteca
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
 
 Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
+Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
+Route::get('/pagamento/success', [MercadoPagoController::class, 'proximaTela'])->name('pagamento.success');
 
 
 // Route::get('/alguma-coisa', function () {
@@ -61,14 +63,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
     
-    Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
+    // Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
     
     Route::get('/mercadopago/failure', function () {
         return "Falha no pagamento!";
     })->name('mercadopago.failure');
-
-    Route::get('/mercadopago/{id}', [MercadoPagoController::class, 'getPreferenceById'])->name('mercadopago.get');
     
+    // Route::get('/pagamento/success', [MercadoPagoController::class, 'proximaTela'])->name('pagamento.success');
+
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 

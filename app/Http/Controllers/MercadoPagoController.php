@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
+use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Exceptions\MPApiException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -24,6 +25,7 @@ class MercadoPagoController extends Controller
         MercadoPagoConfig::setAccessToken($mpAccessToken);
     }
 
+    // Criar preferência de pagamento
     public function createPaymentPreference(Request $request)
     {
         $request->validate([
@@ -54,8 +56,11 @@ class MercadoPagoController extends Controller
 
         $backUrls = [
             'success' => route('mercadopago.success'),
-            'failure' => route('biblioteca'),
+            'failure' => route('mercadopago.failure'),
         ];
+
+        Log::info('Back URLs configuradas:', $backUrls);
+
 
         $preferenceData = [
             "items" => [$product],
@@ -83,25 +88,87 @@ class MercadoPagoController extends Controller
         }
     }
 
-
+    // Sucesso no pagamento
     public function paymentSuccess(Request $request)
     {
+        Log::info('Entrou no método paymentSuccess', $request->all());
+
+
         $payment_id = $request->query('payment_id');
         $status = $request->query('status');
-        $imagem_id = $request->query('external_reference');
+        $external_reference = json_decode($request->query('external_reference'), true);
+
+        if (!$external_reference) {
+            return redirect()->route('mercadopago.failure')->with('error', 'Referência externa inválida.');
+        }
+
+        $userId = $external_reference['user_id'] ?? null;
+        $userName = $external_reference['user_name'] ?? 'Desconhecido';
+        $imagem_id = $external_reference['imagem_id'] ?? null;
 
         $imagem = ImgApi::find($imagem_id);
 
-        if ($status === 'approved' && $imagem) {
-            $user = Auth::user();
-            if ($user) {
-                $this->saveSale($user->id, $user->name, $imagem_id, $payment_id, $status);
-            }
+        if ($status === 'approved' && $imagem && $userId) {
+            $this->saveSale($userId, $userName, $imagem_id, $payment_id, $status);
+
+            return redirect()->route('pagamento.success', [
+                'payment_id' => $payment_id,
+                'status' => $status,
+                'imagem_id' => $imagem_id,
+            ]);
         }
-        return view('pagamento.success', compact('payment_id', 'status', 'imagem'));
+
+        return redirect()->route('mercadopago.failure')->with('error', 'Pagamento não foi aprovado ou imagem inválida.');
     }
 
-    public function saveSale($userId, $userName, $productId, $paymentId, $status)
+    // Processar o webhook
+    public function webhook(Request $request)
+    {
+        $data = $request->all();
+
+        if (!isset($data['data']['id'])) {
+            Log::error('Webhook recebido sem ID de pagamento.');
+            return response()->json(['error' => 'Dados inválidos'], 400);
+        }
+
+        $this->authenticate();
+
+        $paymentId = $data['data']['id'];
+
+
+        try {
+            $client = new PaymentClient();
+            $payment = $client->get($paymentId);
+
+            if ($payment && $payment->status === 'approved') {
+
+                Log::info('Entrou no método paymentSuccess', $request->all());
+                
+                $externalReference = json_decode($payment->external_reference, true);
+
+                if ($externalReference) {
+                    $userId = $externalReference['user_id'] ?? null;
+                    $userName = $externalReference['user_name'] ?? 'Desconhecido';
+                    $imagemId = $externalReference['imagem_id'] ?? null;
+
+                    if ($imagemId) {
+                        $this->saveSale($userId, $userName, $imagemId, $paymentId, $payment->status);
+                    }
+                }
+
+                Log::info('Pagamento aprovado via webhook: ' . $paymentId);
+            } else {
+                Log::info('Pagamento recebido no webhook não foi aprovado. ID: ' . $paymentId);
+            }
+        } catch (\Exception $e) {
+            Log::error('Erro ao processar webhook: ' . $e->getMessage());
+        }
+
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    // Salvar uma venda
+    protected function saveSale($userId, $userName, $productId, $paymentId, $status)
     {
         $existingSale = Sale::where('payment_id', $paymentId)->first();
 
@@ -117,62 +184,27 @@ class MercadoPagoController extends Controller
                 'status' => $status,
                 'value' => $value,
             ]);
+            
         }
     }
 
-    public function webhook(Request $request)
+    // Exibir tela de sucesso
+    public function proximaTela(Request $request)
     {
-        $data = $request->all();
 
-        if (!isset($data['data']['id'])) {
-            Log::error('Webhook recebido sem ID de pagamento.');
-            return response()->json(['error' => 'Dados inválidos'], 400);
-        }
+        
+        $payment_id = $request->query('payment_id');
+        $status = $request->query('status');
+        $imagem_id = $request->query('imagem_id');
 
-        $this->authenticate();
+        Log::info('Redirecionando para pagamento.success com:', [
+            'payment_id' => $payment_id,
+            'status' => $status,
+            'imagem_id' => $imagem_id,
+        ]);        
 
-        $paymentId = $data['data']['id'];
+        $imagem = ImgApi::find($imagem_id);
 
-        try {
-            $client = new \MercadoPago\Client\Payment\PaymentClient();
-            $payment = $client->get($paymentId);
-
-            if ($payment && $payment->status === 'approved') {
-                $externalReference = json_decode($payment->external_reference, true);
-
-                if ($externalReference) {
-                    $userId = $externalReference['user_id'] ?? null;
-                    $userName = $externalReference['user_name'] ?? 'Desconhecido';
-                    $imagemId = $externalReference['imagem_id'] ?? null;
-
-                    $sale = Sale::where('payment_id', $paymentId)->first();
-
-                    if (!$sale && $imagemId) {
-                        $imagem = ImgApi::find($imagemId);
-                        $value = $imagem ? $imagem->valor : 0;
-
-                        Sale::create([
-                            'user_id' => $userId,
-                            'user_name' => $userName,
-                            'product_id' => $imagemId,
-                            'payment_id' => $paymentId,
-                            'status' => $payment->status,
-                            'value' => $value,
-                        ]);
-                    }
-                }
-
-                Log::info('Pagamento aprovado via webhook: ' . $paymentId);
-            } else {
-                Log::info('Pagamento recebido no webhook não foi aprovado. ID: ' . $paymentId);
-            }
-
-        } catch (\Exception $e) {
-            Log::error('Erro ao processar webhook: ' . $e->getMessage());
-        }
-
-        return response()->json(['status' => 'success'], 200);
+        return view('pagamento.success', compact('payment_id', 'status', 'imagem'));
     }
-
-
 }
