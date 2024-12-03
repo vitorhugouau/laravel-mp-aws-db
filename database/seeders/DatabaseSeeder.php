@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run0(): void
     {
-        // User::factory(10)->create();
+       
 
         User::factory()->create([
             'name' => 'Test User',
@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
     }
     public function run()
     {
-        // Chame o seeder de Administrador
+        
         $this->call(AdmSeeder::class);
+        $this->call(UsuariosSeeder::class);
     }
 }

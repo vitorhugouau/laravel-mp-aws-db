@@ -21,15 +21,12 @@
                         <div class="card-content">
                             <div class="card-content-area">
                                 <label for="email">E-MAIL</label>
-                                <input type="email" name="email" id="email" autocomplete="off" value="" required>
-                                @error('email')
-                                    <span style="font-size:11px; color:red;">{{ $message }}</span>
-                                @enderror
+                                <input type="email" name="email" id="email" autocomplete="off" value="teste@teste" required>
                             </div>
                             <div class="card-content-area">
                                 <label for="password">SENHA</label>
                                 <input type="password" name="password" id="password" autocomplete="off" required>
-                                @error('password')
+                                @error('email')
                                     <span style="font-size:11px; color:red;">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -37,8 +34,11 @@
                         <div class="card-footer">
                             <button type="submit" class="submit">ENTRAR</button>
                         </div>
-                        <div class="card-cadastro">
-                             <button type="button" class="teste" id="teste" data-url="{{ route('usuarios.create') }}">FAÇA SEU CADASTRO</button>
+                        <div class="card-cadastro2">
+                             <button type="button" class="teste2" id="teste2" data-url="{{ route('biblioteca') }}">VOLTAR</button>
+                        </div>
+                        <div class="card-footer">
+                            <p>Não tem conta? <a href="{{ route('usuarios.create') }}">Clique aqui para se cadastrar.</a></p>
                         </div>
                     </div>
                 </form>
@@ -49,7 +49,7 @@
 </html>
 
 <script>
-    document.getElementById("teste").onclick = function() {
+    document.getElementById("teste2").onclick = function() {
         window.location.href = this.getAttribute("data-url");
     }
 </script>

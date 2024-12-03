@@ -60,7 +60,6 @@ public function destroy($id)
     
     Cliente::create($request->all());
 
-    
     return redirect()->route('biblioteca')->with('success', 'Cliente inserido com sucesso.');
 }
 

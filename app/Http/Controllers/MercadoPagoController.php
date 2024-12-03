@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\Imagem;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ImgApi;
+use Illuminate\Support\Facades\Log;
 
 
 class MercadoPagoController extends Controller
@@ -62,10 +64,10 @@ class MercadoPagoController extends Controller
             return redirect($preference->init_point);
 
         } catch (MPApiException $error) {
-            \Log::error('Erro ao criar preferência de pagamento: ', [
+            Log::error('Erro ao criar preferência de pagamento: ', [
                 'message' => $error->getMessage(),
                 'code' => $error->getCode(),
-                'response' => $error->getResponseBody()
+                
             ]);
             return response()->json(['error' => 'Erro ao criar a preferência de pagamento.'], 500);
         }
@@ -116,7 +118,7 @@ class MercadoPagoController extends Controller
         $existingSale = Sale::where('payment_id', $paymentId)->first();
     
         if (!$existingSale) {
-            $imagem = Imagem::find($productId);
+            $imagem = ImgApi::find($productId);
             $value = $imagem ? $imagem->valor : 0;
     
             Sale::create([
@@ -136,7 +138,7 @@ class MercadoPagoController extends Controller
         $status = $request->query('status');
         $imagem_id = $request->query('external_reference');
     
-        $imagem = Imagem::find($imagem_id);
+        $imagem = ImgApi::find($imagem_id);
     
         if ($imagem) {
             $user = Auth::user();

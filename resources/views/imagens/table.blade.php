@@ -40,7 +40,7 @@
                         <td class="center-align">{{ $imagem->id }}</td>
                         <td class="center-align">{{ $imagem->nome }}</td>
                         <td class="center-align">
-                            <img src="data:image/jpeg;base64,{{ $imagem->imagem }}" alt="Imagem" style="max-width: 350px;">
+                            <img src="{{ $imagem->url_original }}" alt="Imagem" style="max-width: 350px;">
                         </td>
                         <td class="center-align">R$ {{ number_format($imagem->valor, 2, ',', '.') }}</td>
                         <td class="center-align">
@@ -48,7 +48,7 @@
                                 @csrf
                                 <button type="submit" class="btn btn-success">EDITAR</button>
                             </form>
-                            
+
                             <form method="POST" action="{{ route('imagens.destroy', $imagem->id) }}"
                                 onsubmit="return confirm('EXCLUIR ESTE REGISTRO?')" style="display:inline-block;">
                                 @csrf

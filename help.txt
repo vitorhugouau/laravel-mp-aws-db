@@ -12,10 +12,26 @@ verificar senha, login, database
 MERCADO_PAGO_PUBLIC_KEY=
 MERCADO_PAGO_ACCESS_TOKEN=
 
-composer require mercadopago/dx-php
 
 php artisan migrate:fresh
 
 php artisan db:seed
+
+composer require mercadopago/dx-php
+composer require cloudinary-labs/cloudinary-laravel
+composer require sendgrid/sendgrid
+
+
+
+-----------------
+
+CLOUDINARY_URL=cloudinary:
+
+CLOUDINARY_CONNECTION_STRING=cloudinary:
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
 
 

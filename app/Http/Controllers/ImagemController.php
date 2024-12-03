@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Imagem;
+use App\Models\ImgApi;
 
 class ImagemController extends Controller
 {
@@ -19,27 +19,27 @@ class ImagemController extends Controller
 
         $imagemBase64 = base64_encode(file_get_contents($request->file('imagem')->getRealPath()));
 
-        Imagem::create([
+        ImgApi::create([
             'nome' => $nomeImagem,
             'imagem' => $imagemBase64, 
             'valor' => $request->input('valor'), 
         ]);
 
-        return redirect()->route('control')->with('success', 'Imagem enviada com sucesso!');
+        return redirect()->route('control')->with('success', 'ImgApi enviada com sucesso!');
     }
 
     public function show($id)
     {
-        $imagem = Imagem::findOrFail($id);
+        $imagem = ImgApi::findOrFail($id);
 
-        return response($imagem->imagem)
+        return response($imagem->url_original)
             ->header('Content-Type', 'image/jpeg'); 
     }
 
     public function index()
     {
         
-        $imagens = Imagem::all();
+        $imagens = ImgApi::all();
 
         return view('imagens.index', compact('imagens'));
     }
@@ -47,21 +47,21 @@ class ImagemController extends Controller
     public function indexTable()
     {
     
-        $imagens = Imagem::all();
+        $imagens = ImgApi::all();
 
         return view('imagens.table', compact('imagens'));
     }
 
     public function destroy($id)
     {
-        $imagem = Imagem::findOrFail($id);
+        $imagem = ImgApi::findOrFail($id);
         $imagem->delete();
-        return redirect()->route('imagens.table')->with('success', 'Imagem excluída com sucesso.');
+        return redirect()->route('imagens.table')->with('success', 'ImgApi excluída com sucesso.');
     }
 
     public function edit($id)
     {
-        $imagem = Imagem::findOrFail($id); 
+        $imagem = ImgApi::findOrFail($id); 
         return view('imagens.edit', compact('imagem'));
     }
 
@@ -73,7 +73,7 @@ class ImagemController extends Controller
             'valor' => 'required|numeric|min:0', 
         ]);
 
-        $imagem = Imagem::findOrFail($id); 
+        $imagem = ImgApi::findOrFail($id); 
         $imagem->nome = $request->input('nome'); 
         $imagem->valor = $request->input('valor'); 
         $imagem->save(); 

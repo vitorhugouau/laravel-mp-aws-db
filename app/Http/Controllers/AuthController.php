@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Usuarios;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -17,19 +18,25 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+        $credentials = $request->only('email', 'password');
     
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('biblioteca');
+            $user = Auth::user();
+    
+            if ($user->email_verified_at == null) {
+                Session::put('verification_email', $user->email);
+                
+                Auth::logout();
+    
+                return redirect()->route('verification.showForm')->with('error', 'Por favor, verifique seu email antes de continuar.');
+            }
+    
+            return $user->role == 'admin' 
+                ? redirect()->route('biblioteca')
+                : redirect()->route('biblioteca');
         }
     
-        return back()->withErrors([
-            'email' => 'As credenciais fornecidas não correspondem aos nossos registros.',
-        ])->onlyInput('email');
+        return redirect()->back()->withErrors(['email' => 'Credenciais inválidas']);
     }
     
 
@@ -41,7 +48,7 @@ class AuthController extends Controller
 
         return redirect('/');
     }
-    
+
     public function logoutAdm(Request $request)
     {
         Auth::logout();

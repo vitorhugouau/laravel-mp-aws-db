@@ -22,12 +22,8 @@
                     <div class="container-image">
                         <div class="image-container">
                             <div id="imagemkk"
-                                style="background-image: url('data:image/jpeg;base64,{{ $imagem->imagem }}'); background-size: cover; background-position: center; width: 100%; height: 20rem; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; border-radius: 10px;">
-
-                                <img id="{{ $imagem->id }}" class="imagemaaa" src="{{ asset("") }}"
-                                    style="height: 200px; width: 50%; opacity: 0.0;">
-
-                                <div
+                                style="background-image: url('{{ $imagem->url_original }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important">
+                                    <div
                                     style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
                                     <div class="compra">
                                     </div>
@@ -54,8 +50,7 @@
             } else {
                 sessionStorage.setItem('formSubmitted', true);
             }
-}
-
+        }
     </script>
     <script>
         const imagemElement = document.getElementById('imagemkk');

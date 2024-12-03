@@ -11,41 +11,15 @@
 </head>
 
 <body>
-    <nav>
-        <ul class="menu">
-            <li><a href="{{ route('biblioteca') }}">HOME</a></li>
-            </li>
-            </li>
-            <li><a href="#">CONTATO</a>
-                <ul><a
-                        href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a>
-                </ul>
-            </li>
-            <li><a href="#">SERVIÇOS</a>
-                <ul>
-                    <li><a href="cliente/serviço.php">CONTRATAR SERVIÇO</a></li>
-                </ul>
-            </li>
-            <li><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a>
-            <li class="logout">
-                <div class="card">
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                    <button type="button" class="submit" id="sair">SAIR</button>
-                </div>
-            </li>
-        </ul>
-    </nav>
+    @include('partials.nav')
+    
     <br><br><br>
     <div class="main-container">
         <div class="container">
             <div class="container-image">
                 <div class="image-container">
                     <div
-                        style="background-image: url('data:image/jpeg;base64,{{ $imagem->imagem }}'); background-size: cover; background-position: center; width: auto; height: 20rem; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; border-radius: 10px;">
-                        <img id="{{ $imagem->id }}" class="imagemaaa" src="{{ asset("assets/image.png") }}"
-                            style="height: 200px; width: 50%; opacity: 0.6;">
+                    style="background-image: url('{{ $imagem->url_marca_dagua }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important">
                         <div
                             style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
                             <div class="compra">
