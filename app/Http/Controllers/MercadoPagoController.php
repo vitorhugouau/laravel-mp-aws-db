@@ -85,7 +85,7 @@ class MercadoPagoController extends Controller
 
         $backUrls = [
             'success' => route('mercadopago.success'),
-            'failure' => route('mercadopago.failure'),
+            'failure' => route('biblioteca'),
         ];
 
         return [
