@@ -12,14 +12,14 @@
 
 <body>
     @include('partials.nav')
-    
+
     <br><br><br>
     <div class="main-container">
         <div class="container">
             <div class="container-image">
                 <div class="image-container">
                     <div
-                    style="background-image: url('{{ $imagem->url_marca_dagua }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important">
+                        style="background-image: url('{{ $imagem->url_marca_dagua }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important">
                         <div
                             style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
                             <div class="compra">
@@ -29,6 +29,18 @@
                 </div>
             </div>
         </div>
+
+        {{-- <div id="paymentModal" style="display: none;">
+            <div class="modal-content">
+                <span id="closeModal" style="cursor: pointer;">&times;</span>
+                <h2>Pagamento via Pix</h2>
+                <div id="qrCodeContainer"></div>
+                <button id="cancelPayment">Cancelar</button>
+                <button id="confirmPayment">Confirmar Pagamento</button>
+            </div>
+        </div> --}}
+
+
         <form action="{{ route('mercadopago.create') }}" method="post" id="paymentForm">
             @csrf
             <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
@@ -41,13 +53,23 @@
                     </label>
                     <strong>→ Confirme Clicando no Botão Abaixo</strong>
                 </div>
-                <button class="button" onclick="checkSelection()">Continuar compra</button>
+
+                <!-- Botão Pix alterado para link -->
+                <a href="{{ route('mercadopago.pix', ['imagem_id' => $imagem->id]) }}">
+                    <button type="button" class="button" id="pixButton">Pagamento via Pix</button>
+                </a>
+
+                <br><br>
+                <button class="button" onclick="checkSelection()">Pagamento via Cartão</button>
 
                 <div class="info">
                     Inclui a nossa <a href="#">licença padrão</a>.<br>
                 </div>
             </div>
         </form>
+
+
+
 
         <script>
             function checkSelection() {
@@ -61,22 +83,23 @@
         </script>
 
         <script>
-            document.getElementById('paymentForm').addEventListener('submit', function (event) {
+            document.getElementById('paymentForm').addEventListener('submit', function(event) {
                 event.preventDefault();
 
                 const formData = new FormData(this);
 
                 fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        }
+                    })
                     .then(response => response.json())
                     .then(data => {
                         if (data.init_point) {
-                            window.location.href = data.init_point; 
+                            window.location.href = data.init_point;
                         } else {
                             alert(data.error || 'Erro ao processar o pagamento.');
                         }
@@ -85,19 +108,23 @@
             });
         </script>
 
+        {{-- -------------------------------------------------------------------------------------------------------------------------------------------------- --}}
 
+       
+
+        {{-- ---------------------------------------------------- --}}
         <script>
-            document.getElementById('sair').addEventListener('click', function () {
+            document.getElementById('sair').addEventListener('click', function() {
                 document.getElementById('logout-form').submit();
             });
 
-            document.addEventListener('keydown', function (e) {
+            document.addEventListener('keydown', function(e) {
                 if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
                     e.preventDefault();
                 }
             });
 
-            document.addEventListener('contextmenu', function (e) {
+            document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
             });
         </script>

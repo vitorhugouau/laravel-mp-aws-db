@@ -34,8 +34,21 @@ Route::get('/', [ImageUploadController::class, 'indexTable2'])->name('biblioteca
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
 
 Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
-Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
-Route::get('/pagamento/success', [MercadoPagoController::class, 'proximaTela'])->name('pagamento.success');
+
+Route::post('/mercadopago/criar-preferencia', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.createPreference');
+Route::get('/mercadopago/pix', [MercadoPagoController::class, 'showPixPaymentPage'])->name('mercadopago.pix');
+
+
+use MercadoPago\MercadoPagoConfig;
+
+Route::get('/test-mercadopago', function () {
+    try {
+        MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
+        return "Mercado Pago SDK configurado com sucesso!";
+    } catch (\Exception $e) {
+        return "Erro: " . $e->getMessage();
+    }
+});
 
 
 // Route::get('/alguma-coisa', function () {
