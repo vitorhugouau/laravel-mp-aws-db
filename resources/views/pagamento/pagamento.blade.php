@@ -53,20 +53,21 @@
                     </label>
                     <strong>→ Confirme Clicando no Botão Abaixo</strong>
                 </div>
-
-                <!-- Botão Pix alterado para link -->
-                <a href="{{ route('mercadopago.pix', ['imagem_id' => $imagem->id]) }}">
-                    <button type="button" class="button" id="pixButton">Pagamento via Pix</button>
-                </a>
-
+        
+                <!-- Botão Pix com redirecionamento -->
+                <button type="button" class="button" id="pixButton" onclick="window.location.href='{{ route('mercadopago.pix', ['imagem_id' => $imagem->id]) }}'">
+                    Pagamento via Pix
+                </button>
+        
                 <br><br>
                 <button class="button" onclick="checkSelection()">Pagamento via Cartão</button>
-
+        
                 <div class="info">
                     Inclui a nossa <a href="#">licença padrão</a>.<br>
                 </div>
             </div>
         </form>
+        
 
 
 

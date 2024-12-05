@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use MercadoPago\Preference;
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Client\Payment\PaymentClient;
@@ -13,12 +12,11 @@ use App\Models\ImgApi;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
 use MercadoPago\SDK;
-use MercadoPago\Payment;
-
+use MercadoPago\Preference;
 use MercadoPago\Item;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
-
+use Illuminate\Support\Facades\Http;
 class MercadoPagoController extends Controller
 {
     protected function authenticate()
@@ -40,74 +38,64 @@ class MercadoPagoController extends Controller
             'valor' => 'required|numeric|min:0',
         ]);
 
-        // Autenticação com Mercado Pago
         $this->authenticate();
 
-        // Definir os detalhes do produto
-        $product = new Item();
-        $product->title = 'Produto ' . $request->imagem_id;
-        $product->quantity = 1;
-        $product->unit_price = (float) $request->valor;
-        $product->currency_id = 'BRL';
+        $product = [
+            "id" => (string) $request->imagem_id,
+            "title" => "Produto " . $request->imagem_id,
+            "description" => "Descrição do Produto " . $request->imagem_id,
+            "currency_id" => "BRL",
+            "quantity" => 1,
+            "unit_price" => (float) $request->valor,
+        ];
 
-        // Obter dados do usuário autenticado
         $user = Auth::user();
         $userId = $user->id;
         $userName = $user->name;
 
-        // Referência externa
         $externalReference = json_encode([
             'user_id' => $userId,
             'user_name' => $userName,
             'imagem_id' => $request->imagem_id,
         ]);
 
-        // Configurar o pagamento
-        $payment = new Payment();
-        $payment->transaction_amount = (float) $request->valor;
-        $payment->description = 'Pagamento de Produto';
-        $payment->payment_method_id = 'pix';
-        $payment->back_urls = [
+        $backUrls = [
             'success' => route('mercadopago.success'),
             'failure' => route('mercadopago.failure'),
         ];
-        $payment->auto_return = 'approved';
-        $payment->external_reference = $externalReference;
+
+        $preferenceData = [
+            "items" => [$product],
+            "back_urls" => $backUrls,
+            "auto_return" => "approved",
+            "external_reference" => $externalReference,
+            "payment_methods" => [
+                "excluded_payment_methods" => [],
+                "default_payment_method_id" => "pix",
+                "installments" => 1,
+            ],
+        ];
+
+        $client = new PreferenceClient();
 
         try {
-            // Processar o pagamento
-            $payment->save();
+            // Cria a preferência de pagamento
+            $preference = $client->create($preferenceData);
 
-            // Obter URL do QR Code
-            if ($payment->status === 'approved') {
-                $qrCodeUrl = $payment->transaction_details->qr_code;
+            // Obtém o ponto de inicialização da URL de pagamento
+            $initPoint = $preference->init_point; // Esta URL redireciona para a página de pagamento com o QR Code
 
-                // Exibir a view com QR Code e URL de pagamento
-                return view('mercadopago.pix', [
-                    'qrCodeUrl' => $qrCodeUrl,
-                    'initPoint' => $payment->init_point, // URL para redirecionamento
-                ]);
-            }
-
-            // Caso o pagamento não tenha sido aprovado
-            return redirect()->route('mercadopago.failure')->with('error', 'Pagamento não foi aprovado');
-        } catch (\Exception $error) {
-            Log::error('Erro ao criar pagamento com PIX: ', [
+            return view('mercadopago.pix', [
+                'initPoint' => $initPoint
+            ]);
+        } catch (MPApiException $error) {
+            Log::error('Erro ao criar preferência de pagamento: ', [
                 'message' => $error->getMessage(),
                 'code' => $error->getCode(),
             ]);
             return response()->json(['error' => $error->getMessage(), 'code' => $error->getCode()], 500);
         }
     }
-    public function showPixPaymentPage(Request $request)
-    {
-        $initPoint = $request->query('initPoint'); // Obtém a URL do init_point do pagamento
-
-        return view('mercadopago.pix', [
-            'initPoint' => $initPoint
-        ]);
-    }
-
 
     // Sucesso no pagamento
     public function paymentSuccess(Request $request)
@@ -246,6 +234,137 @@ class MercadoPagoController extends Controller
 
         }
     }
+    public function testPixPayment()
+    {
+        // Gerando um ID único para o cabeçalho X-Idempotency-Key
+        $idempotencyKey = uniqid('payment_', true); // Isso gera um valor único com base no tempo
+        Log::info('ID de Idempotência Gerado:', ['idempotencyKey' => $idempotencyKey]);
+
+        // Dados do pagamento
+        $paymentData = [
+            'transaction_amount' => 50.00, // Valor do pagamento
+            'payment_method_id' => 'pix', // Método de pagamento
+            'description' => 'Pagamento de teste via Pix',
+            'payer' => [
+                'first_name' => 'Nome de Teste',
+                'email' => 'teste@exemplo.com'
+            ],
+            'notification_url' => "https://a11f-2604-980-900b-1000-86fc-3e41-71af-9f2b.ngrok-free.app/mercadopago/webhook", // URL para notificações
+            'external_reference' => 'Pagamento_' . time(), // Referência externa única
+        ];
+
+        Log::info('Dados do pagamento preparados:', $paymentData);
+
+        // Acessando a API do Mercado Pago para criar o pagamento
+        try {
+            $accessToken = config('services.mercadopago.access_token'); // Access Token Mercado Pago
+            Log::info('Access Token Mercado Pago obtido:', ['access_token' => $accessToken]);
+
+            Log::info('Iniciando requisição ao Mercado Pago com cabeçalhos e dados.', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $accessToken,
+                    'X-Idempotency-Key' => $idempotencyKey,
+                ],
+                'paymentData' => $paymentData,
+            ]);
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $accessToken,
+                'X-Idempotency-Key' => $idempotencyKey, // Cabeçalho X-Idempotency-Key
+            ])->post('https://api.mercadopago.com/v1/payments', $paymentData);
+
+            Log::info('Resposta da API Mercado Pago recebida.', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
+
+            // Verificando o status da requisição
+            if ($response->failed()) {
+                Log::error('Erro na requisição ao Mercado Pago', [
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                ]);
+                return redirect()->route('mercadopago.failure')->with('error', 'Erro ao processar pagamento via Pix.');
+            }
+
+            // Verificando a resposta
+            $responseData = $response->json(); // Decodificando a resposta JSON
+            Log::info('Resposta decodificada da API Mercado Pago:', ['response' => $responseData]);
+
+            // Verificando se o QR Code foi gerado corretamente
+            if (isset($responseData['point_of_interaction']['transaction_data'])) {
+                $transactionData = $responseData['point_of_interaction']['transaction_data'];
+                Log::info('Dados de transação encontrados:', ['transactionData' => $transactionData]);
+
+                $qrCode = $transactionData['qr_code']; // Código Pix
+                $qrCodeBase64 = $transactionData['qr_code_base64']; // QR Code em Base64
+                $ticketUrl = $transactionData['ticket_url']; // Link para pagamento
+
+                Log::info('QR Code gerado com sucesso.', [
+                    'qrCode' => $qrCode,
+                    'qrCodeBase64' => $qrCodeBase64,
+                    'ticketUrl' => $ticketUrl,
+                ]);
+
+                // Retornar a view com os dados
+                return redirect()->route('mercadopago.pix', [
+                    'qrCode' => $qrCode, // Código Pix
+                    'qrCodeBase64' => $qrCodeBase64, // QR Code Base64
+                    'ticketUrl' => $ticketUrl, // Link para pagamento
+                    'externalReference' => $paymentData['external_reference'], // Referência Externa
+                ]);
+            } else {
+                // Caso não encontre os dados de transação
+                Log::error('Erro ao gerar QR Code: Dados de transação ausentes.', ['response' => $responseData]);
+                return redirect()->route('mercadopago.failure')->with('error', 'Erro ao gerar QR Code.');
+            }
+
+        } catch (\Exception $e) {
+            // Tratamento de erros gerais
+            Log::error('Erro inesperado ao processar pagamento', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return redirect()->route('mercadopago.failure')->with('error', 'Erro inesperado ao processar pagamento.');
+        }
+    }
+
+
+    public function handleWebhook(Request $request)
+    {
+        // Exemplo de log para visualizar as informações da notificação
+        Log::info('Notificação recebida do Mercado Pago:', $request->all());
+
+        // Lógica para processar a notificação (verificar status do pagamento, etc.)
+        $paymentData = $request->all();
+
+        // Verifique o status do pagamento ou qualquer outra lógica
+        // Por exemplo, se o pagamento foi aprovado:
+        if (isset($paymentData['status']) && $paymentData['status'] === 'approved') {
+            // Lógica para processar um pagamento aprovado
+        }
+
+        // Retorne uma resposta para o Mercado Pago (geralmente um 200 OK)
+        return response()->json(['status' => 'success']);
+    }
+    public function showPixPayment(Request $request)
+{
+    $qrCode = $request->query('qrCode'); // Código Pix
+    $qrCodeBase64 = $request->query('qrCodeBase64'); // QR Code Base64
+    $ticketUrl = $request->query('ticketUrl'); // Link para pagamento
+    $externalReference = $request->query('externalReference'); // Referência Externa
+
+    Log::info('Exibindo tela com QR Code:', [
+        'qrCode' => $qrCode,
+        'qrCodeBase64' => $qrCodeBase64,
+        'ticketUrl' => $ticketUrl,
+        'externalReference' => $externalReference,
+    ]);
+
+    return view('mercadopago.pix', compact('qrCode', 'qrCodeBase64', 'ticketUrl', 'externalReference'));
+}
+
+
 
 
 }

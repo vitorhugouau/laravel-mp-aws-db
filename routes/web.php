@@ -35,20 +35,14 @@ Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.ind
 
 Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
 
-Route::post('/mercadopago/criar-preferencia', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.createPreference');
-Route::get('/mercadopago/pix', [MercadoPagoController::class, 'showPixPaymentPage'])->name('mercadopago.pix');
+// Rota para criar o pagamento via Pix
+Route::post('/mercadopago/create', [MercadoPagoController::class, 'testPixPayment'])->name('mercadopago.create');
 
+// Rota para exibir o pagamento via Pix (com QR Code)
+Route::get('/mercadopago/mercadopago.pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
 
-use MercadoPago\MercadoPagoConfig;
+Route::get('/mercadopago/webhook', [MercadoPagoController::class, 'handleWebhook'])->name('mercadopago.webhook');
 
-Route::get('/test-mercadopago', function () {
-    try {
-        MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
-        return "Mercado Pago SDK configurado com sucesso!";
-    } catch (\Exception $e) {
-        return "Erro: " . $e->getMessage();
-    }
-});
 
 
 // Route::get('/alguma-coisa', function () {
@@ -74,9 +68,9 @@ Route::middleware('auth')->group(function () {
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-    Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
+    // Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
     
-    // Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
+    Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
     
     Route::get('/mercadopago/failure', function () {
         return "Falha no pagamento!";
