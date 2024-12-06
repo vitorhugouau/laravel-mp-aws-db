@@ -35,13 +35,10 @@ Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.ind
 
 Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
 
-// Rota para criar o pagamento via Pix
-Route::post('/mercadopago/create', [MercadoPagoController::class, 'testPixPayment'])->name('mercadopago.create');
-
-// Rota para exibir o pagamento via Pix (com QR Code)
-Route::get('/mercadopago/mercadopago.pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
 
 Route::get('/mercadopago/webhook', [MercadoPagoController::class, 'handleWebhook'])->name('mercadopago.webhook');
+
+Route::get('/mercadopago/pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
 
 
 
@@ -66,87 +63,97 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pagamento/{id}', [PagamentoController::class, 'mostrarTelaDePagamento'])->name('mostrarPagamento');
 
-// ---------------------------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------------------------
 
     // Route::post('/mercadopago/create', [MercadoPagoController::class, 'createPaymentPreference'])->name('mercadopago.create');
-    
+
     Route::get('/mercadopago/success', [MercadoPagoController::class, 'paymentSuccess'])->name('mercadopago.success');
-    
+
     Route::get('/mercadopago/failure', function () {
         return "Falha no pagamento!";
     })->name('mercadopago.failure');
-    
+
     // Route::get('/pagamento/success', [MercadoPagoController::class, 'proximaTela'])->name('pagamento.success');
 
+    // Rota para criar o pagamento via Pix
+    Route::post('/mercadopago/create', [MercadoPagoController::class, 'testPixPayment'])->name('mercadopago.create');
 
-// ---------------------------------------------------------------------------------------------------------------------------------
+    // Rota para exibir o pagamento via Pix (com QR Code)
+    // Route::get('/mercadopago/mercadopago.pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
+    Route::get('/mercadopago/pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
+
+
+
+
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
 
     Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
-    
+
     Route::get('/minhas-compras', [UsuariosController::class, 'minhasCompras'])->name('minhas.compras');
-    
+
     Route::get('/compras/{id}', [UsuariosController::class, 'show'])->name('compras.show');
-    
+
 });
 
 // middleware 
 Route::middleware([AdminAuthMiddleware::class])->group(function () {
-    
+
     Route::get('/imagensEdit/{id}', [ImagemController::class, 'edit'])->name('imagens.edit');
     Route::post('/imagens/{id}', [ImagemController::class, 'update'])->name('imagens.update');
-    
+
     Route::get('/imagensTable', [ImagemController::class, 'indexTable'])->name('imagens.table');
     Route::delete('/imagens/{id}', [ImagemController::class, 'destroy'])->name('imagens.destroy');
-    
+
     Route::get('/uploads', function () {
         return view('adm.add_biblioteca.upload_imagem');
     })->name('uploads');
-    
+
     Route::get('/imagens', [ImagemController::class, 'index'])->name('imagens.index');
-    
+
     Route::post('/upload', [ImagemController::class, 'store'])->name('imagem-store');
-    
+
     Route::get('/control', function () {
         return view('adm.control');
     })->name('control');
-    
+
     Route::get('/control_biblioteca', function () {
         return view('adm.add_biblioteca.add-biblioteca');
     })->name('control_biblioteca');
-    
+
     Route::resource('sales', SaleController::class);
-    
+
     // ---------------------------------------------------------------------------------------------------------------------------------
-    
+
     Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index');
-    
+
     Route::get('/usuarios/{id}/edit', [UsuariosController::class, 'edit'])->name('usuarios.edit');
-    
+
     Route::put('/usuarios/{usuario}', [UsuariosController::class, 'update'])->name('usuarios.update');
-    
+
     Route::delete('/usuarios/{usuario}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
-    
+
     // ---------------------------------------------------------------------------------------------------------------------------------
-    
+
     // Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
-    
+
     Route::get('/clientes-table', [ClienteController::class, 'index2'])->name('clientes.index2');
-    
+
     Route::get('/clientes/{id}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
-    
+
     Route::put('/clientes/{id}', [ClienteController::class, 'update'])->name('clientes.update');
-    
+
     Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
-    
+
     // ---------------------------------------------------------------------------------------------------------------------------------
-    
+
     Route::get('/uploadImg', function () {
-        return view('uploadImg'); 
+        return view('uploadImg');
     });
-    
+
     Route::post('/uploadImg', [ImageUploadController::class, 'upload'])->name('uploadImg.image');
-    
-});    
+
+});
 
 
 use App\Http\Controllers\EmailController;

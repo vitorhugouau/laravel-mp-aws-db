@@ -234,43 +234,53 @@ class MercadoPagoController extends Controller
 
         }
     }
-    public function testPixPayment()
+    public function testPixPayment(Request $request)
     {
+        Log::info('Método testPixPayment iniciado');
+
+        $validated = $request->validate([
+            'imagem_id' => 'required',
+            'valor' => 'required',
+        ]);
+         
+        $imagemId = $validated['imagem_id'];
+        $valor = (float) $validated['valor']; // Convertendo para float
+
+
+        $imagemId = $validated['imagem_id']; // Acessando os dados validados
+        $valor = $validated['valor']; // Acessando os dados validados
+
+        Log::info('Dados recebidos do formulário:', ['imagem_id' => $imagemId, 'valor' => $valor]);
+
         // Gerando um ID único para o cabeçalho X-Idempotency-Key
-        $idempotencyKey = uniqid('payment_', true); // Isso gera um valor único com base no tempo
+        $idempotencyKey = uniqid('payment_', true);
         Log::info('ID de Idempotência Gerado:', ['idempotencyKey' => $idempotencyKey]);
+
 
         // Dados do pagamento
         $paymentData = [
-            'transaction_amount' => 50.00, // Valor do pagamento
+            'transaction_amount' => (float) $valor, // Valor capturado do formulário
             'payment_method_id' => 'pix', // Método de pagamento
-            'description' => 'Pagamento de teste via Pix',
+            'description' => 'Pagamento de imagem ID: ' . $imagemId,
             'payer' => [
-                'first_name' => 'Nome de Teste',
-                'email' => 'teste@exemplo.com'
+                'first_name' => $request->user()->name ?? 'Nome de Teste', // Nome do usuário autenticado ou valor padrão
+                'email' => $request->user()->email ?? 'teste@exemplo.com', // Email do usuário autenticado ou valor padrão
             ],
-            'notification_url' => "https://a11f-2604-980-900b-1000-86fc-3e41-71af-9f2b.ngrok-free.app/mercadopago/webhook", // URL para notificações
-            'external_reference' => 'Pagamento_' . time(), // Referência externa única
+            'notification_url' => 'https://a11f-2604-980-900b-1000-86fc-3e41-71af-9f2b.ngrok-free.app/mercadopago/webhook', // URL dinâmica para notificações
+            'external_reference' => 'Pagamento_' . time(),
         ];
 
         Log::info('Dados do pagamento preparados:', $paymentData);
 
-        // Acessando a API do Mercado Pago para criar o pagamento
+        // Tentando acessar a API do Mercado Pago
         try {
             $accessToken = config('services.mercadopago.access_token'); // Access Token Mercado Pago
-            Log::info('Access Token Mercado Pago obtido:', ['access_token' => $accessToken]);
+            Log::info('Access Token Mercado Pago obtido.');
 
-            Log::info('Iniciando requisição ao Mercado Pago com cabeçalhos e dados.', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                    'X-Idempotency-Key' => $idempotencyKey,
-                ],
-                'paymentData' => $paymentData,
-            ]);
-
+            // Requisição para criar pagamento via Pix
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $accessToken,
-                'X-Idempotency-Key' => $idempotencyKey, // Cabeçalho X-Idempotency-Key
+                'X-Idempotency-Key' => $idempotencyKey,
             ])->post('https://api.mercadopago.com/v1/payments', $paymentData);
 
             Log::info('Resposta da API Mercado Pago recebida.', [
@@ -284,86 +294,104 @@ class MercadoPagoController extends Controller
                     'status' => $response->status(),
                     'body' => $response->body(),
                 ]);
-                return redirect()->route('mercadopago.failure')->with('error', 'Erro ao processar pagamento via Pix.');
+                return redirect()->route('mercadopago.failure')
+                    ->with('error', 'Erro ao processar pagamento via Pix.');
             }
 
             // Verificando a resposta
-            $responseData = $response->json(); // Decodificando a resposta JSON
+            $responseData = $response->json();
             Log::info('Resposta decodificada da API Mercado Pago:', ['response' => $responseData]);
 
             // Verificando se o QR Code foi gerado corretamente
-            if (isset($responseData['point_of_interaction']['transaction_data'])) {
-                $transactionData = $responseData['point_of_interaction']['transaction_data'];
-                Log::info('Dados de transação encontrados:', ['transactionData' => $transactionData]);
-
-                $qrCode = $transactionData['qr_code']; // Código Pix
-                $qrCodeBase64 = $transactionData['qr_code_base64']; // QR Code em Base64
-                $ticketUrl = $transactionData['ticket_url']; // Link para pagamento
-
-                Log::info('QR Code gerado com sucesso.', [
-                    'qrCode' => $qrCode,
-                    'qrCodeBase64' => $qrCodeBase64,
-                    'ticketUrl' => $ticketUrl,
-                ]);
-
-                // Retornar a view com os dados
-                return redirect()->route('mercadopago.pix', [
-                    'qrCode' => $qrCode, // Código Pix
-                    'qrCodeBase64' => $qrCodeBase64, // QR Code Base64
-                    'ticketUrl' => $ticketUrl, // Link para pagamento
-                    'externalReference' => $paymentData['external_reference'], // Referência Externa
-                ]);
-            } else {
-                // Caso não encontre os dados de transação
+            if (!isset($responseData['point_of_interaction']['transaction_data'])) {
                 Log::error('Erro ao gerar QR Code: Dados de transação ausentes.', ['response' => $responseData]);
-                return redirect()->route('mercadopago.failure')->with('error', 'Erro ao gerar QR Code.');
+                return redirect()->route('mercadopago.failure')
+                    ->with('error', 'Erro ao gerar QR Code.');
             }
 
+            // Extraindo dados do QR Code
+            $transactionData = $responseData['point_of_interaction']['transaction_data'];
+            Log::info('Dados de transação encontrados:', ['transactionData' => $transactionData]);
+
+            // Armazenando os dados na sessão
+            session([
+                'qrCode' => $transactionData['qr_code'],
+                'qrCodeBase64' => $transactionData['qr_code_base64'],
+                'ticketUrl' => $transactionData['ticket_url'],
+                'externalReference' => $paymentData['external_reference'],
+            ]);
+
+            // Redirecionar para a tela do Pix
+            Log::info('Redirecionando para /mercadopago/pix');
+            return redirect()->route('mercadopago.pix');
+            
+
         } catch (\Exception $e) {
-            // Tratamento de erros gerais
+            // Capturando exceções inesperadas
             Log::error('Erro inesperado ao processar pagamento', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);
-            return redirect()->route('mercadopago.failure')->with('error', 'Erro inesperado ao processar pagamento.');
+            return redirect()->route('mercadopago.failure')
+                ->with('error', 'Erro inesperado ao processar pagamento.');
         }
     }
 
-
     public function handleWebhook(Request $request)
     {
-        // Exemplo de log para visualizar as informações da notificação
+        // Log para visualizar as informações da notificação
         Log::info('Notificação recebida do Mercado Pago:', $request->all());
 
         // Lógica para processar a notificação (verificar status do pagamento, etc.)
         $paymentData = $request->all();
 
-        // Verifique o status do pagamento ou qualquer outra lógica
-        // Por exemplo, se o pagamento foi aprovado:
+        // Exemplo de verificação de status de pagamento
         if (isset($paymentData['status']) && $paymentData['status'] === 'approved') {
-            // Lógica para processar um pagamento aprovado
+            // Lógica para processar pagamento aprovado
         }
 
-        // Retorne uma resposta para o Mercado Pago (geralmente um 200 OK)
+        // Retornar resposta para o Mercado Pago
         return response()->json(['status' => 'success']);
     }
-    public function showPixPayment(Request $request)
-{
-    $qrCode = $request->query('qrCode'); // Código Pix
-    $qrCodeBase64 = $request->query('qrCodeBase64'); // QR Code Base64
-    $ticketUrl = $request->query('ticketUrl'); // Link para pagamento
-    $externalReference = $request->query('externalReference'); // Referência Externa
 
-    Log::info('Exibindo tela com QR Code:', [
+    public function showPixPayment()
+{
+    Log::info('Método showPixPayment iniciado');
+    // Recuperar os dados da sessão
+    $qrCode = session('qrCode');
+    $qrCodeBase64 = session('qrCodeBase64');
+    $ticketUrl = session('ticketUrl');
+    $externalReference = session('externalReference');
+
+    // Log detalhado para verificar os dados recuperados da sessão
+    Log::info('Exibindo tela com QR Code. Dados da sessão:', [
         'qrCode' => $qrCode,
         'qrCodeBase64' => $qrCodeBase64,
         'ticketUrl' => $ticketUrl,
         'externalReference' => $externalReference,
     ]);
 
+    // Se não houver dados de QR Code, logar um erro (caso necessário)
+    if (!$qrCode || !$qrCodeBase64 || !$ticketUrl || !$externalReference) {
+        Log::error('Dados da sessão incompletos para exibir QR Code', [
+            'qrCode' => $qrCode,
+            'qrCodeBase64' => $qrCodeBase64,
+            'ticketUrl' => $ticketUrl,
+            'externalReference' => $externalReference,
+        ]);
+    }
+    
+    Log::info('Dados da sessão antes de retornar a view:', [
+        'qrCode' => $qrCode,
+        'qrCodeBase64' => $qrCodeBase64,
+        'ticketUrl' => $ticketUrl,
+        'externalReference' => $externalReference,
+    ]);
+    
+
+    // Retornar a view com os dados
     return view('mercadopago.pix', compact('qrCode', 'qrCodeBase64', 'ticketUrl', 'externalReference'));
 }
-
 
 
 

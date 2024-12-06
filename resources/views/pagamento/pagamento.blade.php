@@ -41,26 +41,23 @@
         </div> --}}
 
 
-        <form action="{{ route('mercadopago.create') }}" method="post" id="paymentForm">
+        <form action="{{ route('mercadopago.create') }}" method="POST" id="paymentForm">
             @csrf
             <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
             <div class="container1">
                 <h2>Área de Confirmação</h2>
                 <div class="planos">
                     <label>
-                        <input type="radio" name="valor" value="{{ $imagem->valor }}" style="margin-right: 8px;">
+                        <input type="radio" name="valor" value="{{ $imagem->valor }}" style="margin-right: 8px;" required>
                         R$ {{ number_format($imagem->valor, 2, ',', '.') }} por esta imagem<br>
                     </label>
                     <strong>→ Confirme Clicando no Botão Abaixo</strong>
                 </div>
         
-                <!-- Botão Pix com redirecionamento -->
-                <button type="button" class="button" id="pixButton" onclick="window.location.href='{{ route('mercadopago.pix', ['imagem_id' => $imagem->id]) }}'">
+                <!-- Botão Pix que submete o formulário -->
+                <button class="button" onclick="checkSelection(event)">
                     Pagamento via Pix
                 </button>
-        
-                <br><br>
-                <button class="button" onclick="checkSelection()">Pagamento via Cartão</button>
         
                 <div class="info">
                     Inclui a nossa <a href="#">licença padrão</a>.<br>
@@ -68,10 +65,6 @@
             </div>
         </form>
         
-
-
-
-
         <script>
             function checkSelection() {
                 const radioChecked = document.querySelector('input[name="valor"]:checked');
@@ -82,6 +75,7 @@
                 }
             }
         </script>
+        
 
         <script>
             document.getElementById('paymentForm').addEventListener('submit', function(event) {
