@@ -11,64 +11,94 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f7f7f7;
+            background-color: #f0f4f8;
             color: #333;
         }
 
         .container {
             max-width: 600px;
-            margin: 30px auto;
+            margin: 50px auto;
             background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             text-align: center;
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
         }
 
         .qr-code {
             margin: 20px 0;
         }
 
-        textarea {
-            width: 100%;
-            height: 80px;
-            margin-top: 10px;
-            font-size: 14px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: none;
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
         }
 
-        a {
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            font-size: 16px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: none;
+            background-color: #f9f9f9;
+        }
+
+        .btn {
             display: inline-block;
             margin-top: 20px;
             text-decoration: none;
             background-color: #007bff;
             color: #fff;
-            padding: 10px 20px;
-            border-radius: 4px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
 
-        a:hover {
+        .btn:hover {
             background-color: #0056b3;
+        }
+
+        p {
+            margin: 15px 0;
+            font-size: 1rem;
+        }
+
+        .external-reference {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #555;
         }
     </style>
 </head>
 
 <body>
-    <h1>Pagamento via Pix</h1>
+    <div class="container">
+        <h1>Pagamento via PIX</h1>
 
-    <p>Use o QR Code abaixo para realizar o pagamento:</p>
-    <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code Pix">
+        <p>Use o QR Code abaixo para realizar o pagamento:</p>
+        <div class="qr-code">
+            <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code Pix">
+        </div>
 
-    <p>Código PIX (copia e cola):</p>
-    <textarea readonly>{{ $qrCode }}</textarea>
+        <p>Código PIX (copia e cola):</p>
+        <textarea readonly>{{ $qrCode }}</textarea>
 
-    <p>Ou acesse diretamente o link:</p>
-    <a href="{{ $ticketUrl }}" target="_blank">Clique aqui para pagar</a>
+        <p>Ou acesse diretamente o link:</p>
+        <a href="{{ $ticketUrl }}" target="_blank" class="btn">Clique aqui para pagar</a>
 
-    <p>Referência Externa: {{ $externalReference }}</p>
+        <p class="external-reference">Referência Externa: {{ $externalReference }}</p>
+    </div>
 </body>
 
 </html>

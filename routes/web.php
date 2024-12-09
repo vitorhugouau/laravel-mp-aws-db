@@ -40,6 +40,9 @@ Route::get('/mercadopago/webhook', [MercadoPagoController::class, 'handleWebhook
 
 Route::get('/mercadopago/pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
 
+Route::get('/mercadopago/check-status/{externalReference}', [MercadoPagoController::class, 'checkPaymentStatus'])->name('mercadopago.check-status');
+
+
 
 
 // Route::get('/alguma-coisa', function () {
