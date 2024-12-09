@@ -100,5 +100,32 @@
         <p class="external-reference">Referência Externa: {{ $externalReference }}</p>
     </div>
 </body>
+<script>
+    const externalReference = "{{ $externalReference }}"; // ID único do pagamento
+    const checkStatusUrl = "{{ route('mercadopago.check-status', ':externalReference') }}".replace(':externalReference',
+        externalReference);
+
+    function checkPaymentStatus() {
+        fetch(checkStatusUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'approved') {
+                    // Pagamento aprovado, redirecionar para a biblioteca
+                    window.location.href = "{{ route('biblioteca') }}"; // Substitua pela rota correta
+                } else if (data.status === 'rejected') {
+                    // Pagamento rejeitado, exibir mensagem de erro
+                    alert('Pagamento rejeitado. Por favor, tente novamente.');
+                }
+                // Continua verificando enquanto o status não for aprovado ou rejeitado
+            })
+            .catch(error => {
+                console.error('Erro ao verificar status do pagamento:', error);
+            });
+    }
+
+    // Verificar a cada 5 segundos (5000 ms)
+    setInterval(checkPaymentStatus, 5000);
+</script>
+
 
 </html>

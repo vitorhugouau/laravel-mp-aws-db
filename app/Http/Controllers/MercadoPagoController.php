@@ -242,7 +242,7 @@ class MercadoPagoController extends Controller
             'imagem_id' => 'required',
             'valor' => 'required',
         ]);
-         
+
         $imagemId = $validated['imagem_id'];
         $valor = (float) $validated['valor']; // Convertendo para float
 
@@ -324,7 +324,7 @@ class MercadoPagoController extends Controller
             // Redirecionar para a tela do Pix
             Log::info('Redirecionando para /mercadopago/pix');
             return redirect()->route('mercadopago.pix');
-            
+
 
         } catch (\Exception $e) {
             // Capturando exceções inesperadas
@@ -355,44 +355,73 @@ class MercadoPagoController extends Controller
     }
 
     public function showPixPayment()
-{
-    Log::info('Método showPixPayment iniciado');
-    // Recuperar os dados da sessão
-    $qrCode = session('qrCode');
-    $qrCodeBase64 = session('qrCodeBase64');
-    $ticketUrl = session('ticketUrl');
-    $externalReference = session('externalReference');
+    {
+        Log::info('Método showPixPayment iniciado');
+        // Recuperar os dados da sessão
+        $qrCode = session('qrCode');
+        $qrCodeBase64 = session('qrCodeBase64');
+        $ticketUrl = session('ticketUrl');
+        $externalReference = session('externalReference');
 
-    // Log detalhado para verificar os dados recuperados da sessão
-    Log::info('Exibindo tela com QR Code. Dados da sessão:', [
-        'qrCode' => $qrCode,
-        'qrCodeBase64' => $qrCodeBase64,
-        'ticketUrl' => $ticketUrl,
-        'externalReference' => $externalReference,
-    ]);
-
-    // Se não houver dados de QR Code, logar um erro (caso necessário)
-    if (!$qrCode || !$qrCodeBase64 || !$ticketUrl || !$externalReference) {
-        Log::error('Dados da sessão incompletos para exibir QR Code', [
+        // Log detalhado para verificar os dados recuperados da sessão
+        Log::info('Exibindo tela com QR Code. Dados da sessão:', [
             'qrCode' => $qrCode,
             'qrCodeBase64' => $qrCodeBase64,
             'ticketUrl' => $ticketUrl,
             'externalReference' => $externalReference,
         ]);
+
+        // Se não houver dados de QR Code, logar um erro (caso necessário)
+        if (!$qrCode || !$qrCodeBase64 || !$ticketUrl || !$externalReference) {
+            Log::error('Dados da sessão incompletos para exibir QR Code', [
+                'qrCode' => $qrCode,
+                'qrCodeBase64' => $qrCodeBase64,
+                'ticketUrl' => $ticketUrl,
+                'externalReference' => $externalReference,
+            ]);
+        }
+
+        Log::info('Dados da sessão antes de retornar a view:', [
+            'qrCode' => $qrCode,
+            'qrCodeBase64' => $qrCodeBase64,
+            'ticketUrl' => $ticketUrl,
+            'externalReference' => $externalReference,
+        ]);
+
+
+        // Retornar a view com os dados
+        return view('mercadopago.pix', compact('qrCode', 'qrCodeBase64', 'ticketUrl', 'externalReference'));
     }
-    
-    Log::info('Dados da sessão antes de retornar a view:', [
-        'qrCode' => $qrCode,
-        'qrCodeBase64' => $qrCodeBase64,
-        'ticketUrl' => $ticketUrl,
-        'externalReference' => $externalReference,
-    ]);
-    
 
-    // Retornar a view com os dados
-    return view('mercadopago.pix', compact('qrCode', 'qrCodeBase64', 'ticketUrl', 'externalReference'));
-}
+    public function checkPaymentStatus($externalReference)
+    {
+        try {
 
+            $accessToken = config('services.mercadopago.access_token');
+            $url = "https://api.mercadopago.com/v1/payments/search?external_reference=" . $externalReference;
+
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('GET', $url, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $accessToken,
+                ],
+            ]);
+
+            $body = json_decode($response->getBody(), true);
+
+            if (!empty($body['results'])) {
+                $status = $body['results'][0]['status'];
+
+                // Retorna o status do pagamento
+                return response()->json(['status' => $status]);
+            } else {
+                return response()->json(['status' => 'not_found']);
+            }
+        } catch (\Exception $e) {
+            Log::error('Erro ao verificar status do pagamento', ['message' => $e->getMessage()]);
+            return response()->json(['status' => 'error']);
+        }
+    }
 
 
 }
