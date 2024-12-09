@@ -33,24 +33,10 @@ Route::get('/', [ImageUploadController::class, 'indexTable2'])->name('biblioteca
 
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
 
+// rotas públicas (não requerem autenticação)
 Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
 
 
-Route::get('/mercadopago/webhook', [MercadoPagoController::class, 'handleWebhook'])->name('mercadopago.webhook');
-
-Route::get('/mercadopago/pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
-
-Route::get('/mercadopago/check-status/{externalReference}', [MercadoPagoController::class, 'checkPaymentStatus'])->name('mercadopago.check-status');
-
-
-
-
-// Route::get('/alguma-coisa', function () {
-//     return "Página acessada com sucesso!";
-// });
-
-
-// auth 
 Route::middleware('auth')->group(function () {
 
     // Route::get('/biblioteca', function () {
@@ -78,14 +64,13 @@ Route::middleware('auth')->group(function () {
 
     // Route::get('/pagamento/success', [MercadoPagoController::class, 'proximaTela'])->name('pagamento.success');
 
-    // Rota para criar o pagamento via Pix
     Route::post('/mercadopago/create', [MercadoPagoController::class, 'testPixPayment'])->name('mercadopago.create');
 
-    // Rota para exibir o pagamento via Pix (com QR Code)
-    // Route::get('/mercadopago/mercadopago.pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
+    Route::get('/mercadopago/webhook', [MercadoPagoController::class, 'handleWebhook'])->name('mercadopago.webhook');
+    
     Route::get('/mercadopago/pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
 
-
+    Route::get('/mercadopago/check-status/{externalReference}', [MercadoPagoController::class, 'checkPaymentStatus'])->name('mercadopago.check-status');
 
 
 
