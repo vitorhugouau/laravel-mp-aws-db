@@ -159,50 +159,59 @@ class MercadoPagoController extends Controller
                 Log::info("Pagamento recebido com ID {$paymentId} e status {$payment->status}");
 
                 if ($payment->status === 'approved') {
+                    // Log de entrada no bloco de pagamento aprovado
                     Log::info('Pagamento aprovado, processando informações.', ['payment_id' => $paymentId]);
 
-                    Log::info('Conteúdo de external_reference antes de decodificar:', ['external_reference_raw' => $payment->external_reference]);
+                    // Decodifica a referência externa
+                    $externalReference = json_decode($payment->external_reference, true);
 
-                    $externalReference = $payment->external_reference;
-
-                    if (isset($externalReference)) {
-                        Log::info('External reference:---------------.', ['external_reference' => $externalReference]);
-                    } else {
-                        Log::warning('External reference ausente.', ['payment_id' => $paymentId]);
-                    }
+                    Log::warning('External reference ausente ou inválido.', [
+                        'payment_id' => $paymentId,
+                        'payment_status' => $payment->status, // Status do pagamento, se disponível
+                        'payment_details' => $payment,
+                        'payer_name' => $payment->payer->first_name ?? 'Nome Desconhecido',
+                        'payer_email' => $payment->payer->email ?? 'email@desconhecido.com',
+                    ]);
 
                     if ($externalReference) {
-                        Log::info('External reference decodificado.', ['external_reference' => $externalReference]);
+                        // Log de external_reference decodificado
+                        Log::info('External reference decodificado.', $externalReference);
 
-                        // Decodificando o external_reference que está no formato JSON
-                        $decodedReference = json_decode($externalReference, true);
+                        $userId = $externalReference['user_id'] ?? null;
+                        $userName = $externalReference['user_name'] ?? 'Desconhecido';
+                        $imagemId = $externalReference['imagem_id'] ?? null;
 
-                        if (isset($decodedReference['user_id']) && isset($decodedReference['imagem_id'])) {
-                            $userId = $decodedReference['user_id']; // Obtendo user_id do external_reference
-                            $imagemId = $decodedReference['imagem_id']; // Obtendo imagem_id do external_reference
-                            $userName = $external_reference['user_name'] ?? 'Desconhecido';
+                        // Payer (informações do pagador)
+                        $payerName = $payment->payer->first_name ?? 'Nome Desconhecido';
+                        $payerEmail = $payment->payer->email ?? 'email@desconhecido.com';
 
-                            // Tentando buscar informações adicionais do usuário autenticado
-                            $user = Auth::user();
-                            if ($user && $userId === $user->id) { // Verificando se o user_id coincide com o usuário autenticado
-                                $userName = $user->name ?? 'Desconhecido';
-                            }
+                        Log::info('Informações do pagador:', [
+                            'payer_name' => $payerName,
+                            'payer_email' => $payerEmail,
+                        ]);
 
+
+                        // Log antes de salvar a venda
+                        if ($imagemId) {
                             Log::info('Salvando venda com os dados recebidos.', [
                                 'user_id' => $userId,
                                 'user_name' => $userName,
                                 'imagem_id' => $imagemId,
                                 'payment_id' => $paymentId,
                                 'status' => $payment->status,
+                                'payer_name' => $payerName, // Incluindo nome do pagador no log
+                                'payer_email' => $payerEmail, // Incluindo e-mail do pagador no log
                             ]);
 
-                            // Salvando a venda
+                            // Salvar a venda no banco, incluindo as informações do pagador
                             $this->saveSale($userId, $userName, $imagemId, $paymentId, $payment->status);
 
                             Log::info('Venda salva com sucesso.', [
                                 'payment_id' => $paymentId,
                                 'user_id' => $userId,
                                 'imagem_id' => $imagemId,
+                                'payer_name' => $payerName,
+                                'payer_email' => $payerEmail,
                             ]);
                         } else {
                             Log::warning('External reference inválido ou incompleto.', [
@@ -327,7 +336,6 @@ class MercadoPagoController extends Controller
             'external_reference' => $externalReference,
         ]);
 
-        // Dados do pagamento
         $paymentData = [
             'transaction_amount' => (float) $valor, // Valor capturado do formulário
             'payment_method_id' => 'pix', // Método de pagamento
@@ -337,9 +345,7 @@ class MercadoPagoController extends Controller
                 'email' => $request->user()->email ?? 'teste@exemplo.com', // Email do usuário autenticado ou valor padrão
             ],
             'notification_url' => 'https://90f9-2804-391c-20-2000-26c2-dfbd-f20b-e5ee.ngrok-free.app/webhook', // URL dinâmica para notificações
-            // 'external_reference' => 'Pagamento_' . time(),
-            // 'external_reference' => 'externalReference' . time(),
-            'external_reference' => 'externalReference' . time(),
+            'external_reference' => 'Pagamento_' . time(),
         ];
 
         Log::info('Dados do pagamento preparados:', $paymentData);
