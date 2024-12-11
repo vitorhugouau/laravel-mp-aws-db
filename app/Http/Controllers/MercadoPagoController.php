@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\ImgApi;
 use App\Models\Sale;
+use App\Models\Payments;
 use Illuminate\Support\Facades\Auth;
 use MercadoPago\SDK;
 use MercadoPago\Preference;
@@ -142,39 +143,50 @@ class MercadoPagoController extends Controller
 
         $this->authenticate();
 
+        // Recebe o ID do pagamento a partir da notificação do Mercado Pago
+        $data = $request->all();
         $paymentId = $data['data']['id'];
 
-
         try {
+            // Cria o cliente do Mercado Pago
             $client = new PaymentClient();
             $payment = $client->get($paymentId);
 
+            // Estrutura os dados do pagamento
+            $paymentData = [
+                'id' => $payment->id,
+                'status' => $payment->status,
+                'transaction_amount' => $payment->transaction_amount,
+                'currency_id' => $payment->currency_id,
+                'payer_name' => $payment->payer->first_name,
+                'payer_email' => $payment->payer->email,
+                'external_reference' => $payment->external_reference ?? 'Referência externa ausente'
+            ];
+
+            // Log dos detalhes completos do pagamento
+            Log::info('Detalhes completos do pagamento:', $paymentData);
+
+            // Log com os dados recebidos
             Log::info('Detalhes do pagamento recebido:', [
                 'payment_id' => $paymentId,
-                'payment' => $payment
+                'payment' => $paymentData
             ]);
 
             if ($payment) {
                 // Log para identificar o status do pagamento retornado
                 Log::info("Pagamento recebido com ID {$paymentId} e status {$payment->status}");
 
+                // Se o pagamento foi aprovado
                 if ($payment->status === 'approved') {
-                    // Log de entrada no bloco de pagamento aprovado
+                    // Log para indicar que o pagamento foi aprovado
                     Log::info('Pagamento aprovado, processando informações.', ['payment_id' => $paymentId]);
 
                     // Decodifica a referência externa
                     $externalReference = json_decode($payment->external_reference, true);
 
-                    Log::warning('External reference ausente ou inválido.', [
-                        'payment_id' => $paymentId,
-                        'payment_status' => $payment->status, // Status do pagamento, se disponível
-                        'payment_details' => $payment,
-                        'payer_name' => $payment->payer->first_name ?? 'Nome Desconhecido',
-                        'payer_email' => $payment->payer->email ?? 'email@desconhecido.com',
-                    ]);
-
+                    // Verifica se a referência externa foi decodificada corretamente
                     if ($externalReference) {
-                        // Log de external_reference decodificado
+                        // Log da referência externa decodificada
                         Log::info('External reference decodificado.', $externalReference);
 
                         $userId = $externalReference['user_id'] ?? null;
@@ -185,41 +197,16 @@ class MercadoPagoController extends Controller
                         $payerName = $payment->payer->first_name ?? 'Nome Desconhecido';
                         $payerEmail = $payment->payer->email ?? 'email@desconhecido.com';
 
-                        Log::info('Informações do pagador:', [
+                        // Salva a venda no banco de dados, incluindo as informações do pagador
+                        $this->saveSale($userId, $userName, $imagemId, $paymentId, $payment->status);
+
+                        Log::info('Venda salva com sucesso.', [
+                            'payment_id' => $paymentId,
+                            'user_id' => $userId,
+                            'imagem_id' => $imagemId,
                             'payer_name' => $payerName,
                             'payer_email' => $payerEmail,
                         ]);
-
-
-                        // Log antes de salvar a venda
-                        if ($imagemId) {
-                            Log::info('Salvando venda com os dados recebidos.', [
-                                'user_id' => $userId,
-                                'user_name' => $userName,
-                                'imagem_id' => $imagemId,
-                                'payment_id' => $paymentId,
-                                'status' => $payment->status,
-                                'payer_name' => $payerName, // Incluindo nome do pagador no log
-                                'payer_email' => $payerEmail, // Incluindo e-mail do pagador no log
-                            ]);
-
-                            // Salvar a venda no banco, incluindo as informações do pagador
-                            $this->saveSale($userId, $userName, $imagemId, $paymentId, $payment->status);
-
-                            Log::info('Venda salva com sucesso.', [
-                                'payment_id' => $paymentId,
-                                'user_id' => $userId,
-                                'imagem_id' => $imagemId,
-                                'payer_name' => $payerName,
-                                'payer_email' => $payerEmail,
-                            ]);
-                        } else {
-                            Log::warning('External reference inválido ou incompleto.', [
-                                'external_reference' => $externalReference,
-                            ]);
-                        }
-                    } else {
-                        Log::warning('External reference ausente ou inválido.', ['payment_id' => $paymentId]);
                     }
 
                 } else {
@@ -297,6 +284,7 @@ class MercadoPagoController extends Controller
     public function testPixPayment(Request $request)
     {
         Log::info('Método testPixPayment iniciado');
+        
 
         $validated = $request->validate([
             'imagem_id' => 'required',
@@ -317,6 +305,14 @@ class MercadoPagoController extends Controller
         Log::info('ID de Idempotência Gerado:', ['idempotencyKey' => $idempotencyKey]);
 
         $user = Auth::user(); // Obtém o usuário autenticado
+
+        if ($user) {
+            Log::info('Usuário autenticado', [
+                'id' => $user->id,
+                'first_name' => $user->name,
+                'email' => $user->email,
+            ]);
+        }
 
         if (!$user) {
             Log::error('Usuário não autenticado ao tentar iniciar o pagamento.');
@@ -344,11 +340,34 @@ class MercadoPagoController extends Controller
                 'first_name' => $request->user()->name ?? 'Nome de Teste', // Nome do usuário autenticado ou valor padrão
                 'email' => $request->user()->email ?? 'teste@exemplo.com', // Email do usuário autenticado ou valor padrão
             ],
-            'notification_url' => 'https://90f9-2804-391c-20-2000-26c2-dfbd-f20b-e5ee.ngrok-free.app/webhook', // URL dinâmica para notificações
-            'external_reference' => 'Pagamento_' . time(),
-        ];
 
+            'notification_url' => 'https://90f9-2804-391c-20-2000-26c2-dfbd-f20b-e5ee.ngrok-free.app/webhook', // URL dinâmica para notificações
+            'external_reference' => 'Pagamento_' . uniqid(),
+        ];
+        
+        // Log dos dados do pagamento
         Log::info('Dados do pagamento preparados:', $paymentData);
+        
+        // Criando o pagamento antes de salvar
+        $payment = Payments::create([
+            'transaction_amount' => $paymentData['transaction_amount'],
+            'payment_method_id' => $paymentData['payment_method_id'],
+            'description' => $paymentData['description'],
+            'payer_name' => $request->user()->name, // Salvando o payer como JSON
+            'payer_email' => $request->user()->email, // Email do pagador
+            'notification_url' => $paymentData['notification_url'],
+            'external_reference' => $paymentData['external_reference'],
+        ]);
+        if ($payment) {
+            Log::info('Pagamento criado no banco com sucesso:', ['payment_id' => $payment->id]);
+        }        
+        
+        Log::info('Pagamento criado e dados armazenados:', [
+            'payment_id' => $paymentData,
+            'payer_name' => $paymentData['payer']['first_name'],
+            'payer_email' => $paymentData['payer']['email'],
+            'external_reference' => $paymentData['external_reference'],
+        ]);
 
         // Tentando acessar a API do Mercado Pago
         try {
