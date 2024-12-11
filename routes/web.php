@@ -72,6 +72,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/mercadopago/check-status/{externalReference}', [MercadoPagoController::class, 'checkPaymentStatus'])->name('mercadopago.check-status');
 
+    Route::get('/pagamento-aprovado', function () {
+        return view('pagamento.success');
+    })->name('pagamento.aprovado');
+    
+
 
 
     // ---------------------------------------------------------------------------------------------------------------------------------
