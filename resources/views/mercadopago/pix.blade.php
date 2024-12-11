@@ -8,76 +8,81 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f4f8;
+            background-color: #f7f7f7;
             color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
         .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
             padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
             text-align: center;
         }
 
         h1 {
-            color: #007bff;
-            font-size: 1.8rem;
+            font-size: 24px;
             margin-bottom: 20px;
+            color: #444;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
         }
 
         .qr-code {
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
 
-        img {
-            max-width: 100%;
+        .qr-code img {
+            max-width: 200px;
             height: auto;
-            border-radius: 8px;
+            margin: 0 auto;
         }
 
         textarea {
             width: 100%;
-            height: 100px;
+            height: 40px;
             margin-top: 10px;
+            padding: 10px;
             font-size: 16px;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             resize: none;
             background-color: #f9f9f9;
         }
 
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            background-color: #007bff;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: background-color 0.3s;
+        textarea[readonly] {
+            background-color: #f1f1f1;
         }
 
-        .btn:hover {
+        a.btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        a.btn:hover {
             background-color: #0056b3;
         }
 
-        p {
-            margin: 15px 0;
-            font-size: 1rem;
-        }
-
         .external-reference {
+            font-size: 14px;
+            color: #777;
             margin-top: 20px;
-            font-weight: bold;
-            color: #555;
         }
     </style>
 </head>
@@ -123,8 +128,7 @@
             });
     }
 
-    // Verificar a cada 5 segundos (5000 ms)
-    setInterval(checkPaymentStatus, 5000);
+    setInterval(checkPaymentStatus, 3000);
 </script>
 
 

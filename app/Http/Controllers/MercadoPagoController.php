@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\ImgApi;
 use App\Models\Sale;
 use App\Models\Payments;
+use App\Models\Usuarios;
 use Illuminate\Support\Facades\Auth;
 use MercadoPago\SDK;
 use MercadoPago\Preference;
@@ -146,11 +147,29 @@ class MercadoPagoController extends Controller
         // Recebe o ID do pagamento a partir da notificação do Mercado Pago
         $data = $request->all();
         $paymentId = $data['data']['id'];
+        $externalReference = $data['data']['external_reference'] ?? null;
+
+        if ($externalReference) {
+            $payment = Payments::where('external_reference', $externalReference)->first();
+
+            if ($payment) {
+                $payment->update(['status' => $data['data']['status']]);
+                Log::info("Pagamento atualizado com sucesso.", ['payment_id' => $paymentId]);
+            } else {
+                Log::warning("Pagamento com referência externa não encontrado.", ['external_reference' => $externalReference]);
+            }
+        }
 
         try {
             // Cria o cliente do Mercado Pago
             $client = new PaymentClient();
             $payment = $client->get($paymentId);
+
+            // Verifica se o pagamento foi encontrado
+            if (!$payment) {
+                Log::warning("Pagamento com ID {$paymentId} não encontrado no Mercado Pago.");
+                return response()->json(['error' => 'Pagamento não encontrado'], 404);
+            }
 
             // Estrutura os dados do pagamento
             $paymentData = [
@@ -158,70 +177,136 @@ class MercadoPagoController extends Controller
                 'status' => $payment->status,
                 'transaction_amount' => $payment->transaction_amount,
                 'currency_id' => $payment->currency_id,
-                'payer_name' => $payment->payer->first_name,
-                'payer_email' => $payment->payer->email,
-                'external_reference' => $payment->external_reference ?? 'Referência externa ausente'
+                'payer_name' => $payment->payer->first_name ?? 'Nome Desconhecido',
+                'payer_email' => $payment->payer->email ?? 'email@desconhecido.com',
+                'external_reference' => $payment->external_reference ?? null,
             ];
 
-            // Log dos detalhes completos do pagamento
-            Log::info('Detalhes completos do pagamento:', $paymentData);
+            Log::info('Detalhes do pagamento recebido:', $paymentData);
 
-            // Log com os dados recebidos
-            Log::info('Detalhes do pagamento recebido:', [
-                'payment_id' => $paymentId,
-                'payment' => $paymentData
+            $externalReference = $paymentData['external_reference'];
+
+            if (strpos($externalReference, '{') === 0) {
+                // Trata como JSON e decodifica
+                $decodedReference = json_decode($externalReference, true);
+            } else {
+                // Trata como string simples
+                $decodedReference = [
+                    'user_id' => null,
+                    'user_name' => 'Desconhecido',
+                    'imagem_id' => $externalReference, // Usa o valor direto
+                ];
+            }
+
+            // Verifica se a referência foi decodificada corretamente
+            if (!$decodedReference) {
+                Log::warning('Referência externa inválida ou não decodificada corretamente.', [
+                    'external_reference' => $externalReference,
+                ]);
+                return response()->json(['error' => 'Referência externa inválida'], 400);
+            }
+
+            // Log da referência decodificada
+            Log::info('Referência externa decodificada com sucesso.', $decodedReference);
+
+            Log::info('Dados do pagamento antes de salvar:', [
+                'external_reference' => $paymentData['external_reference'],
+                'transaction_amount' => $paymentData['transaction_amount'],
+                'status' => $paymentData['status'],
+
             ]);
 
-            if ($payment) {
-                // Log para identificar o status do pagamento retornado
-                Log::info("Pagamento recebido com ID {$paymentId} e status {$payment->status}");
+            // Atualiza ou cria o registro do pagamento no banco
+            $paymentRecord = Payments::updateOrCreate(
+                ['external_reference' => $paymentData['external_reference']],
+                [
+                    'transaction_amount' => $paymentData['transaction_amount'],
+                    'description' => 'Pagamento de imagem',
+                ]
+            );
 
-                // Se o pagamento foi aprovado
-                if ($payment->status === 'approved') {
-                    // Log para indicar que o pagamento foi aprovado
-                    Log::info('Pagamento aprovado, processando informações.', ['payment_id' => $paymentId]);
+            Log::info('Pagamento registrado/atualizado no banco.', $paymentRecord->toArray());
 
-                    // Decodifica a referência externa
-                    $externalReference = json_decode($payment->external_reference, true);
+            // Verifica o status do pagamento
+            if ($paymentData['status'] === 'approved') {
+                // Log de pagamento aprovado
+                Log::info("Pagamento aprovado, processando informações.", [
+                    'payment_id' => $paymentId,
+                ]);
 
-                    // Verifica se a referência externa foi decodificada corretamente
-                    if ($externalReference) {
-                        // Log da referência externa decodificada
-                        Log::info('External reference decodificado.', $externalReference);
+                // Extrair o external_reference
+                $externalReference = $paymentData['external_reference'];
 
-                        $userId = $externalReference['user_id'] ?? null;
-                        $userName = $externalReference['user_name'] ?? 'Desconhecido';
-                        $imagemId = $externalReference['imagem_id'] ?? null;
+                // Buscar o pagamento na tabela 'payments' usando o external_reference
+                $paymentRecord = Payments::where('external_reference', $externalReference)->first();
 
-                        // Payer (informações do pagador)
-                        $payerName = $payment->payer->first_name ?? 'Nome Desconhecido';
-                        $payerEmail = $payment->payer->email ?? 'email@desconhecido.com';
+                Log::info('Pagamento encontrado:', [
+                    'user_id' => $paymentRecord->user_id,
+                    'payer_name' => $paymentRecord->payer_name,
+                    'imagem_id' => $paymentRecord->imagem_id,
+                ]);
 
-                        // Salva a venda no banco de dados, incluindo as informações do pagador
-                        $this->saveSale($userId, $userName, $imagemId, $paymentId, $payment->status);
+                if ($paymentRecord) {
+                    // Se o pagamento foi encontrado, obtenha os dados
+                    $userName = $paymentRecord->payer_name;
+                    $userEmail = $paymentRecord->payer_email;
+                    $imagemId = $paymentRecord->imagem_id;
 
-                        Log::info('Venda salva com sucesso.', [
-                            'payment_id' => $paymentId,
-                            'user_id' => $userId,
-                            'imagem_id' => $imagemId,
-                            'payer_name' => $payerName,
-                            'payer_email' => $payerEmail,
-                        ]);
-                    }
+                    // Buscar o user_id baseado no payer_email da tabela 'payments'
+                    $user = Usuarios::where('email', $paymentRecord->payer_email)->first();
 
+                    $userId = $user->id;  // Pegando o ID do usuário
+                    $userName = $user->name;
+                    $userEmail = $user->email;
+        
+                    // Log dos dados extraídos
+                    Log::info('Dados extraídos do pagamento:', [
+                        'user_id' => $userId,
+                        'user_name' => $userName,
+                        'user_email' => $userEmail,
+                        'imagem_id' => $imagemId,
+                    ]);
+
+                    // Log dos dados do pagamento antes de salvar a venda
+                    Log::info('Dados extraídos do pagamento:', [
+                        'user_id' => $userId,
+                        'user_name' => $userName,
+                        'user_email' => $userEmail,
+                        'imagem_id' => $imagemId,
+                    ]);
+
+                    // Criar a venda usando os dados extraídos
+                    $this->saveSale($userId, $userName, $imagemId, $paymentRecord->id, $paymentData['status']);
+
+                    Log::info('Venda criada com sucesso.', [
+                        'payment_id' => $paymentRecord->id,
+                    ]);
                 } else {
-                    Log::info("Pagamento com ID {$paymentId} não foi aprovado. Status: {$payment->status}");
+                    // Caso o pagamento não seja encontrado
+                    Log::error("Pagamento não encontrado para o external_reference: " . $externalReference);
                 }
+
+                // Log de venda salva com sucesso
+                Log::info('Venda salva com sucesso.', [
+                    'payment_id' => $paymentId,
+                    'user_id' => $userId,
+                    'imagem_id' => $imagemId,
+                    'payer_name' => $paymentData['payer_name'],
+                    'payer_email' => $paymentData['payer_email'],
+                ]);
             } else {
-                Log::error("Pagamento com ID {$paymentId} não encontrado ou retorno inválido.");
+                Log::info("Pagamento com ID {$paymentId} não foi aprovado. Status: {$paymentData['status']}");
             }
         } catch (\Exception $e) {
+            // Log de erro ao processar webhook
             Log::error('Erro ao processar webhook.', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
                 'payment_id' => $paymentId ?? 'desconhecido',
             ]);
+            return response()->json(['error' => 'Erro interno ao processar pagamento'], 500);
         }
+
 
 
         return response()->json(['status' => 'success'], 200);
@@ -284,7 +369,7 @@ class MercadoPagoController extends Controller
     public function testPixPayment(Request $request)
     {
         Log::info('Método testPixPayment iniciado');
-        
+
 
         $validated = $request->validate([
             'imagem_id' => 'required',
@@ -333,35 +418,39 @@ class MercadoPagoController extends Controller
         ]);
 
         $paymentData = [
-            'transaction_amount' => (float) $valor, // Valor capturado do formulário
-            'payment_method_id' => 'pix', // Método de pagamento
+            'transaction_amount' => (float) $valor,
+            'payment_method_id' => 'pix',
             'description' => 'Pagamento de imagem ID: ' . $imagemId,
             'payer' => [
-                'first_name' => $request->user()->name ?? 'Nome de Teste', // Nome do usuário autenticado ou valor padrão
-                'email' => $request->user()->email ?? 'teste@exemplo.com', // Email do usuário autenticado ou valor padrão
+                'first_name' => $request->user()->name ?? 'Nome de Teste',
+                'email' => $request->user()->email ?? 'teste@exemplo.com',
             ],
-
-            'notification_url' => 'https://90f9-2804-391c-20-2000-26c2-dfbd-f20b-e5ee.ngrok-free.app/webhook', // URL dinâmica para notificações
+            'notification_url' => 'https://90f9-2804-391c-20-2000-26c2-dfbd-f20b-e5ee.ngrok-free.app/webhook',
             'external_reference' => 'Pagamento_' . uniqid(),
         ];
-        
-        // Log dos dados do pagamento
+
         Log::info('Dados do pagamento preparados:', $paymentData);
-        
-        // Criando o pagamento antes de salvar
+
+        $status = 'pending';  
+
         $payment = Payments::create([
             'transaction_amount' => $paymentData['transaction_amount'],
             'payment_method_id' => $paymentData['payment_method_id'],
             'description' => $paymentData['description'],
-            'payer_name' => $request->user()->name, // Salvando o payer como JSON
-            'payer_email' => $request->user()->email, // Email do pagador
+            'payer_name' => $paymentData['payer']['first_name'],
+            'payer_email' => $paymentData['payer']['email'],
             'notification_url' => $paymentData['notification_url'],
             'external_reference' => $paymentData['external_reference'],
+            'imagem_id' => $imagemId,
         ]);
+
         if ($payment) {
-            Log::info('Pagamento criado no banco com sucesso:', ['payment_id' => $payment->id]);
-        }        
-        
+            Log::info('Pagamento criado no banco com sucesso:', [
+                'payment_id' => $payment->id,
+                'payment' => $payment,
+            ]);
+        }
+
         Log::info('Pagamento criado e dados armazenados:', [
             'payment_id' => $paymentData,
             'payer_name' => $paymentData['payer']['first_name'],
@@ -369,12 +458,10 @@ class MercadoPagoController extends Controller
             'external_reference' => $paymentData['external_reference'],
         ]);
 
-        // Tentando acessar a API do Mercado Pago
         try {
-            $accessToken = config('services.mercadopago.access_token'); // Access Token Mercado Pago
+            $accessToken = config('services.mercadopago.access_token');
             Log::info('Access Token Mercado Pago obtido.');
 
-            // Requisição para criar pagamento via Pix
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $accessToken,
                 'X-Idempotency-Key' => $idempotencyKey,
@@ -385,7 +472,6 @@ class MercadoPagoController extends Controller
                 'body' => $response->body(),
             ]);
 
-            // Verificando o status da requisição
             if ($response->failed()) {
                 Log::error('Erro na requisição ao Mercado Pago', [
                     'status' => $response->status(),
@@ -395,22 +481,19 @@ class MercadoPagoController extends Controller
                     ->with('error', 'Erro ao processar pagamento via Pix.');
             }
 
-            // Verificando a resposta
             $responseData = $response->json();
             Log::info('Resposta decodificada da API Mercado Pago:', ['response' => $responseData]);
 
-            // Verificando se o QR Code foi gerado corretamente
             if (!isset($responseData['point_of_interaction']['transaction_data'])) {
                 Log::error('Erro ao gerar QR Code: Dados de transação ausentes.', ['response' => $responseData]);
                 return redirect()->route('mercadopago.failure')
                     ->with('error', 'Erro ao gerar QR Code.');
             }
 
-            // Extraindo dados do QR Code
             $transactionData = $responseData['point_of_interaction']['transaction_data'];
             Log::info('Dados de transação encontrados:', ['transactionData' => $transactionData]);
 
-            // Armazenando os dados na sessão
+
             session([
                 'qrCode' => $transactionData['qr_code'],
                 'qrCodeBase64' => $transactionData['qr_code_base64'],
@@ -419,13 +502,13 @@ class MercadoPagoController extends Controller
                 'external_Reference' => $externalReference,
             ]);
 
-            // Redirecionar para a tela do Pix
+
             Log::info('Redirecionando para /mercadopago/pix');
             return redirect()->route('mercadopago.pix');
 
 
         } catch (\Exception $e) {
-            // Capturando exceções inesperadas
+
             Log::error('Erro inesperado ao processar pagamento', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
@@ -438,13 +521,12 @@ class MercadoPagoController extends Controller
     public function showPixPayment()
     {
         Log::info('Método showPixPayment iniciado');
-        // Recuperar os dados da sessão
+
         $qrCode = session('qrCode');
         $qrCodeBase64 = session('qrCodeBase64');
         $ticketUrl = session('ticketUrl');
         $externalReference = session('externalReference');
 
-        // Log detalhado para verificar os dados recuperados da sessão
         Log::info('Exibindo tela com QR Code. Dados da sessão:', [
             'qrCode' => $qrCode,
             'qrCodeBase64' => $qrCodeBase64,
@@ -452,7 +534,6 @@ class MercadoPagoController extends Controller
             'externalReference' => $externalReference,
         ]);
 
-        // Se não houver dados de QR Code, logar um erro (caso necessário)
         if (!$qrCode || !$qrCodeBase64 || !$ticketUrl || !$externalReference) {
             Log::error('Dados da sessão incompletos para exibir QR Code', [
                 'qrCode' => $qrCode,
@@ -470,39 +551,54 @@ class MercadoPagoController extends Controller
         ]);
 
 
-        // Retornar a view com os dados
         return view('mercadopago.pix', compact('qrCode', 'qrCodeBase64', 'ticketUrl', 'externalReference'));
     }
 
     public function checkPaymentStatus($externalReference)
-    {
-        try {
+{
+    try {
+        $accessToken = config('services.mercadopago.access_token');
+        $url = "https://api.mercadopago.com/v1/payments/search?external_reference=" . $externalReference;
 
-            $accessToken = config('services.mercadopago.access_token');
-            $url = "https://api.mercadopago.com/v1/payments/search?external_reference=" . $externalReference;
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', $url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $accessToken,
+            ],
+        ]);
 
-            $client = new \GuzzleHttp\Client();
-            $response = $client->request('GET', $url, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                ],
-            ]);
-
+        // Verifica se a resposta foi bem-sucedida
+        if ($response->getStatusCode() === 200) {
             $body = json_decode($response->getBody(), true);
 
             if (!empty($body['results'])) {
+                // Retorna o status do pagamento
                 $status = $body['results'][0]['status'];
 
-                // Retorna o status do pagamento
+                // Verifica se o status é encontrado corretamente
                 return response()->json(['status' => $status]);
             } else {
-                return response()->json(['status' => 'not_found']);
+                // Pagamento não encontrado
+                return response()->json(['status' => 'not_found'], 404);
             }
-        } catch (\Exception $e) {
-            Log::error('Erro ao verificar status do pagamento', ['message' => $e->getMessage()]);
-            return response()->json(['status' => 'error']);
+        } else {
+            // Erro na requisição
+            Log::error('Erro ao chamar API do Mercado Pago.', [
+                'status_code' => $response->getStatusCode(),
+                'external_reference' => $externalReference
+            ]);
+            return response()->json(['status' => 'error'], 500);
         }
+    } catch (\Exception $e) {
+        // Erro na comunicação ou processamento
+        Log::error('Erro ao verificar status do pagamento', [
+            'message' => $e->getMessage(),
+            'external_reference' => $externalReference
+        ]);
+        return response()->json(['status' => 'error'], 500);
     }
+}
+
 
 
 }

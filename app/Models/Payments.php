@@ -15,5 +15,6 @@ class Payments extends Model
         'payer_name',
         'payer_email',
         'status',
+        'imagem_id', 
     ];
 }
