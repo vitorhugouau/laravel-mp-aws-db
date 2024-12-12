@@ -16,6 +16,7 @@ use App\Http\Controllers\MercadoPagoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\MercadoPagoCard;
 use App\Http\Controllers\WebhookController;
 
 
@@ -62,7 +63,6 @@ Route::middleware('auth')->group(function () {
         return "Falha no pagamento!";
     })->name('mercadopago.failure');
 
-    // Route::get('/pagamento/success', [MercadoPagoController::class, 'proximaTela'])->name('pagamento.success');
 
     Route::post('/mercadopago/create', [MercadoPagoController::class, 'testPixPayment'])->name('mercadopago.create');
 
@@ -72,12 +72,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/mercadopago/check-status/{externalReference}', [MercadoPagoController::class, 'checkPaymentStatus'])->name('mercadopago.check-status');
 
-    Route::get('/pagamento-aprovado', function () {
-        return view('pagamento.success');
-    })->name('pagamento.aprovado');
+    Route::get('/mercadopago/success', [MercadoPagoController::class, 'handlePaymentSuccess'])->name('payment.success');
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
+
+    Route::post('/mercadopago/createCard', [MercadoPagoCard::class, 'createPaymentPreference'])->name('mercadopago.createCard');
+    
+    Route::get('/mercadopago/successCard', [MercadoPagoCard::class, 'paymentSuccess'])->name('mercadopago.success');
     
 
-
+    Route::get('/mercadopagoCard/{id}', [MercadoPagoCard::class, 'getPreferenceById'])->name('mercadopago.get');
 
     // ---------------------------------------------------------------------------------------------------------------------------------
 

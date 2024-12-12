@@ -64,6 +64,26 @@
                 </div>
             </div>
         </form>
+
+        <form action="{{ route('mercadopago.createCard') }}" method="post" id="paymentForm">
+            @csrf
+            <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
+            <div class="container1">
+                <h2>Área de Confirmação</h2>
+                <div class="planos">
+                    <label>
+                        <input type="radio" name="valor" value="{{ $imagem->valor }}" style="margin-right: 8px;">
+                        R$ {{ number_format($imagem->valor, 2, ',', '.') }} por esta imagem<br>
+                    </label>
+                    <strong>→ Confirme Clicando no Botão Abaixo</strong>
+                </div>
+                <button class="button" onclick="checkSelection()">Continuar compra</button>
+
+                <div class="info">
+                    Inclui a nossa <a href="#">licença padrão</a>.<br>
+                </div>
+            </div>
+        </form>
         
         <script>
             function checkSelection() {
