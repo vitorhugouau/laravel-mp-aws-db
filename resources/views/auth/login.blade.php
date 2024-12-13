@@ -24,11 +24,11 @@
                             <div class="card-content-area">
                                 <label for="email">E-MAIL</label>
                                 <input type="email" name="email" id="email" autocomplete="off"
-                                    value="admin@teste.com" required>
+                                    value="admin@teste.com" required placeholder="Digite sua email">
                             </div>
                             <div class="card-content-area">
                                 <label for="password">SENHA</label>
-                                <input type="password" name="password" id="password" autocomplete="off" required>
+                                <input type="password" name="password" id="password" autocomplete="off" required placeholder="Digite sua senha">
                                 @error('email')
                                     <span style="font-size:11px; color:red;">{{ $message }}</span>
                                 @enderror

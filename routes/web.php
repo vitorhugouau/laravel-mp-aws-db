@@ -18,6 +18,9 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\MercadoPagoCard;
 use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+
 
 
 // Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.create');
@@ -36,10 +39,6 @@ Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.ind
 
 // rotas públicas (não requerem autenticação)
 Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
-
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-
 
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 
