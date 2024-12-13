@@ -258,7 +258,7 @@ class MercadoPagoController extends Controller
                     $userId = $user->id;  // Pegando o ID do usuário
                     $userName = $user->name;
                     $userEmail = $user->email;
-        
+
                     // Log dos dados extraídos
                     Log::info('Dados extraídos do pagamento:', [
                         'user_id' => $userId,
@@ -355,6 +355,11 @@ class MercadoPagoController extends Controller
                 'user_id' => $userId,
                 'product_id' => $productId,
             ]);
+
+            // Chamando processSale para o pós-processamento
+            $payment = (object) ['id' => $paymentId]; // Criar um objeto simplificado para passar ao processSale
+            $this->processSale($userId, $userName, $productId, $payment, $status);
+
         } catch (\Exception $e) {
             // Log para captura de erro ao tentar salvar a venda
             Log::error('Erro ao salvar venda.', [
@@ -365,6 +370,32 @@ class MercadoPagoController extends Controller
         }
     }
 
+    protected function processSale($userId, $userName, $productId, $payment, $status)
+    {
+        Log::info('Iniciando o processamento da venda.', [
+            'user_id' => $userId,
+            'user_name' => $userName,
+            'product_id' => $productId,
+            'payment_id' => $payment->id,
+            'status' => $status,
+        ]);
+    
+        try {
+            $deletedRows = Payments::where('user_id', $userId)->delete();
+    
+            Log::info('Registros relacionados ao nome do usuário excluídos da tabela Payments.', [
+                'user_id' => $userId,
+                'deleted_rows' => $deletedRows,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Erro ao processar a venda ou excluir os pagamentos relacionados ao usuário.', [
+                'message' => $e->getMessage(),
+                'user_id' => $userId,
+                'exception' => $e->getTraceAsString(),
+            ]);
+        }
+    }
+    
 
     public function testPixPayment(Request $request)
     {
@@ -431,7 +462,7 @@ class MercadoPagoController extends Controller
 
         Log::info('Dados do pagamento preparados:', $paymentData);
 
-        $status = 'pending';  
+        $status = 'pending';
 
         $payment = Payments::create([
             'transaction_amount' => $paymentData['transaction_amount'],
@@ -442,6 +473,7 @@ class MercadoPagoController extends Controller
             'notification_url' => $paymentData['notification_url'],
             'external_reference' => $paymentData['external_reference'],
             'imagem_id' => $imagemId,
+            'user_id' => $userId,
         ]);
 
         if ($payment) {
@@ -555,108 +587,105 @@ class MercadoPagoController extends Controller
     }
 
     public function checkPaymentStatus($externalReference)
-{
-    try {
-        $accessToken = config('services.mercadopago.access_token');
-        $url = "https://api.mercadopago.com/v1/payments/search?external_reference=" . $externalReference;
+    {
+        try {
+            $accessToken = config('services.mercadopago.access_token');
+            $url = "https://api.mercadopago.com/v1/payments/search?external_reference=" . $externalReference;
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $accessToken,
-            ],
-        ]);
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('GET', $url, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $accessToken,
+                ],
+            ]);
 
-        // Verifica se a resposta foi bem-sucedida
-        if ($response->getStatusCode() === 200) {
-            $body = json_decode($response->getBody(), true);
+            // Verifica se a resposta foi bem-sucedida
+            if ($response->getStatusCode() === 200) {
+                $body = json_decode($response->getBody(), true);
 
-            if (!empty($body['results'])) {
-                // Retorna o status do pagamento
-                $status = $body['results'][0]['status'];
+                if (!empty($body['results'])) {
+                    // Retorna o status do pagamento
+                    $status = $body['results'][0]['status'];
 
-                // Verifica se o status é encontrado corretamente
-                return response()->json(['status' => $status]);
+                    // Verifica se o status é encontrado corretamente
+                    return response()->json(['status' => $status]);
+                } else {
+                    // Pagamento não encontrado
+                    return response()->json(['status' => 'not_found'], 404);
+                }
             } else {
-                // Pagamento não encontrado
-                return response()->json(['status' => 'not_found'], 404);
+                // Erro na requisição
+                Log::error('Erro ao chamar API do Mercado Pago.', [
+                    'status_code' => $response->getStatusCode(),
+                    'external_reference' => $externalReference
+                ]);
+                return response()->json(['status' => 'error'], 500);
             }
-        } else {
-            // Erro na requisição
-            Log::error('Erro ao chamar API do Mercado Pago.', [
-                'status_code' => $response->getStatusCode(),
+        } catch (\Exception $e) {
+            // Erro na comunicação ou processamento
+            Log::error('Erro ao verificar status do pagamento', [
+                'message' => $e->getMessage(),
                 'external_reference' => $externalReference
             ]);
             return response()->json(['status' => 'error'], 500);
         }
-    } catch (\Exception $e) {
-        // Erro na comunicação ou processamento
-        Log::error('Erro ao verificar status do pagamento', [
-            'message' => $e->getMessage(),
-            'external_reference' => $externalReference
-        ]);
-        return response()->json(['status' => 'error'], 500);
     }
-}
-public function handlePaymentSuccess(Request $request)
-{
-    // Obtém os parâmetros da requisição
-    $payment_id = $request->get('payment_id');
-    $status = $request->get('status');
+    public function handlePaymentSuccess(Request $request)
+    {
 
-    Log::info('Iniciando handlePaymentSuccess', [
-        'payment_id_request' => $payment_id,
-        'status_request' => $status,
-    ]);
+        $payment_id = $request->get('payment_id');
+        $status = $request->get('status');
 
-    // Recupera o usuário logado
-    $user = Auth::user();
-
-    if ($user) {
-        Log::info('Usuário logado', ['user_id' => $user->id, 'user_name' => $user->name]);
-    } else {
-        Log::warning('Nenhum usuário logado');
-    }
-
-    // Recupera a última venda do usuário
-    $lastSale = Sale::where('user_id', $user->id)
-                    ->latest()  // Ordena pela venda mais recente
-                    ->first();
-
-    if ($lastSale) {
-        Log::info('Última venda encontrada', [
-            'sale_id' => $lastSale->id,
-            'payment_id_sale' => $lastSale->payment_id,
-            'status_sale' => $lastSale->status,
-            'product_id' => $lastSale->product_id,
+        Log::info('Iniciando handlePaymentSuccess', [
+            'payment_id_request' => $payment_id,
+            'status_request' => $status,
         ]);
 
-        $payment_id = $lastSale->payment_id; // Atualiza o ID do pagamento
-        $status = $lastSale->status; // Atualiza o status
-        $imagem = $lastSale->product; // Busca a imagem associada ao produto da venda
+        $user = Auth::user();
 
-        if ($imagem) {
-            Log::info('Imagem associada encontrada', [
-                'imagem_id' => $imagem->id,
-                'imagem_url_original' => $imagem->url_original,
-            ]);
+        if ($user) {
+            Log::info('Usuário logado', ['user_id' => $user->id, 'user_name' => $user->name]);
         } else {
-            Log::warning('Nenhuma imagem associada à venda encontrada');
+            Log::warning('Nenhum usuário logado');
         }
-    } else {
-        Log::warning('Nenhuma venda encontrada para o usuário', ['user_id' => $user->id]);
-        $imagem = null;
+
+        $lastSale = Sale::where('user_id', $user->id)
+            ->latest()
+            ->first();
+
+        if ($lastSale) {
+            Log::info('Última venda encontrada', [
+                'sale_id' => $lastSale->id,
+                'payment_id_sale' => $lastSale->payment_id,
+                'status_sale' => $lastSale->status,
+                'product_id' => $lastSale->product_id,
+            ]);
+
+            $payment_id = $lastSale->payment_id;
+            $status = $lastSale->status;
+            $imagem = $lastSale->product;
+
+            if ($imagem) {
+                Log::info('Imagem associada encontrada', [
+                    'imagem_id' => $imagem->id,
+                    'imagem_url_original' => $imagem->url_original,
+                ]);
+            } else {
+                Log::warning('Nenhuma imagem associada à venda encontrada');
+            }
+        } else {
+            Log::warning('Nenhuma venda encontrada para o usuário', ['user_id' => $user->id]);
+            $imagem = null;
+        }
+
+        Log::info('Retornando para a view', [
+            'payment_id' => $payment_id,
+            'status' => $status,
+            'imagem' => $imagem ? $imagem->id : null,
+        ]);
+
+        return view('pagamento.success', compact('payment_id', 'status', 'imagem'));
     }
-
-    // Retorna a view com os dados de pagamento, status e imagem
-    Log::info('Retornando para a view', [
-        'payment_id' => $payment_id,
-        'status' => $status,
-        'imagem' => $imagem ? $imagem->id : null,
-    ]);
-
-    return view('pagamento.success', compact('payment_id', 'status', 'imagem'));
-}
 
 
 }

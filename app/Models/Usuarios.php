@@ -23,7 +23,9 @@ class Usuarios extends Authenticatable
         'remember_token',
     ];
 
-
-
+    // Relacionamento correto com Payments usando user_id
+    public function payments()
+    {
+        return $this->hasMany(Payments::class, 'user_id'); // Correção: relação com user_id
+    }
 }
-

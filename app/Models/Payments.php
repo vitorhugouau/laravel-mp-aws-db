@@ -9,12 +9,19 @@ class Payments extends Model
 {
     use HasFactory;
 
-    // Especificar os campos que podem ser preenchidos em massa
     protected $fillable = [
         'external_reference',
         'payer_name',
         'payer_email',
         'status',
         'imagem_id', 
+        'user_id',  
     ];
+
+    // Relacionamento correto com Usuarios
+    public function usuario()
+    {
+        return $this->belongsTo(Usuarios::class, 'user_id'); // Relacionamento correto com user_id
+    }
+
 }
