@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="/css/login/parte.css">
 </head>
+
 <body>
     <h1>SEJA BEM-VINDO</h1>
 
@@ -21,7 +23,8 @@
                         <div class="card-content">
                             <div class="card-content-area">
                                 <label for="email">E-MAIL</label>
-                                <input type="email" name="email" id="email" autocomplete="off" value="admin@teste.com" required>
+                                <input type="email" name="email" id="email" autocomplete="off"
+                                    value="admin@teste.com" required>
                             </div>
                             <div class="card-content-area">
                                 <label for="password">SENHA</label>
@@ -32,13 +35,22 @@
                             </div>
                         </div>
                         <div class="card-footer">
+                            <p class="password">
+                                <a href="{{ route('password.request') }}">
+                                    Esqueceu sua senha? Redefina aqui.</a>
+                            </p>
+                        </div>
+                        <div class="card-footer">
                             <button type="submit" class="submit">ENTRAR</button>
                         </div>
                         <div class="card-cadastro2">
-                             <button type="button" class="teste2" id="teste2" data-url="{{ route('biblioteca') }}">VOLTAR</button>
+                            <button type="button" class="teste2" id="teste2"
+                                data-url="{{ route('biblioteca') }}">VOLTAR</button>
                         </div>
                         <div class="card-footer">
-                            <p>Não tem conta? <a href="{{ route('usuarios.create') }}">Clique aqui para se cadastrar.</a></p>
+                            <div class="conta">
+                                <p>Não tem conta? <a href="{{ route('usuarios.create') }}">Clique aqui para se cadastrar.</a></p>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -46,6 +58,7 @@
         </div>
     </div>
 </body>
+
 </html>
 
 <script>

@@ -65,6 +65,7 @@ h1 {
     border-radius: 45px;
     width: 280px;
     margin: 10px;
+    height: 522px;
 }
 
 .card h3 {
@@ -152,8 +153,16 @@ h1 {
 }
 
 p{
-    font-size: 14px; /* Tamanho do texto */
+    font-size: 13px; /* Tamanho do texto */
 }
+.password a{
+    font-size: 12px; /* Tamanho do texto */
+    color: #717bf3;
+    }
 a{
     color: green;
+}
+
+.conta{
+    margin-top: 20px;
 }

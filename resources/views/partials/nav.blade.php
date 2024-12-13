@@ -10,18 +10,18 @@
 
         <li class="nav-li-02"><a href="{{ route('biblioteca') }}">HOME</a></li>
 
-        <li class="nav-li-02"><a href="#">CONTATO</a>
-            <ul>
+        <li class="nav-li-02"><a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">CONTATO</a>
+            {{-- <ul>
                 <li><a
                         href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a>
                 </li>
-            </ul>
+            </ul> --}}
         </li>
 
-        <li class="nav-li-02"><a href="#">SERVIÇOS</a>
-            <ul>
+        <li class="nav-li-02"><a href="{{ route('clientes.store') }}">SERVIÇOS</a>
+            {{-- <ul>
                 <li><a href="{{ route('clientes.store') }}">CONTRATAR SERVIÇO</a></li>
-            </ul>
+            </ul> --}}
         </li>
 
         @auth
