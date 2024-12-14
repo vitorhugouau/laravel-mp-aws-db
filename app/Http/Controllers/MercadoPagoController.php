@@ -379,10 +379,10 @@ class MercadoPagoController extends Controller
             'payment_id' => $payment->id,
             'status' => $status,
         ]);
-    
+
         try {
             $deletedRows = Payments::where('user_id', $userId)->delete();
-    
+
             Log::info('Registros relacionados ao nome do usuário excluídos da tabela Payments.', [
                 'user_id' => $userId,
                 'deleted_rows' => $deletedRows,
@@ -395,7 +395,7 @@ class MercadoPagoController extends Controller
             ]);
         }
     }
-    
+
 
     public function testPixPayment(Request $request)
     {
@@ -456,7 +456,7 @@ class MercadoPagoController extends Controller
                 'first_name' => $request->user()->name ?? 'Nome de Teste',
                 'email' => $request->user()->email ?? 'teste@exemplo.com',
             ],
-            'notification_url' => 'https://ec5a-2a02-6ea0-d07c-0-ae7f-16d1-8cf7-af97.ngrok-free.app/webhook',
+            'notification_url' => 'https://literate-walrus-adjusted.ngrok-free.app/webhook',
             'external_reference' => 'Pagamento_' . uniqid(),
         ];
 

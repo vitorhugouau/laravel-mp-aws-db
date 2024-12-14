@@ -40,51 +40,53 @@
             </div>
         </div> --}}
 
+        <div class="pay">
+            <form action="{{ route('mercadopago.create') }}" method="POST" id="paymentForm">
+                @csrf
+                <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
+                <div class="container1">
+                    <h2>Área de Confirmação</h2>
+                    <div class="planos">
+                        <label>
+                            <input type="radio" name="valor" value="{{ $imagem->valor }}" style="margin-right: 8px;" required>
+                            R$ {{ number_format($imagem->valor, 2, ',', '.') }} por esta imagem<br>
+                        </label>
+                        <strong>→ Confirme Clicando no Botão Abaixo</strong>
+                    </div>
 
-        <form action="{{ route('mercadopago.create') }}" method="POST" id="paymentForm">
-            @csrf
-            <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
-            <div class="container1">
-                <h2>Área de Confirmação</h2>
-                <div class="planos">
-                    <label>
-                        <input type="radio" name="valor" value="{{ $imagem->valor }}" style="margin-right: 8px;" required>
-                        R$ {{ number_format($imagem->valor, 2, ',', '.') }} por esta imagem<br>
-                    </label>
-                    <strong>→ Confirme Clicando no Botão Abaixo</strong>
-                </div>
-        
-                <!-- Botão Pix que submete o formulário -->
-                <button class="button" onclick="checkSelection(event)">
-                    Pagamento via Pix
-                </button>
-        
-                <div class="info">
-                    Inclui a nossa <a href="#">licença padrão</a>.<br>
-                </div>
-            </div>
-        </form>
+                    <!-- Botão Pix que submete o formulário -->
+                    <button class="button" onclick="checkSelection(event)">
+                        Pagamento via Pix
+                    </button>
 
-        <form action="{{ route('mercadopago.createCard') }}" method="post" id="paymentForm">
-            @csrf
-            <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
-            <div class="container1">
-                <h2>Área de Confirmação</h2>
-                <div class="planos">
-                    <label>
-                        <input type="radio" name="valor" value="{{ $imagem->valor }}" style="margin-right: 8px;">
-                        R$ {{ number_format($imagem->valor, 2, ',', '.') }} por esta imagem<br>
-                    </label>
-                    <strong>→ Confirme Clicando no Botão Abaixo</strong>
+                    <div class="info">
+                        Inclui a nossa <a href="#">licença padrão</a>.<br>
+                    </div>
                 </div>
-                <button class="button" onclick="checkSelection()">Continuar compra</button>
+            </form>
+            <br>
+            <br>
 
-                <div class="info">
-                    Inclui a nossa <a href="#">licença padrão</a>.<br>
+            <form action="{{ route('mercadopago.createCard') }}" method="post" id="paymentForm">
+                @csrf
+                <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
+                <div class="container2">
+                    <h2>Área de Confirmação</h2>
+                    <div class="planos">
+                        <label>
+                            <input type="radio" name="valor" value="{{ $imagem->valor }}" style="margin-right: 8px;">
+                            R$ {{ number_format($imagem->valor, 2, ',', '.') }} por esta imagem<br>
+                        </label>
+                        <strong>→ Confirme Clicando no Botão Abaixo</strong>
+                    </div>
+                    <button class="button" onclick="checkSelection()">Pagamento via Cartão</button>
+
+                    <div class="info">
+                        Inclui a nossa <a href="#">licença padrão</a>.<br>
+                    </div>
                 </div>
-            </div>
-        </form>
-        
+            </form>
+        </div>
         <script>
             function checkSelection() {
                 const radioChecked = document.querySelector('input[name="valor"]:checked');
@@ -95,7 +97,7 @@
                 }
             }
         </script>
-        
+
 
         <script>
             document.getElementById('paymentForm').addEventListener('submit', function(event) {
@@ -125,7 +127,7 @@
 
         {{-- -------------------------------------------------------------------------------------------------------------------------------------------------- --}}
 
-       
+
 
         {{-- ---------------------------------------------------- --}}
         <script>

@@ -326,7 +326,17 @@ header {
             height: 100vh;
         } */
 .container1 {
-    background-color: #ffffffdb;
+    background-color: #ffffffd7;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    /* width: 300px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 2rem;
+    /* opacity: 100%; */
+}
+.container2 {
+    background-color: rgba(255, 255, 255, 0.911);
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
