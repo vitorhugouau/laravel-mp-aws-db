@@ -19,6 +19,7 @@ use MercadoPago\Item;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Support\Facades\Http;
+
 class MercadoPagoController extends Controller
 {
     protected function authenticate()
@@ -135,29 +136,61 @@ class MercadoPagoController extends Controller
     // Processar o webhook
     public function webhook(Request $request)
     {
+        Log::info('Webhook iniciado.', [
+            'request_data' => $request->all(),
+        ]);
+        
+
         $data = $request->all();
 
         if (!isset($data['data']['id'])) {
-            Log::error('Webhook recebido sem ID de pagamento.');
+            Log::error('Webhook recebido sem ID de pagamento.', [
+                'request_data' => $data,
+            ]);
             return response()->json(['error' => 'Dados inválidos'], 400);
         }
 
+        Log::info('ID do pagamento recebido.', [
+            'payment_id' => $data['data']['id'],
+        ]);
+
         $this->authenticate();
+        Log::info('Autenticação realizada com sucesso.');
 
         // Recebe o ID do pagamento a partir da notificação do Mercado Pago
-        $data = $request->all();
         $paymentId = $data['data']['id'];
         $externalReference = $data['data']['external_reference'] ?? null;
 
+        Log::info('Detalhes do pagamento recebidos.', [
+            'payment_id' => $paymentId,
+            'external_reference' => $externalReference,
+        ]);
+
         if ($externalReference) {
+            Log::info('Buscando pagamento no banco de dados.', [
+                'external_reference' => $externalReference,
+            ]);
+
             $payment = Payments::where('external_reference', $externalReference)->first();
 
             if ($payment) {
+                Log::info('Pagamento encontrado no banco de dados.', $payment->toArray());
+
+                // Atualiza o status do pagamento no banco
                 $payment->update(['status' => $data['data']['status']]);
-                Log::info("Pagamento atualizado com sucesso.", ['payment_id' => $paymentId]);
+                Log::info('Pagamento atualizado com sucesso.', [
+                    'payment_id' => $paymentId,
+                    'novo_status' => $data['data']['status'],
+                ]);
             } else {
-                Log::warning("Pagamento com referência externa não encontrado.", ['external_reference' => $externalReference]);
+                Log::warning('Pagamento com referência externa não encontrado.', [
+                    'external_reference' => $externalReference,
+                ]);
             }
+        } else {
+            Log::warning('Nenhuma referência externa encontrada no webhook.', [
+                'payment_id' => $paymentId,
+            ]);
         }
 
         try {
@@ -359,7 +392,6 @@ class MercadoPagoController extends Controller
             // Chamando processSale para o pós-processamento
             $payment = (object) ['id' => $paymentId]; // Criar um objeto simplificado para passar ao processSale
             $this->processSale($userId, $userName, $productId, $payment, $status);
-
         } catch (\Exception $e) {
             // Log para captura de erro ao tentar salvar a venda
             Log::error('Erro ao salvar venda.', [
@@ -456,7 +488,7 @@ class MercadoPagoController extends Controller
                 'first_name' => $request->user()->name ?? 'Nome de Teste',
                 'email' => $request->user()->email ?? 'teste@exemplo.com',
             ],
-            'notification_url' => 'https://literate-walrus-adjusted.ngrok-free.app/webhook',
+            'notification_url' => 'https://crucial-suited-buck.ngrok-free.app/webhook',
             'external_reference' => 'Pagamento_' . uniqid(),
         ];
 
@@ -537,8 +569,6 @@ class MercadoPagoController extends Controller
 
             Log::info('Redirecionando para /mercadopago/pix');
             return redirect()->route('mercadopago.pix');
-
-
         } catch (\Exception $e) {
 
             Log::error('Erro inesperado ao processar pagamento', [
@@ -686,6 +716,4 @@ class MercadoPagoController extends Controller
 
         return view('pagamento.success', compact('payment_id', 'status', 'imagem'));
     }
-
-
 }
