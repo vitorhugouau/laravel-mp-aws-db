@@ -15,7 +15,12 @@
 }
 
 .logout {
-    left: 15px;
+    left: 355px;
+    top: 8px;
+    margin-left: auto;
+}
+.logout-2 {
+    left: 365px;
     top: 8px;
     margin-left: auto;
 }
@@ -23,11 +28,20 @@
 /* Container do botão e ícone */
 .logout-container {
     position: relative;
-    /* Define o contexto de posicionamento */
-    display: inline-block;
+    display: inline-flex; /* Usa o flexbox para alinhar os itens horizontalmente */
+    align-items: center; /* Alinha os itens verticalmente no centro */
     cursor: pointer;
     text-align: center;
 }
+
+.logout-icon {
+    margin-right: 10px; /* Adiciona espaço entre o ícone e o nome */
+}
+
+.nav-li-01 {
+    white-space: nowrap; /* Evita que o nome quebre em várias linhas */
+}
+
 
 /* Estilo do ícone PNG */
 .logout-icon {

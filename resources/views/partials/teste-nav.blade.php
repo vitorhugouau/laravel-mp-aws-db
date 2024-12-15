@@ -6,9 +6,9 @@
 
 <nav class="nav-01">
     <ul class="menu">
-        @auth
+        <!-- @auth
         <li class="nav-li-01">Seja Bem-Vindo, {{ auth()->user()->name }}</li>
-        @endauth
+        @endauth -->
 
         <li class="nav-li-02"><a href="{{ route('biblioteca') }}">HOME</a></li>
 
@@ -28,7 +28,7 @@
     </li>
 
     @auth
-    <li class="nav-li-02"><a href="{{ route('minhas.compras') }}">MINHAS COMPRAS</a></li>
+    <!-- <li class="nav-li-02"><a href="{{ route('minhas.compras') }}">MINHAS COMPRAS</a></li> -->
 
     @if (auth()->user()->role == 'admin')
     <li class="nav-li-02"><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a></li>
@@ -38,6 +38,9 @@
         <div class="logout-container">
             <!-- Ícone PNG -->
             <img src="{{ asset('assets/usuario.png') }}" alt="Logout" class="logout-icon">
+            @auth
+        <div class="nav-li-01">{{ auth()->user()->name }}</div>
+        @endauth
 
             <!-- Menu escondido com botão SAIR -->
             <div class="logout-menu">
@@ -48,6 +51,22 @@
             </div>
         </div>
     </li>
+    
+    <li class="logout-2">
+        <div class="logout-container">
+            <!-- Ícone PNG -->
+            <img src="{{ asset('assets/bolsas.png') }}" alt="Logout" class="logout-icon">
+
+            <!-- Menu escondido com botão SAIR -->
+            <div class="logout-menu">
+                <form id="logout-form" action="{{ route('minhas.compras') }}" method="GET">
+                    @csrf
+                    <button type="submit" class="logout-button">MINHAS COMPRAS</button>
+                </form>
+            </div>
+        </div>
+    </li>
+
 
 
 
