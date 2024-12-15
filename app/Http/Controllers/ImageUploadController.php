@@ -60,7 +60,9 @@ class ImageUploadController extends Controller
     {
     
         $urlMarcaDagua = ImgApi::all();
+        $urlMarcaDagua2 = ImgApi::whereBetween('id', [8, 11])->get();
 
-        return view('biblioteca.biblioteca', compact('urlMarcaDagua'));
+        return view('biblioteca.biblioteca', compact('urlMarcaDagua', 'urlMarcaDagua2'));
+        
     }
 }

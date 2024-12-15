@@ -11,47 +11,104 @@
 
 </head>
 
-@include('partials.nav')
+@include('partials.teste-nav')
 
-<body background="../../assets/img/rio.jpg">
+<!-- <body background="../../assets/img/rio.jpg"> -->
 
+<body>
     <div class="container">
-        <h1 class="heading">BIBLIOTECA DE IMAGENS</h1>
-        <br><br>
+        <!-- <h1 class="heading">BIBLIOTECA DE IMAGENS</h1>
+        <br><br> -->
 
-        <div class="container-image">
+        <!-- <div class="container-image">
             @foreach ($urlMarcaDagua as $imagem)
                 <div class="image" style="background-image: url('{{ $imagem->url_marca_dagua }}');">
                     <div class="compra">
                         <form action="/pagamento/{{ $imagem->id }}" method="GET">
-                            @csrf 
+                            @csrf
                             <button type="submit" id="boton">COMPRAR IMAGEM</button>
                         </form>
                     </div>
                 </div>
             @endforeach
+        </div> -->
+        <div class="banner-container-1">
+            <div class="slider">
+                @foreach ($urlMarcaDagua2 as $imagem)
+                <div class="slide" style="background-image: url('{{ $imagem->url_marca_dagua }}');">
+
+                </div>
+                @endforeach
+            </div>
         </div>
-        
-    
+
+        <div class="banner-container">
+            <div class="container-image">
+                @foreach ($urlMarcaDagua as $imagem)
+                <div class="image" style="background-image: url('{{ $imagem->url_marca_dagua }}');">
+                    <div class="compra">
+                        <form action="/pagamento/{{ $imagem->id }}" method="GET">
+                            @csrf
+                            <button type="submit" id="boton">COMPRAR IMAGEM</button>
+                        </form>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const slider = document.querySelector(".slider");
+            const slides = document.querySelectorAll(".slide");
+            let index = 0;
+
+            // Clonar o primeiro slide e adicionar no final
+            const firstSlide = slides[0].cloneNode(true);
+            slider.appendChild(firstSlide);
+
+            function moveSlider() {
+                index++;
+                slider.style.transition = "transform 1s ease-in-out";
+                slider.style.transform = `translateX(-${index * 100}%)`;
+
+                // Verificar se chegou ao último slide
+                if (index === slides.length) {
+                    setTimeout(() => {
+                        slider.style.transition = "none";
+                        slider.style.transform = "translateX(0)";
+                        index = 0;
+                    }, 1000); // Aguarda o término da transição antes de resetar
+                }
+            }
+
+            setInterval(moveSlider, 3000);
+        });
+    </script>
+
+
+
+
+
     <script>
         const buyImage = (id) => {
             const imagemComprada = document.getElementById(id);
             imagemComprada.style.display = 'none';
         };
-
     </script>
     <script>
         document.addEventListener('keydown',
-            function (e) {
+            function(e) {
                 if (e.key === "F12" || (e.ctrlKey &&
-                    e.shiftKey && e.key === 'I')) {
+                        e.shiftKey && e.key === 'I')) {
                     e.preventDefault();
                 }
             }
         );
 
         document.addEventListener('contextmenu',
-            function (e) {
+            function(e) {
                 e.preventDefault();
             }
         );

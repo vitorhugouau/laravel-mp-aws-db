@@ -4,15 +4,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
 }
 
 body {
-    background-image: url('../../assets/img/iac.jpg');
+    /* background-image: url('../../assets/img/iac.jpg'); */
     background-size: cover;
-    background-color: white;
+    background-color: #f7f2ed;
     color: #000;
-    font: normal 12pt Poppins;
+    /* font: normal 12pt Poppins; */
+    font-family: 'DM Mono', Arial, sans-serif;
 }
 
 .caixa {
@@ -36,6 +37,79 @@ header {
     justify-content: center;
 
 }
+/* -----------------------0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 */
+
+/* Container Geral */
+.banner-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 0 auto;
+    max-width: 1200px; /* Largura máxima do conteúdo */
+    overflow: hidden;
+}
+.banner-container-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: -25px;
+    width: 110%; /* Ocupa 100% da largura do contêiner pai */
+    overflow: hidden;
+    margin-left:-100px;
+}
+
+.slider {
+    display: flex;
+    width: 100%; /* Ocupa toda a largura disponível */
+    height: 560px; /* 16:9 proporcional, baseado na largura da viewport */
+    position: relative; /* Necessário para configurações relativas de slides ou controles */
+   
+}
+
+.slide {
+    flex: 0 0 100%; /* Cada slide ocupa 100% da largura do contêiner */
+    height: 100%; /* Ajusta automaticamente à altura do contêiner */
+    background-size: cover; /* Faz a imagem cobrir todo o slide */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    transition: transform 1s ease-in-out; /* Suaviza a transição ao trocar slides */
+}
+
+
+
+
+/* Grid com duas imagens grandes */
+.image-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.image-large {
+    width: 50%;
+    height: 300px; /* Altura das imagens fixas */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-comprar {
+    background-color: #14532D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s ease;
+}
+
+.btn-comprar:hover {
+    background-color: #0d3a20;
+}
+
 
 /*---------------------------------PESQUISA--------------------------------------*/
 .container {
@@ -95,7 +169,7 @@ header {
 
 .container .container-image {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     padding: 2vh 3vw; /* Adjusted padding to use vh/vw */
     user-select: none;
@@ -183,8 +257,10 @@ header {
 }
 
 #boton {
-    background-color: rgb(243, 0, 0);
+    background-color:#0e4f3b;
+    /* background-color: rgb(243, 0, 0); */
     color: rgb(255, 255, 255);
+    font-family: 'DM Mono', Arial, sans-serif;
     border: 5px;
     border-radius: 5px;
     cursor: pointer;
