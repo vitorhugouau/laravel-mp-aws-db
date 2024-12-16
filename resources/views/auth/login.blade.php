@@ -24,7 +24,7 @@
                             <div class="card-content-area">
                                 <label for="email">E-MAIL</label>
                                 <input type="email" name="email" id="email" autocomplete="off"
-                                    value="" required placeholder="Digite sua email">
+                                    value="admin@teste.com" required placeholder="Digite sua email">
                             </div>
                             <div class="card-content-area">
                                 <label for="password">SENHA</label>
