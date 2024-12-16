@@ -79,7 +79,7 @@
                         slider.style.transition = "none";
                         slider.style.transform = "translateX(0)";
                         index = 0;
-                    }, 1000); // Aguarda o término da transição antes de resetar
+                    }, 2000); // Aguarda o término da transição antes de resetar
                 }
             }
 

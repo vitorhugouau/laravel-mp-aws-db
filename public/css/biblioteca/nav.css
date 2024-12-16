@@ -1,17 +1,80 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Delius&family=Montserrat:ital,wght@0,500;1,500&display=swap');
 
+
+.top-bar {
+    background-color: #0e2f4f; /* Azul escuro elegante */
+    color: #ffffff; /* Texto branco */
+    text-align: center;
+    padding: 10px 0;
+    font-size: 18px;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    /* position: fixed; */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Leve sombra para destaque */
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 0;
+    background-color: #f7f2ed;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-weight: 200;
+    position: relative; /* Mantém a posição natural */
+    z-index: 999; /* Mantém a navbar visível */
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.menu000 {
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    background: #355a92;
+    /* background: linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
+    background: -webkit-linear-gradient(180deg, #000000 20%, #35557c 50%, #000000 80%);
+    background: -moz-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%); */
+    /* background-color: #0e4f3b; */
+    background-color: #f7f2ed;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    right:65px;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    /* font-family: "Delius", cursive;
+    font-weight: 400;
+    font-style: normal; */
+}
+.content {
+    margin-top: 80px; /* Espaço necessário para a top-bar + menu */
+    padding: 20px;
+    font-family: "Montserrat", sans-serif;
+}
+
 .nav-li-01 {
     right: 320px;
     display: flex;
-    color: white;
+    color: #3b2f22;
 }
 
 .nav-li-02 {
     align-items: center;
     justify-content: center;
     display: flex;
-    right: 30px;
+    right: -54px;
 }
 
 .logout {
@@ -21,6 +84,11 @@
 }
 .logout-2 {
     left: 365px;
+    top: 8px;
+    margin-left: auto;
+}
+.logout-3 {
+    left: -365px;
     top: 8px;
     margin-left: auto;
 }
@@ -44,10 +112,33 @@
 
 
 /* Estilo do ícone PNG */
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    /* filter: invert(100%); */
+    /* Inverte a cor do ícone */
+    transition: transform 0.3s ease-in-out;
+}
+.logout-container02 {
+    position: relative;
+    display: inline-flex; /* Usa o flexbox para alinhar os itens horizontalmente */
+    align-items: center; /* Alinha os itens verticalmente no centro */
+    cursor: pointer;
+    text-align: center;
+}
+
+
+/* Efeito hover no ícone */
+.logo-icon:hover {
+    transform: translateY(-3px);
+    /* Leve subida */
+}
+
+/* Estilo do ícone PNG */
 .logout-icon {
     width: 32px;
     height: 32px;
-    filter: invert(100%);
+    /* filter: invert(100%); */
     /* Inverte a cor do ícone */
     transition: transform 0.3s ease-in-out;
 }
@@ -116,43 +207,25 @@
 }
 
 /* -------------------------------------------------------------------------------------------------------------- */
-.menu {
-    list-style-type: none;
-    margin: 0 auto;
-    padding: 0;
-    background: #355a92;
-    /* background: linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
-    background: -webkit-linear-gradient(180deg, #000000 20%, #35557c 50%, #000000 80%);
-    background: -moz-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%); */
-    background-color: #0e4f3b;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 200;
-    font-style: normal;
-    /* font-family: "Delius", cursive;
-    font-weight: 400;
-    font-style: normal; */
-}
 
 
 .menu li {
     display: inline-block;
     position: relative;
+    right:25px;
 }
 
 .menu li a {
     display: block;
-    color: #ffff;
+    /* color: #ffff; */
+    color: #3b2f22;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
 .menu li a:hover {
-    background-color: rgb(121, 173, 141);
+    background-color: rgb(240, 240, 240);
 }
 
 .menu ul {
@@ -180,15 +253,7 @@
     display: none;
 }
 
-.logout-icon {
-    display: block;
-    width: 32px;
-    /* Ajuste o tamanho */
-    height: 32px;
-    filter: invert(100%);
-    /* Inverte a cor do PNG */
-    transition: transform 0.3s ease-in-out;
-}
+
 
 @media screen and (max-width: 1750px) {
 

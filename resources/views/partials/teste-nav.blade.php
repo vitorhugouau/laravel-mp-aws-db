@@ -4,11 +4,21 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 
+<div class="top-bar">
+    Bem-vindo à sua fonte de <strong>imagens</strong> aéreas impressionantes.
+  </div>
+
+
 <nav class="nav-01">
     <ul class="menu">
         <!-- @auth
         <li class="nav-li-01">Seja Bem-Vindo, {{ auth()->user()->name }}</li>
         @endauth -->
+        <li class="logout-3">
+            <div class="logout-container02">
+                <img src="{{ asset('assets/logo.png') }}" alt="Logout" class="logo-icon">
+            </div>
+        </li>
 
         <li class="nav-li-02"><a href="{{ route('biblioteca') }}">HOME</a></li>
 
@@ -66,10 +76,6 @@
             </div>
         </div>
     </li>
-
-
-
-
     @endauth
 
     @guest
