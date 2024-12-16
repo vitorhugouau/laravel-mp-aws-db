@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resetar Senha</title>
-    <link rel="stylesheet" href="/css/login/parte3.css">
+    <link rel="stylesheet" href="/css/login/parte3-email.css">
 </head>
 
 {{-- <body>
