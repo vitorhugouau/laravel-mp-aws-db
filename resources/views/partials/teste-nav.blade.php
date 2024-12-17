@@ -45,7 +45,7 @@
     @endif
 
     <li class="logout">
-        <div class="logout-container">
+        <div class="logout-container-sair">
             <!-- Ícone PNG -->
             <img src="{{ asset('assets/usuario.png') }}" alt="Logout" class="logout-icon">
             @auth
@@ -63,7 +63,7 @@
     </li>
     
     <li class="logout-2">
-        <div class="logout-container">
+        <div class="logout-container-compras">
             <!-- Ícone PNG -->
             <img src="{{ asset('assets/bolsas.png') }}" alt="Logout" class="logout-icon">
 

@@ -18,6 +18,13 @@
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Leve sombra para destaque */
 }
+.content {
+    margin-top: 80px; /* Espaço necessário para a top-bar + menu */
+    padding: 20px;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* --------------------------------------------------menu------------------------------------------------------------ */
 
 .menu {
     list-style-type: none;
@@ -36,183 +43,11 @@
     font-style: normal;
 }
 
-.menu000 {
-    list-style-type: none;
-    margin: 0 auto;
-    padding: 0;
-    background: #355a92;
-    /* background: linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
-    background: -webkit-linear-gradient(180deg, #000000 20%, #35557c 50%, #000000 80%);
-    background: -moz-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%); */
-    /* background-color: #0e4f3b; */
-    background-color: #f7f2ed;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    right:65px;
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 200;
-    font-style: normal;
-    /* font-family: "Delius", cursive;
-    font-weight: 400;
-    font-style: normal; */
-}
-.content {
-    margin-top: 80px; /* Espaço necessário para a top-bar + menu */
-    padding: 20px;
-    font-family: "Montserrat", sans-serif;
-}
-
-.nav-li-01 {
-    right: 320px;
-    display: flex;
-    color: #3b2f22;
-}
-
-.nav-li-02 {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    right: -54px;
-}
-
-.logout {
-    left: 355px;
-    top: 8px;
-    margin-left: auto;
-}
-.logout-2 {
-    left: 365px;
-    top: 8px;
-    margin-left: auto;
-}
-.logout-3 {
-    left: -365px;
-    top: 8px;
-    margin-left: auto;
-}
-
-/* Container do botão e ícone */
-.logout-container {
-    position: relative;
-    display: inline-flex; /* Usa o flexbox para alinhar os itens horizontalmente */
-    align-items: center; /* Alinha os itens verticalmente no centro */
-    cursor: pointer;
-    text-align: center;
-}
-
-.logout-icon {
-    margin-right: 10px; /* Adiciona espaço entre o ícone e o nome */
-}
-
-.nav-li-01 {
-    white-space: nowrap; /* Evita que o nome quebre em várias linhas */
-}
-
-
-/* Estilo do ícone PNG */
-.logo-icon {
-    width: 32px;
-    height: 32px;
-    /* filter: invert(100%); */
-    /* Inverte a cor do ícone */
-    transition: transform 0.3s ease-in-out;
-}
-.logout-container02 {
-    position: relative;
-    display: inline-flex; /* Usa o flexbox para alinhar os itens horizontalmente */
-    align-items: center; /* Alinha os itens verticalmente no centro */
-    cursor: pointer;
-    text-align: center;
-}
-
-
-/* Efeito hover no ícone */
-.logo-icon:hover {
-    transform: translateY(-3px);
-    /* Leve subida */
-}
-
-/* Estilo do ícone PNG */
-.logout-icon {
-    width: 32px;
-    height: 32px;
-    /* filter: invert(100%); */
-    /* Inverte a cor do ícone */
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Efeito hover no ícone */
-.logout-container:hover .logout-icon {
-    transform: translateY(-3px);
-    /* Leve subida */
-}
-
-/* Menu escondido inicialmente */
-.logout-menu {
-    position: absolute;
-    top: 40px;
-    /* Espaço abaixo do ícone */
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    /* Invisível inicialmente */
-    visibility: hidden;
-    background-color: #14532D;
-    /* Cor verde */
-    border-radius: 20px;
-    padding: 8px 12px;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-}
-
-/* Mostra o botão quando passa o mouse */
-.logout-container:hover .logout-menu {
-    opacity: 1;
-    visibility: visible;
-    top: 50px;
-    /* Move o botão suavemente para baixo */
-}
-
-/* Estilo do botão SAIR */
-.logout-button {
-    background-color: transparent;
-    color: #ffffff;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.logout-button:hover {
-    color: #d1d5db;
-    /* Cor mais clara no hover */
-}
-
-
-#sair {
-    background-color: #1159c5;
-    color: white;
-    border: none;
-    padding: 9px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
-#sair:hover {
-    background-color: #0d3a75;
-}
-
-/* -------------------------------------------------------------------------------------------------------------- */
-
 
 .menu li {
     display: inline-block;
     position: relative;
-    right:-55px;
+    right:25px;
 }
 
 .menu li a {
@@ -253,6 +88,136 @@
     display: none;
 }
 
+/* ----------------------------------------------container todo---------------------------------------------------------------- */
+
+
+.nav-li-01 {
+    right: 320px;
+    display: flex;
+    color: #3b2f22;
+    white-space: nowrap; 
+}
+
+/* ----------------------------------------------login - painel de controle - home - contato - serviço--------------------------------------------------------------- */
+
+.nav-li-02 {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    right: -54px;
+}
+
+/* ----------------------------------------------container nome - sair---------------------------------------------------------------- */
+
+.logout {
+    left: 355px;
+    top: 8px;
+    margin-left: auto;
+}
+
+.logout-container-sair {
+    position: relative;
+    display: inline-flex; /* Usa o flexbox para alinhar os itens horizontalmente */
+    align-items: center; /* Alinha os itens verticalmente no centro */
+    cursor: pointer;
+    text-align: center;
+}
+
+/* ----------------------------------------------minhas compras---------------------------------------------------------------- */
+
+.logout-2 {
+    left: 365px;
+    top: 8px;
+    margin-left: auto;
+}
+.logout-container-compras {
+    position: relative;
+    display: inline-flex; /* Usa o flexbox para alinhar os itens horizontalmente */
+    align-items: center; /* Alinha os itens verticalmente no centro */
+    cursor: pointer;
+    text-align: center;
+}
+
+
+/* ----------------------------------------------logo esquerda---------------------------------------------------------------- */
+
+.logout-3 {
+    left: -365px;
+    top: 8px;
+    margin-left: auto;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.logout-container02 {
+    position: relative;
+    display: inline-flex; 
+    align-items: center; 
+    cursor: pointer;
+    text-align: center;
+}
+
+.logo-icon:hover {
+    transform: translateY(-3px);
+}
+
+/* ----------------------------------------------icons---------------------------------------------------------------- */
+
+.logout-icon {
+    margin-right: 10px; 
+}
+
+.logout-icon {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.logout-container:hover .logout-icon {
+    transform: translateY(-3px);
+}
+
+/* ----------------------------------------------menu escondido---------------------------------------------------------------- */
+
+.logout-menu {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    background-color: #14532D;
+    border-radius: 20px;
+    padding: 8px 12px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.logout-container:hover .logout-menu {
+    opacity: 1;
+    visibility: visible;
+    top: 50px;
+}
+
+/* ----------------------------------------------botao sair---------------------------------------------------------------- */
+
+.logout-button {
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+    color: #d1d5db;
+}
 
 
 @media screen and (max-width: 1750px) {
@@ -260,9 +225,7 @@
 
     .container .container-image .image {
         width: 29vw;
-        /* Changed from 100% to 30vw */
         height: 34vh;
-        /* Changed from 200px to 20vh */
         border-radius: 5%;
         cursor: pointer;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -292,9 +255,7 @@
 
     .container .container-image .image {
         width: 42vw;
-        /* Changed from 100% to 30vw */
         height: 41vh;
-        /* Changed from 200px to 20vh */
         border-radius: 5%;
         cursor: pointer;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -532,4 +493,28 @@
         }
     }
 
+}
+
+
+.menu000 {
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    background: #355a92;
+    /* background: linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
+    background: -webkit-linear-gradient(180deg, #000000 20%, #35557c 50%, #000000 80%);
+    background: -moz-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%); */
+    /* background-color: #0e4f3b; */
+    background-color: #f7f2ed;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    right:65px;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    /* font-family: "Delius", cursive;
+    font-weight: 400;
+    font-style: normal; */
 }
