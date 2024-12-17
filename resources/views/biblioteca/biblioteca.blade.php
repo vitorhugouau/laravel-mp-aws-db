@@ -130,47 +130,58 @@
 
 
     <script>
-        let currentIndex = 0;
-
-        function moveSlide(direction) {
-            const slides = document.querySelectorAll('.slide');
-            const totalSlides = slides.length;
-
-            currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
-            const newTransformValue = -currentIndex * 100;
-            document.querySelector('.slider').style.transform = `translateX(${newTransformValue}%)`;
-        }
-    </script>
-
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const slider = document.querySelector(".slider");
             const slides = document.querySelectorAll(".slide");
-            let index = 0;
-
-            // Clonar o primeiro slide e adicionar no final
+            let currentIndex = 0;
+            let autoSlideInterval;
+    
+            // Clonar o primeiro slide e adicionar no final para criar o loop infinito
             const firstSlide = slides[0].cloneNode(true);
             slider.appendChild(firstSlide);
-
-            function moveSlider() {
-                index++;
+    
+            const totalSlides = slides.length; // Total de slides antes do clone
+    
+            // Função para mover o slider manualmente
+            function moveSlide(direction) {
+                // Atualiza o índice com base na direção (-1 ou +1)
+                currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+    
                 slider.style.transition = "transform 1s ease-in-out";
-                slider.style.transform = `translateX(-${index * 100}%)`;
-
-                // Verificar se chegou ao último slide
-                if (index === slides.length) {
+                slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+    
+                // Caso seja o último slide (clonado), reseta para o primeiro
+                if (currentIndex === totalSlides) {
                     setTimeout(() => {
                         slider.style.transition = "none";
                         slider.style.transform = "translateX(0)";
-                        index = 0;
-                    }, 3000); // Aguarda o término da transição antes de resetar
+                        currentIndex = 0;
+                    }, 1000); // Aguarda o término da transição
                 }
+    
+                resetAutoSlide(); // Reseta o intervalo automático ao clicar
             }
-
-            setInterval(moveSlider, 3000);
+    
+            // Função para mover automaticamente para a direita
+            function autoSlide() {
+                moveSlide(1); // Sempre chama a função de mover com direção +1
+            }
+    
+            // Função para reiniciar o intervalo automático
+            function resetAutoSlide() {
+                clearInterval(autoSlideInterval); // Limpa o intervalo atual
+                autoSlideInterval = setInterval(autoSlide, 4000); // Reinicia o intervalo
+            }
+    
+            // Inicializa o intervalo automático
+            autoSlideInterval = setInterval(autoSlide, 4000);
+    
+            // Permite chamar moveSlide com botões ou eventos externos
+            window.moveSlide = moveSlide;
         });
     </script>
+    
+    
 
 
 

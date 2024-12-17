@@ -3,43 +3,25 @@
 
 
 .top-bar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1100;
-    background-color: #0e2f4f;
-    color: #ffffff;
+    background-color: #0e2f4f; 
+    color: #ffffff; 
     text-align: center;
     padding: 10px 0;
     font-size: 18px;
     font-family: "Montserrat", sans-serif;
-    transition: transform 0.3s ease-in-out; /* Suaviza o desaparecimento */
-}
-
-/* --------------------------------------------------nav container------------------------------------------------------------ */
-
-.nav-01 {
-    position: fixed;
-    top: 40px; /* Inicialmente abaixo da top-bar */
-    left: 0;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    top: 0;
     width: 100%;
     z-index: 1000;
-    background-color: #f7f2ed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: top 0.3s ease-in-out; /* Suaviza o movimento para o topo */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
 }
 .content {
     margin-top: 80px; 
     padding: 20px;
     font-family: "Montserrat", sans-serif;
 }
-
-
-
 
 /* --------------------------------------------------menu------------------------------------------------------------ */
 
@@ -48,25 +30,28 @@
     margin: 0;
     padding: 10px 0;
     background-color: #f7f2ed;
-    display: flex;
-    justify-content: center; /* Centraliza os itens da navbar */
+    text-align: center;
+    justify-content: center;
     align-items: center;
     font-weight: 200;
-    position: relative;
-    z-index: 999;
+    position: relative; 
+    z-index: 999; 
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
+    font-weight: 200;
     font-style: normal;
 }
 
+
 .menu li {
     display: inline-block;
-    margin: 0px 5px; /* Espaço entre os itens */
     position: relative;
+    right:25px;
 }
 
 .menu li a {
     display: block;
+    /* color: #ffff; */
     color: #3b2f22;
     text-align: center;
     padding: 14px 16px;
@@ -75,10 +60,8 @@
 
 .menu li a:hover {
     background-color: rgb(240, 240, 240);
-    color:#424dc7
 }
 
-/* Para o menu dropdown */
 .menu ul {
     display: none;
     position: absolute;
@@ -88,7 +71,7 @@
     left: 0;
 }
 
-.menu li:hover > ul {
+.menu li:hover>ul {
     display: block;
 }
 
@@ -100,43 +83,67 @@
     padding: 10px 15px;
 }
 
-/* Estilo para itens de autenticação e botão sair */
+#menu02 {
+    display: none;
+}
+
+/* ----------------------------------------------container todo---------------------------------------------------------------- */
+
+
 .nav-li-01 {
+    right: 320px;
     display: flex;
     color: #3b2f22;
-    white-space: nowrap;
-    margin-left: auto; /* Alinha para a direita */
+    white-space: nowrap; 
 }
+
+/* ----------------------------------------------login - painel de controle - home - contato - serviço--------------------------------------------------------------- */
 
 .nav-li-02 {
-    display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    margin-left: auto; /* Alinha para a direita */
-    left: 60px;
-}
-
-/* Alinhamento de logout e compras */
-.logout, .logout-2, .logout-3 {
     display: flex;
-    align-items: center;
-    margin-left: 25px; /* Espaço à esquerda para alinhar os itens */
+    right: -54px;
 }
 
-/* Container para as ações de logout */
-.logout-container, .logout-container-sair, .logout-container-compras {
+/* ----------------------------------------------container nome - sair---------------------------------------------------------------- */
+
+.logout {
+    left: 355px;
+    top: 8px;
+    margin-left: auto;
+}
+
+.logout-container-sair {
     position: relative;
-    display: inline-flex;
-    align-items: center;
+    display: inline-flex; 
+    align-items: center; 
     cursor: pointer;
     text-align: center;
-    left: 325px; /* Ajusta a posição do container */
 }
 
-/* Logo do menu */
+/* ----------------------------------------------minhas compras---------------------------------------------------------------- */
+
+.logout-2 {
+    left: 365px;
+    top: 8px;
+    margin-left: auto;
+}
+.logout-container-compras {
+    position: relative;
+    display: inline-flex; 
+    align-items: center; 
+    cursor: pointer;
+    text-align: center;
+}
+
+
+/* ----------------------------------------------logo esquerda---------------------------------------------------------------- */
+
 .logout-3 {
-    margin-left: auto; /* Alinha o ícone à direita */
-    right: 295px; /* Ajuste de posição, dependendo da necessidade */
+    left: -365px;
+    top: 8px;
+    margin-left: auto;
 }
 
 .logo-icon {
@@ -147,8 +154,8 @@
 
 .logout-container02 {
     position: relative;
-    display: inline-flex;
-    align-items: center;
+    display: inline-flex; 
+    align-items: center; 
     cursor: pointer;
     text-align: center;
 }
@@ -157,9 +164,13 @@
     transform: translateY(-3px);
 }
 
-/* Ícone de logout */
+/* ----------------------------------------------icons---------------------------------------------------------------- */
+
 .logout-icon {
-    margin-right: 10px;
+    margin-right: 10px; 
+}
+
+.logout-icon {
     width: 32px;
     height: 32px;
     transition: transform 0.3s ease-in-out;
@@ -169,7 +180,8 @@
     transform: translateY(-3px);
 }
 
-/* Menu de logout escondido */
+/* ----------------------------------------------menu escondido---------------------------------------------------------------- */
+
 .logout-menu {
     position: absolute;
     top: 40px;
@@ -188,10 +200,11 @@
 .logout-container:hover .logout-menu {
     opacity: 1;
     visibility: visible;
-    top: 35px;
+    top: 50px;
 }
 
-/* Botão sair */
+/* ----------------------------------------------botao sair---------------------------------------------------------------- */
+
 .logout-button {
     background-color: transparent;
     color: #ffffff;
@@ -199,6 +212,10 @@
     border: none;
     cursor: pointer;
     transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+    color: #d1d5db;
 }
 
 

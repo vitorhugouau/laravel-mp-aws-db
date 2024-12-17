@@ -10,78 +10,78 @@
 
 
 <nav class="nav-01">
-    <ul class="menu">
-        <!-- @auth
-        <li class="nav-li-01">Seja Bem-Vindo, {{ auth()->user()->name }}</li>
-        @endauth -->
-        <li class="logout-3">
-            <div class="logout-container02">
-                <img src="{{ asset('assets/logo.png') }}" alt="Logout" class="logo-icon">
+        <ul class="menu">
+            <!-- @auth
+            <li class="nav-li-01">Seja Bem-Vindo, {{ auth()->user()->name }}</li>
+            @endauth -->
+            <li class="logout-3">
+                <div class="logout-container02">
+                    <img src="{{ asset('assets/logo.png') }}" alt="Logout" class="logo-icon">
+                </div>
+            </li>
+
+            <li class="nav-li-02"><a href="{{ route('biblioteca') }}">HOME</a></li>
+
+            <li class="nav-li-02"><a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">CONTATO</a>
+                {{-- <ul>
+                    <li><a
+                            href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a>
+                    </li>
+                </ul> --}}
+            </li>
+
+            <li class="nav-li-02"><a href="{{ route('clientes.store') }}">SERVIÇOS</a>
+                {{-- <ul>
+                    <li><a href="{{ route('clientes.store') }}">CONTRATAR SERVIÇO</a>
+            </li>
+        </ul> --}}
+        </li>
+
+        @auth
+        <!-- <li class="nav-li-02"><a href="{{ route('minhas.compras') }}">MINHAS COMPRAS</a></li> -->
+
+        @if (auth()->user()->role == 'admin')
+        <li class="nav-li-02"><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a></li>
+        @endif
+
+        <li class="logout">
+            <div class="logout-container">
+                <!-- Ícone PNG -->
+                <img src="{{ asset('assets/usuario.png') }}" alt="Logout" class="logout-icon">
+                @auth
+            <div class="nav-li-01">{{ auth()->user()->name }}</div>
+            @endauth
+
+                <!-- Menu escondido com botão SAIR -->
+                <div class="logout-menu">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="logout-button">SAIR</button>
+                    </form>
+                </div>
             </div>
         </li>
+        
+        <li class="logout-2">
+            <div class="logout-container">
+                <!-- Ícone PNG -->
+                <img src="{{ asset('assets/bolsas.png') }}" alt="Logout" class="logout-icon">
 
-        <li class="nav-li-02"><a href="{{ route('biblioteca') }}">HOME</a></li>
-
-        <li class="nav-li-02"><a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">CONTATO</a>
-            {{-- <ul>
-                <li><a
-                        href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">INSTAGRAM</a>
-                </li>
-            </ul> --}}
+                <!-- Menu escondido com botão SAIR -->
+                <div class="logout-menu">
+                    <form id="logout-form" action="{{ route('minhas.compras') }}" method="GET">
+                        @csrf
+                        <button type="submit" class="logout-button">MINHAS COMPRAS</button>
+                    </form>
+                </div>
+            </div>
         </li>
-
-        <li class="nav-li-02"><a href="{{ route('clientes.store') }}">SERVIÇOS</a>
-            {{-- <ul>
-                <li><a href="{{ route('clientes.store') }}">CONTRATAR SERVIÇO</a>
-        </li>
-    </ul> --}}
-    </li>
-
-    @auth
-    <!-- <li class="nav-li-02"><a href="{{ route('minhas.compras') }}">MINHAS COMPRAS</a></li> -->
-
-    @if (auth()->user()->role == 'admin')
-    <li class="nav-li-02"><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a></li>
-    @endif
-
-    <li class="logout">
-        <div class="logout-container-sair">
-            <!-- Ícone PNG -->
-            <img src="{{ asset('assets/usuario.png') }}" alt="Logout" class="logout-icon">
-            @auth
-        <div class="nav-li-01">{{ auth()->user()->name }}</div>
         @endauth
 
-            <!-- Menu escondido com botão SAIR -->
-            <div class="logout-menu">
-                <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="logout-button">SAIR</button>
-                </form>
-            </div>
-        </div>
-    </li>
-    
-    <li class="logout-2">
-        <div class="logout-container-compras">
-            <!-- Ícone PNG -->
-            <img src="{{ asset('assets/bolsas.png') }}" alt="Logout" class="logout-icon">
-
-            <!-- Menu escondido com botão SAIR -->
-            <div class="logout-menu">
-                <form id="logout-form" action="{{ route('minhas.compras') }}" method="GET">
-                    @csrf
-                    <button type="submit" class="logout-button">MINHAS COMPRAS</button>
-                </form>
-            </div>
-        </div>
-    </li>
-    @endauth
-
-    @guest
-    <li class="nav-li-02"><a href="{{ route('adm.login') }}">LOGIN</a></li>
-    @endguest
-    </ul>
+        @guest
+        <li class="nav-li-02"><a href="{{ route('adm.login') }}">LOGIN</a></li>
+        @endguest
+        </ul>
 </nav>
 
 <!-- <div id="menu02">
@@ -158,4 +158,35 @@
         document.getElementById("nav").classList.toggle("change");
         document.getElementById("menu02-bg").classList.toggle("change-bg");
     }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const topBar = document.querySelector(".top-bar");
+        const navBar = document.querySelector(".nav-01");
+        let lastScrollPosition = 0;
+        let scrollCount = 0;
+
+        window.addEventListener("scroll", () => {
+            const currentScrollPosition = window.scrollY;
+
+            // Detecta rolagem para baixo
+            if (currentScrollPosition > lastScrollPosition) {
+                scrollCount++;
+            } else {
+                scrollCount = Math.max(scrollCount - 1, 0); // Reduz o contador, mas nunca fica negativo
+            }
+
+            // Esconde a top-bar após duas rolagens
+            if (scrollCount >= 3) {
+                topBar.style.transform = "translateY(-100%)"; // Move a barra para fora da tela
+                navBar.style.top = "0"; // Move a navbar para o topo
+            } else {
+                topBar.style.transform = "translateY(0)"; // Mostra a barra novamente
+                navBar.style.top = "40px"; // Coloca a navbar abaixo da top-bar
+            }
+
+            lastScrollPosition = currentScrollPosition;
+        });
+    });
 </script>
