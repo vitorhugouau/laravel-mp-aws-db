@@ -280,3 +280,191 @@ header {
     transform: scale(1.3);
 }
 
+/* Container pai que agrupa todos os itens */
+.container-venda-wrapper {
+    display: flex; /* Ativa o Flexbox */
+    flex-wrap: wrap; /* Permite que os itens quebrem linha */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    gap: 20px; /* Espaçamento entre os itens */
+    margin: 0 auto; /* Centraliza o contêiner pai */
+    max-width: 1200px; /* Largura máxima para o layout */
+}
+
+/* Estilo individual do contêiner */
+.container-venda {
+    width: 300px; /* Largura fixa para cada item */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease-in-out; /* Efeito suave */
+}
+
+/* Efeito hover para o item */
+.container-venda:hover {
+    transform: scale(1.05); /* Zoom leve ao passar o mouse */
+}
+
+
+/* Desconto no canto superior direito */
+.desconto {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #d34c32;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 50px;
+}
+
+/* Estilo geral do contêiner da imagem */
+.image-container-venda {
+    width: 100%; /* Ocupa toda a largura do contêiner pai */
+    max-width: 300px; /* Define uma largura máxima para não distorcer em telas grandes */
+    height: 350px; /* Altura fixa para o contêiner */
+    margin: 0 auto; /* Centraliza o contêiner */
+    overflow: hidden; /* Garante que nada saia dos limites do contêiner */
+    position: relative; /* Para posicionamento correto */
+    border-radius: 8px; /* Borda levemente arredondada */
+    background-color: #f4f4f4; /* Fundo para caso a imagem não carregue */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+/* Estilo da imagem (background) */
+.slide-venda {
+    width: 100%;
+    height: 100%;
+    background-size: cover; /* Redimensiona a imagem para cobrir todo o espaço */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Impede a repetição da imagem */
+    transition: transform 0.3s ease-in-out; /* Efeito de zoom suave ao passar o mouse */
+}
+
+/* Efeito de zoom ao passar o mouse */
+.slide-venda:hover {
+    transform: scale(1.05); /* Aumenta levemente a imagem */
+}
+
+
+.tags {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.tag {
+    background-color: #333;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 5px;
+}
+
+.tag.destaque {
+    background-color: #8d2fd4;
+}
+
+.tag.lancamento {
+    background-color: #6d7375;
+}
+
+.tag.black-friday {
+    background-color: #000;
+}
+
+.product-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.rating {
+    color: #ffb400;
+    margin-bottom: 10px;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.price .old-price {
+    color: #a0a0a0;
+    text-decoration: line-through;
+    font-size: 14px;
+}
+
+.price .new-price {
+    color: #2d8540;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.installments {
+    color: #555;
+    font-size: 12px;
+}
+
+.button {
+    display: inline-block;
+    width: 90%;
+    margin: 15px auto;
+    padding: 10px 0;
+    background-color: #1f6d40;
+    color: #f5f5f5;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #185630;
+}
+
+.icon-seta{
+    filter: invert(1); 
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    background-color: rgb(8 8 8 / 67%); 
+    border: none;
+    padding: 16px;
+    cursor: pointer;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius:85%;
+}
+
+.prev {
+    left: 20px; /* Canto esquerdo */
+}
+
+.next {
+    right: 20px; /* Canto direito */
+}
+
+.prev img, .next img {
+    width: 30px; /* Ajuste o tamanho conforme necessário */
+    height: auto;
+}
+
+/* .prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+} */

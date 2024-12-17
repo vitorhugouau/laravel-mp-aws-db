@@ -60,9 +60,20 @@ class ImageUploadController extends Controller
     {
     
         $urlMarcaDagua = ImgApi::all();
-        $urlMarcaDagua2 = ImgApi::whereBetween('id', [8, 11])->get();
 
-        return view('biblioteca.biblioteca', compact('urlMarcaDagua', 'urlMarcaDagua2'));
+        $urlMarcaDaguaBanner = ImgApi::whereBetween('id', [8, 11])->get();
+
+        $urlMarcaDaguaMeio = ImgApi::whereBetween('id', [1, 4])->get();
+        
+        $urlMarcaDaguaVenda = ImgApi::whereBetween('id', [6,8])->get();
+
+        $urlMarcaDaguaFinal = ImgApi::whereBetween('id', [6, 11])->get();
+
+        foreach ($urlMarcaDaguaVenda as $imagem) {
+            $imagem->valor_parcelado = $imagem->valor / 10; // Divide o valor por 12
+        }
+
+        return view('biblioteca.biblioteca', compact('urlMarcaDagua', 'urlMarcaDaguaBanner', 'urlMarcaDaguaVenda', 'urlMarcaDaguaMeio', 'urlMarcaDaguaFinal'));
         
     }
 }
