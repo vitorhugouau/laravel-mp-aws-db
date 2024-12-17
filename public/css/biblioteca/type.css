@@ -113,7 +113,7 @@ header {
 
 /*---------------------------------PESQUISA--------------------------------------*/
 .container {
-    padding: 25px 4%;
+    padding: 150px 4%;
     text-align: center;
 }
 
@@ -439,9 +439,9 @@ header {
 
 .prev, .next {
     position: absolute;
-    top: 50%;
+    top: 44%;
     z-index: 10;
-    background-color: rgb(8 8 8 / 67%); 
+    background-color: rgb(8 8 8 / 67%);
     border: none;
     padding: 16px;
     cursor: pointer;

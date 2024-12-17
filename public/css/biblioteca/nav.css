@@ -32,14 +32,10 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: top 0.3s ease-in-out; /* Suaviza o movimento para o topo */
 }
-.content {
-    margin-top: 80px; 
-    padding: 20px;
-    font-family: "Montserrat", sans-serif;
+.teste{
+    position: fixed;
+    margin-right:120px;
 }
-
-
-
 
 /* --------------------------------------------------menu------------------------------------------------------------ */
 
@@ -130,19 +126,20 @@
     align-items: center;
     cursor: pointer;
     text-align: center;
-    left: 325px; /* Ajusta a posição do container */
+    left: 545px; /* Ajusta a posição do container */
 }
 
 /* Logo do menu */
 .logout-3 {
     margin-left: auto; /* Alinha o ícone à direita */
-    right: 295px; /* Ajuste de posição, dependendo da necessidade */
+    right: 595px; /* Ajuste de posição, dependendo da necessidade */
 }
 
 .logo-icon {
     width: 32px;
     height: 32px;
     transition: transform 0.3s ease-in-out;
+    left: 60px;
 }
 
 .logout-container02 {
