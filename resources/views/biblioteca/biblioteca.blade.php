@@ -51,9 +51,9 @@
                 <img src="{{ asset('assets/right.png') }}" class="icon-seta" alt="Next" />
             </button>
         </div>
+    </div>
 
-
-
+    <div class="container-segundo">
         <div class="banner-container">
             <div class="container-image">
                 @foreach ($urlMarcaDaguaMeio as $imagem)
@@ -96,7 +96,9 @@
 
                 <!-- Preço -->
                 <div class="price">
-                    <div class="old-price">R$280,00</div>
+                    {{-- <div class="old-price">R$280,00</div> --}}
+                    <div class="old-price">R$ {{ number_format($discountValue->valores, 2, ',', '.') }}</div>
+
                     <div class="new-price">R$ {{ number_format($imagem->valor, 2, ',', '.') }}</div>
                 </div>
 
@@ -111,7 +113,34 @@
             </div>
         @endforeach
     </div>
-    <div class="container">
+    <!-- Seção Informativa -->
+    <div class="info-section">
+        <!-- Item 1 -->
+        <div class="info-item">
+            <img src="{{ asset('assets/guarantee.png') }}" alt="Garantia">
+            <h3>Garantia</h3>
+            <p>de até 1 ano da loja</p>
+        </div>
+        <!-- Item 2 -->
+        <div class="info-item">
+            <img src="{{ asset('assets/discount.png') }}" alt="Desconto">
+            <h3>5% de desconto</h3>
+            <p>no pagamento à vista</p>
+        </div>
+        <!-- Item 3 -->
+        <div class="info-item">
+            <img src="{{ asset('assets/credit-card.png') }}" alt="Parcelamento">
+            <h3>Em até 6x</h3>
+            <p>sem juros no cartão</p>
+        </div>
+        <!-- Item 4 -->
+        <div class="info-item">
+            <img src="{{ asset('assets/camera.png') }}" alt="Parcelamento">
+            <h3>Fotos exclusivas</h3>
+            <p>imagens aéreas</p>
+        </div>
+    </div>
+    <div class="container-baixo">
         <div class="banner-container">
             <div class="container-image">
                 @foreach ($urlMarcaDaguaFinal as $imagem)
@@ -130,61 +159,49 @@
 
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const slider = document.querySelector(".slider");
             const slides = document.querySelectorAll(".slide");
             let currentIndex = 0;
             let autoSlideInterval;
-    
-            // Clonar o primeiro slide e adicionar no final para criar o loop infinito
+
             const firstSlide = slides[0].cloneNode(true);
             slider.appendChild(firstSlide);
-    
-            const totalSlides = slides.length; // Total de slides antes do clone
-    
-            // Função para mover o slider manualmente
+
+            const totalSlides = slides.length;
+
             function moveSlide(direction) {
-                // Atualiza o índice com base na direção (-1 ou +1)
+
                 currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
-    
+
                 slider.style.transition = "transform 1s ease-in-out";
                 slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-    
-                // Caso seja o último slide (clonado), reseta para o primeiro
+
                 if (currentIndex === totalSlides) {
                     setTimeout(() => {
                         slider.style.transition = "none";
                         slider.style.transform = "translateX(0)";
                         currentIndex = 0;
-                    }, 1000); // Aguarda o término da transição
+                    }, 1000);
                 }
-    
-                resetAutoSlide(); // Reseta o intervalo automático ao clicar
+
+                resetAutoSlide();
             }
-    
-            // Função para mover automaticamente para a direita
+
             function autoSlide() {
-                moveSlide(1); // Sempre chama a função de mover com direção +1
+                moveSlide(1);
             }
-    
-            // Função para reiniciar o intervalo automático
+
             function resetAutoSlide() {
-                clearInterval(autoSlideInterval); // Limpa o intervalo atual
-                autoSlideInterval = setInterval(autoSlide, 4000); // Reinicia o intervalo
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = setInterval(autoSlide, 4000);
             }
-    
-            // Inicializa o intervalo automático
+
             autoSlideInterval = setInterval(autoSlide, 4000);
-    
-            // Permite chamar moveSlide com botões ou eventos externos
+
             window.moveSlide = moveSlide;
         });
     </script>
-    
-    
-
-
-
 
 
     <script>

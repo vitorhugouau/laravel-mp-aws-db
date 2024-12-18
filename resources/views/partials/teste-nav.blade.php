@@ -12,7 +12,7 @@
 <nav class="nav-01">
     <ul class="menu">
         <!-- @auth
-                    <li class="nav-li-01">Seja Bem-Vindo, {{ auth()->user()->name }}</li>
+                        <li class="nav-li-01">Seja Bem-Vindo, {{ auth()->user()->name }}</li>
             @endauth -->
         <li class="logout-3">
             <div class="logout-container02">
@@ -31,20 +31,17 @@
                 </ul> --}}
             </li>
 
-            <li class="nav-li-02"><a href="{{ route('clientes.store') }}">SERVIÇOS</a>
-                {{-- <ul>
-                    <li><a href="{{ route('clientes.store') }}">CONTRATAR SERVIÇO</a>
-            </li>
-        </ul> --}}
+            <li class="nav-li-02"><a 
+                href="{{ route('clientes.store') }}">SERVIÇOS</a>
             </li>
 
             @auth
                 <!-- <li class="nav-li-02"><a href="{{ route('minhas.compras') }}">MINHAS COMPRAS</a></li> -->
-            
-            @if (auth()->user()->role == 'admin')
-                <li class="nav-li-02"><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a></li>
-            @endif
-        </div>
+
+                @if (auth()->user()->role == 'admin')
+                    <li class="nav-li-02"><a href="{{ route('adm.login') }}">PAINEL DE CONTROLE</a></li>
+                @endif
+            </div>
             <li class="logout">
                 <div class="logout-container">
                     <!-- Ícone PNG -->
@@ -98,8 +95,8 @@
                 <div class="container-top">
                     <div class="logo">
                         @auth
-                                    <h1>SEJA BEM-VINDO {{ auth()->user()->name }}</h1>
-                                    <br><br>
+                                        <h1>SEJA BEM-VINDO {{ auth()->user()->name }}</h1>
+                                        <br><br>
                         @endauth
                     </div>
                     <div class="panel-content">
@@ -112,35 +109,35 @@
                             <li><img src="{{ asset('assets/eye.png') }}" alt="Ícone" class="icon"><a
                                     href="{{ route('clientes.store') }}">Contratar Serviço</a></li>
                             @auth
-                                        <li><img src="{{ asset('assets/users-alt.png') }}" alt="Ícone" class="icon"><a
-                                                href="{{ route('minhas.compras') }}">Minhas Compras</a></li>
-                                        @if (auth()->user()->role == 'admin')
+                                            <li><img src="{{ asset('assets/users-alt.png') }}" alt="Ícone" class="icon"><a
+                                                    href="{{ route('minhas.compras') }}">Minhas Compras</a></li>
+                                            @if (auth()->user()->role == 'admin')
     <li><img src="{{ asset('assets/carrinho-de-compras.png') }}" alt="Ícone" class="icon"><a
-                                                    href="{{ route('adm.login') }}">Painel de Controle</a></li>
+                                                        href="{{ route('adm.login') }}">Painel de Controle</a></li>
     @endif
-                                        <li><img src="{{ asset('assets/galeria.png') }}" alt="Ícone" class="icon"><a
-                                                href="{{ route('biblioteca') }}">Biblioteca</a></li>
-                                        <br><br><br>
-                                        <div class="container-bottom">
-                                            <p>
-                                                <a href="#"
-                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                    <i class="bi bi-box-arrow-right"></i> Sair
-                                                </a>
-                                            </p>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </div>
+                                            <li><img src="{{ asset('assets/galeria.png') }}" alt="Ícone" class="icon"><a
+                                                    href="{{ route('biblioteca') }}">Biblioteca</a></li>
+                                            <br><br><br>
+                                            <div class="container-bottom">
+                                                <p>
+                                                    <a href="#"
+                                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                        <i class="bi bi-box-arrow-right"></i> Sair
+                                                    </a>
+                                                </p>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                </form>
+                                            </div>
                             @endauth
                             @guest
-                                        <li><img src="{{ asset('assets/galeria.png') }}" alt="Ícone" class="icon"><a
-                                                href="{{ route('biblioteca') }}">Biblioteca</a></li>
+                                            <li><img src="{{ asset('assets/galeria.png') }}" alt="Ícone" class="icon"><a
+                                                    href="{{ route('biblioteca') }}">Biblioteca</a></li>
                             @endguest
                             @guest
-                                        <li><img src="{{ asset('assets/galeria.png') }}" alt="Ícone" class="icon"><a
-                                                href="{{ route('adm.login') }}">LOGIN</a></li>
+                                            <li><img src="{{ asset('assets/galeria.png') }}" alt="Ícone" class="icon"><a
+                                                    href="{{ route('adm.login') }}">LOGIN</a></li>
                             @endguest
                         </ul>
                     </div>
@@ -171,20 +168,28 @@
         window.addEventListener("scroll", () => {
             const currentScrollPosition = window.scrollY;
 
+            // Verifica se o usuário está no topo da página
+            if (currentScrollPosition === 0) {
+                scrollCount = 0; // Reseta o contador
+                topBar.style.transform = "translateY(0)"; // Mostra a top-bar
+                navBar.style.top = "40px"; // Ajusta a navbar
+                return;
+            }
+
             // Detecta rolagem para baixo
             if (currentScrollPosition > lastScrollPosition) {
                 scrollCount++;
             } else {
-                scrollCount = Math.max(scrollCount - 1, 0); // Reduz o contador, mas nunca fica negativo
+                scrollCount = Math.max(scrollCount - 1, 0); // Reduz o contador, mas nunca negativo
             }
 
-            // Esconde a top-bar após duas rolagens
+            // Esconde a top-bar após três rolagens para baixo
             if (scrollCount >= 3) {
                 topBar.style.transform = "translateY(-100%)"; // Move a barra para fora da tela
                 navBar.style.top = "0"; // Move a navbar para o topo
             } else {
                 topBar.style.transform = "translateY(0)"; // Mostra a barra novamente
-                navBar.style.top = "40px"; // Coloca a navbar abaixo da top-bar
+                navBar.style.top = "40px"; // Ajusta a navbar
             }
 
             lastScrollPosition = currentScrollPosition;
