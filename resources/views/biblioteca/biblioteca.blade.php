@@ -96,23 +96,36 @@
 
                 <!-- Preço -->
                 <div class="price">
-                    {{-- <div class="old-price">R$280,00</div> --}}
                     <div class="old-price">R$ {{ number_format($discountValue->valores, 2, ',', '.') }}</div>
-
                     <div class="new-price">R$ {{ number_format($imagem->valor, 2, ',', '.') }}</div>
                 </div>
 
                 <!-- Parcelamento -->
                 <div class="installments">
-                    ou 10x de R$ {{ number_format($imagem->valor_parcelado, 2, ',', '.') }} sem juros no Cartão
-                    Crédito.
+                    ou 10x de R$ {{ number_format($imagem->valor / 10, 2, ',', '.') }} sem juros no Cartão Crédito.
                 </div>
 
                 <!-- Botão de Compra -->
-                <a href="#" class="button">COMPRAR</a>
+                <form action="/pagamento/{{ $imagem->id }}" method="GET">
+                    @csrf
+                    <button type="submit" id="boton-loja"
+                        style=" display: inline-block;
+                                width: 90%;
+                                margin: 15px auto;
+                                padding: 10px 0;
+                                background-color: #1f6d40;
+                                color: #f5f5f5;
+                                font-size: 14px;
+                                font-weight: bold;
+                                text-decoration: none;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                text-align: center;">COMPRAR</button>
+                </form>
             </div>
         @endforeach
     </div>
+
     <!-- Seção Informativa -->
     <div class="info-section">
         <!-- Item 1 -->
