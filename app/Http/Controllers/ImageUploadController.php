@@ -66,7 +66,7 @@ class ImageUploadController extends Controller
 
         $urlMarcaDaguaMeio = ImgApi::whereBetween('id', [1, 4])->get();
 
-        $urlMarcaDaguaVenda = ImgApi::whereBetween('id', [6, 8])->get();
+        $urlMarcaDaguaVenda = ImgApi::whereBetween('id', [7, 9])->get();
 
         $urlMarcaDaguaFinal = ImgApi::whereBetween('id', [7, 11])->get();
 

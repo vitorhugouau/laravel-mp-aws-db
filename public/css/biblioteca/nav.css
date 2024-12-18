@@ -23,6 +23,7 @@
     top: 40px; /* Inicialmente abaixo da top-bar */
     left: 0;
     width: 100%;
+    height: 65px;
     z-index: 1000;
     background-color: #f7f2ed;
     display: flex;
@@ -42,7 +43,7 @@
 .menu {
     list-style-type: none;
     margin: 0;
-    padding: 10px 0;
+    /* padding: 10px 0; */
     background-color: #f7f2ed;
     display: flex;
     justify-content: center; /* Centraliza os itens da navbar */
@@ -65,7 +66,7 @@
     display: block;
     color: #3b2f22;
     text-align: center;
-    padding: 14px 16px;
+    padding: 9px 16px;
     text-decoration: none;
 }
 
@@ -136,8 +137,9 @@
 }
 
 .logo-icon {
-    width: 32px;
-    height: 32px;
+    width: 140px;
+    height: 36px;
+    margin-top: 7px;
     transition: transform 0.3s ease-in-out;
     left: 60px;
 }
@@ -148,6 +150,7 @@
     align-items: center;
     cursor: pointer;
     text-align: center;
+    /* width: 60px; */
 }
 
 .logo-icon:hover {
@@ -497,3 +500,12 @@
     font-weight: 400;
     font-style: normal; */
 }
+
+.logo-icon-logo {
+    width: 140px;
+    height: 36px;
+    margin-top: 7px;
+    transition: transform 0.3s ease-in-out;
+    left: 60px;
+}
+
