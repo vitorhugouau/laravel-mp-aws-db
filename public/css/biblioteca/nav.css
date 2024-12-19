@@ -71,8 +71,8 @@
 }
 
 .menu li a:hover {
-    background-color: rgb(240, 240, 240);
-    color:#424dc7
+    /* background-color: rgb(240, 240, 240); */
+    color:#424dc7;
 }
 
 /* Para o menu dropdown */
