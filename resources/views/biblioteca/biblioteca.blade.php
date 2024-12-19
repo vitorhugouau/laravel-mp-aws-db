@@ -170,6 +170,40 @@
         </div>
     </div>
 
+    <footer class="footer">
+        {{-- <div class="footer-links">
+            <a href="{{ route('biblioteca') }}">Home</a>
+            <a
+                href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Sobre</a>
+            <a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+                Empresa</a>
+
+        </div>
+        <div class="payment-security">
+            <div class="payment">
+                <h3>Pagamento</h3>
+                <div class="payment-icons">
+                    <img src="{{ asset('assets/pagamento/boleto.png') }}" alt="Boleto" style="filter: invert(1);">
+                    <img src="{{ asset('assets/pagamento/itau.png') }}" alt="Itaú">
+                    <img src="{{ asset('assets/pagamento/bradesco.png') }}" alt="Bradesco">
+                    <img src="{{ asset('assets/pagamento/banco-do-brasil.png') }}" alt="Banco do Brasil">
+                    <img src="{{ asset('assets/pagamento/pix.png') }}" alt="Pix">
+                    <img src="{{ asset('assets/pagamento/visa.png') }}" alt="Visa">
+                    <img src="{{ asset('assets/pagamento/mastercard.png') }}" alt="Mastercard">
+                    <img src="{{ asset('assets/pagamento/cartao-elo.png') }}" alt="Elo">
+                </div>
+            </div>
+        </div>
+
+        <hr class="footer-divider"> --}}
+        <div class="footer-copyright">
+            © 2024 Company, Inc
+        </div>
+        <div class="footer-logo">
+            <img src="{{ asset('assets/vitorfilmes2.png') }}" alt="Logout" class="logo-footer">
+        </div>
+    </footer>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
