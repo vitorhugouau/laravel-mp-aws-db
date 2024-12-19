@@ -196,11 +196,12 @@
         </div>
 
         <hr class="footer-divider"> --}}
-        <div class="footer-copyright">
-            © 2024 Company, Inc
-        </div>
+        
         <div class="footer-logo">
             <img src="{{ asset('assets/vitorfilmes2.png') }}" alt="Logout" class="logo-footer">
+        </div>
+        <div class="footer-copyright">
+            © 2024 Company, Inc
         </div>
     </footer>
 

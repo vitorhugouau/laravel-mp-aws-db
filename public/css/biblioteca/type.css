@@ -509,7 +509,7 @@ header {
     position: absolute;
     top: 44%;
     z-index: 10;
-    background-color: rgb(8 8 8 / 67%);
+    background-color: rgb(8 8 8 / 35%);
     border: none;
     padding: 16px;
     cursor: pointer;
@@ -523,6 +523,7 @@ header {
 .prev {
     left: 20px;
     /* Canto esquerdo */
+    size: 60px;
 }
 
 .next {
@@ -532,7 +533,7 @@ header {
 
 .prev img,
 .next img {
-    width: 30px;
+    width: 14px;
     /* Ajuste o tamanho conforme necessário */
     height: auto;
 }
@@ -677,7 +678,7 @@ header {
 .footer-copyright {
     color: #777;
     font-size: 12px;
-    margin-top: 50px;
+    margin-top: 35px;
 }
 
 .footer-logo{
