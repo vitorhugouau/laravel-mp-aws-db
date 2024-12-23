@@ -59,7 +59,7 @@ header {
     width: 110%;
     /* Ocupa 100% da largura do contêiner pai */
     overflow: hidden;
-    margin-left: -100px;
+    margin-left: -122px;
 }
 
 .slider {
@@ -70,7 +70,6 @@ header {
     /* 16:9 proporcional, baseado na largura da viewport */
     position: relative;
     /* Necessário para configurações relativas de slides ou controles */
-
 }
 
 .slide {
