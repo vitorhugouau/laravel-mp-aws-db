@@ -1,0 +1,144 @@
+/* Configuração geral */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1e1e2f, #3a3a59);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    color: #00ffc3;
+    text-shadow: 0 0 15px #00ffc3, 0 0 30px #0070ff;
+    margin-bottom: 2rem;
+}
+
+.form-container {
+    background: rgba(30, 30, 47, 0.95);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 195, 0.5), 0 0 30px rgba(0, 112, 255, 0.5);
+    width: 400px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card h3 {
+    font-size: 2rem;
+    color: #00ffc3;
+    margin-bottom: 1.5rem;
+}
+
+.card-content {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.card-content-area {
+    margin-bottom: 1.5rem;
+}
+
+.card-content-area label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: #dcdcdc;
+}
+
+.card-content-area input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.card-content-area input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px #00ffc3;
+}
+
+.card-footer {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.card-footer p {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.card-footer a {
+    color: #00ffc3;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.card-footer a:hover {
+    color: #0070ff;
+    text-shadow: 0 0 10px #0070ff;
+}
+
+.submit {
+    background: linear-gradient(45deg, #00ffc3, #0070ff);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.submit:hover {
+    background: linear-gradient(45deg, #0070ff, #00ffc3);
+    box-shadow: 0 0 15px #00ffc3, 0 0 30px #0070ff;
+}
+
+.teste2 {
+    background: transparent;
+    border: 2px solid #00ffc3;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: #00ffc3;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    margin-top: 1rem;
+}
+
+.teste2:hover {
+    background: #00ffc3;
+    color: #1e1e2f;
+    box-shadow: 0 0 15px #00ffc3, 0 0 30px #0070ff;
+}
+
+.card-cadastro2 {
+    text-align: center;
+}
+
+.conta {
+    margin-top: 1rem;
+}
+
+.conta a {
+    font-weight: bold;
+}
