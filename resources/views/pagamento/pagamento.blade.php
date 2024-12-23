@@ -31,7 +31,7 @@
             </div>
         </div> --}}
 
-        {{-- <div id="paymentModal" style="display: none;">
+    {{-- <div id="paymentModal" style="display: none;">
             <div class="modal-content">
                 <span id="closeModal" style="cursor: pointer;">&times;</span>
                 <h2>Pagamento via Pix</h2>
@@ -41,32 +41,16 @@
             </div>
         </div> --}}
 
-        {{-- <div class="pay">
+    {{-- <div class="pay">
             <form action="{{ route('mercadopago.create') }}" method="POST" id="paymentForm">
                 @csrf
                 <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
                 <div class="container1">
-                    <h2>Área de Confirmação</h2>
-                    <div class="planos">
-                        <label>
-                            <input type="radio" name="valor" value="{{ $imagem->valor }}" style="margin-right: 8px;" required>
-                            R$ {{ number_format($imagem->valor, 2, ',', '.') }} por esta imagem<br>
-                        </label>
-                        <strong>→ Confirme Clicando no Botão Abaixo</strong>
-                    </div>
-
-                    <!-- Botão Pix que submete o formulário -->
                     <button class="button" onclick="checkSelection(event)">
                         Pagamento via Pix
                     </button>
-
-                    <div class="info">
-                        Inclui a nossa <a href="#">licença padrão</a>.<br>
-                    </div>
                 </div>
             </form>
-            <br>
-            <br>
 
             <form action="{{ route('mercadopago.createCard') }}" method="post" id="paymentForm">
                 @csrf
@@ -89,14 +73,14 @@
             </form>
         </div> --}}
 
-{{-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --}}
+    {{-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --}}
 
-<div class="payment-page">
-    <!-- Escolha como pagar -->
-    <div class="payment-options">
-        <h2 class="payment-title">Escolha como pagar</h2>
+    <div class="payment-page">
+        <!-- Escolha como pagar -->
+        <div class="payment-options">
+            <h2 class="payment-title">Escolha como pagar</h2>
 
-        {{-- <div class="payment-method">
+            {{-- <div class="payment-method">
             <input type="radio" id="combine" name="payment_method" class="payment-radio">
             <label for="combine">
                 <div class="method-details">
@@ -106,7 +90,7 @@
             </label>
         </div> --}}
 
-        {{-- <div class="payment-method">
+            {{-- <div class="payment-method">
             <input type="radio" id="saldo" name="payment_method" class="payment-radio">
             <label for="saldo">
                 <div class="method-details">
@@ -119,7 +103,7 @@
             </label>
         </div> --}}
 
-        <div class="payment-method">
+            {{-- <div class="payment-method">
             <input type="radio" id="pix" name="payment_method" class="payment-radio">
             <label for="pix">
                 <div class="method-details">
@@ -131,79 +115,131 @@
                     </div>
                 </div>
             </label>
-        </div>
-
-        <div class="payment-method">
-            <input type="radio" id="cartao" name="payment_method" class="payment-radio">
-            <label for="cartao">
-                <div class="method-details">
-                    <img src="{{ asset('assets/credit-card.png') }}" alt="Ícone Cartão" class="method-icon">
-                    <div>
-                        <span>Cartão de crédito</span>
-                    </div>
-                </div>
-            </label>
-        </div>
-
-        {{-- <div class="payment-method">
-            <input type="radio" id="boleto" name="payment_method" class="payment-radio">
-            <label for="boleto">
-                <div class="method-details">
-                    <img src="link_para_imagem_boleto" alt="Ícone Boleto" class="method-icon">
-                    <div>
-                        <span>Boleto</span>
-                        <span class="method-subtitle">Aprovação em 1 a 2 dias úteis</span>
-                    </div>
-                </div>
-            </label>
         </div> --}}
+            <form action="{{ route('mercadopago.create') }}" method="post" id="paymentForm">
+                @csrf
+                <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
+                <input type="hidden" id="paymentMethod" name="payment_method" value="pix"> <!-- Default option -->
 
-        <button class="continue-button">Continuar</button>
-    </div>
+                <div class="payment-method">
+                    <input type="radio" id="pix" name="valor" class="payment-radio"
+                        value="{{ $imagem->valor }}" required checked>
+                    <label for="pix">
+                        <div class="method-details">
+                            <img src="{{ asset('assets/pagamento/pix.png') }}" alt="Ícone Pix" class="method-icon">
+                            <div>
+                                <span>Pix</span>
+                                <span class="method-subtitle">Aprovação imediata</span>
+                                <span class="new-option">NOVA OPÇÃO</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
 
-    <!-- Resumo da compra -->
-    <div class="purchase-summary">
-        <h3 class="summary-title">Resumo da compra</h3>
-        <div class="summary-item">
-            <span>Produto</span>
-            <span class="price">{{ number_format($imagem->valor, 2, ',', '.') }}</span>
+                <div class="payment-method">
+                    <input type="radio" id="cartao" name="valor" class="payment-radio"
+                        value="{{ $imagem->valor }}" required>
+                    <label for="cartao">
+                        <div class="method-details">
+                            <img src="{{ asset('assets/credit-card.png') }}" alt="Ícone Cartão" class="method-icon">
+                            <div>
+                                <span>Cartão de crédito</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <button class="continue-button" onclick="checkSelection(event)">Continuar</button>
+
+                <div class="info">
+                    Inclui a nossa <a href="{{ route ('licenca') }}">licença padrão</a>.
+                </div>
+            </form>
+
+            <script>
+                // Função para alterar a rota de acordo com a opção selecionada
+                function checkSelection(event) {
+                    event.preventDefault();
+
+                    // Verificar qual método de pagamento foi selecionado
+                    const paymentMethod = document.querySelector('input[name="valor"]:checked').id;
+
+                    console.log('Método de pagamento selecionado:', paymentMethod); // Log para verificar o método selecionado
+
+                    if (paymentMethod === 'pix') {
+                        console.log('Alterando ação para Pix'); // Log para verificar se a rota correta está sendo definida
+                        document.getElementById('paymentForm').action = '{{ route('mercadopago.create') }}';
+                    } else if (paymentMethod === 'cartao') {
+                        console.log(
+                        'Alterando ação para Cartão de Crédito'); // Log para verificar se a rota correta está sendo definida
+                        document.getElementById('paymentForm').action = '{{ route('mercadopago.createCard') }}';
+                    }
+
+                    // Verificando o novo action do formulário
+                    console.log('Ação do formulário:', document.getElementById('paymentForm').action);
+
+                    // Submeter o formulário
+                    document.getElementById('paymentForm').submit();
+                } 
+            </script>
+
+
         </div>
-        <div class="summary-item">
-            <span>Trânsferencia</span>
-            <span class="free">Grátis</span>
-        </div>
-        {{-- <div class="coupon">
+        {{-- <div class="payment-method">
+        <input type="radio" id="boleto" name="payment_method" class="payment-radio">
+        <label for="boleto">
+            <div class="method-details">
+                <img src="link_para_imagem_boleto" alt="Ícone Boleto" class="method-icon">
+                <div>
+                    <span>Boleto</span>
+                    <span class="method-subtitle">Aprovação em 1 a 2 dias úteis</span>
+                </div>
+            </div>
+        </label>
+    </div> --}}
+
+        <!-- Resumo da compra -->
+        <div class="purchase-summary">
+            <h3 class="summary-title">Resumo da compra</h3>
+            <div class="summary-item">
+                <span>Produto</span>
+                <span class="price">R$ {{ number_format($imagem->valor, 2, ',', '.') }}</span>
+            </div>
+            <div class="summary-item">
+                <span>Trânsferencia</span>
+                <span class="free">Grátis</span>
+            </div>
+            {{-- <div class="coupon">
             <a href="#" class="coupon-link">Inserir código do cupom</a>
         </div> --}}
-        <hr class="divider">
-        <div class="summary-total">
-            <span>Você pagará</span>
-            <span class="total-price">{{ number_format($imagem->valor, 2, ',', '.') }}</span>
-        </div>
-        <div class="main-container">
-            <div class="container">
-                <div class="container-image">
-                    <div class="image-container">
-                        <div
-                            style="background-image: url('{{ $imagem->url_marca_dagua }}'); background-size: cover; background-position: center; width: 284px; height: 162px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important;border-radius:6%">
+            <hr class="divider">
+            <div class="summary-total">
+                <span>Você pagará</span>
+                <span class="total-price">R$ {{ number_format($imagem->valor, 2, ',', '.') }}</span>
+            </div>
+            <div class="main-container">
+                <div class="container">
+                    <div class="container-image">
+                        <div class="image-container">
                             <div
-                                style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
-                                <div class="compra">
+                                style="background-image: url('{{ $imagem->url_marca_dagua }}'); background-size: cover; background-position: center; width: 284px; height: 162px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important;border-radius:6%">
+                                <div
+                                    style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
+                                    <div class="compra">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> 
-    </div>
-</div>
+            </div>
+        </div>
 
 
-{{-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --}}
+        {{-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --}}
 
-        
-        
-        <script>
+
+        {{-- <script>
             function checkSelection() {
                 const radioChecked = document.querySelector('input[name="valor"]:checked');
                 if (!radioChecked) {
@@ -212,7 +248,7 @@
                     document.getElementById('paymentForm').submit();
                 }
             }
-        </script>
+        </script> --}}
 
 
         <script>

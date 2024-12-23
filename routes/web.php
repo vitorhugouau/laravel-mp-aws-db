@@ -81,6 +81,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/mercadopago/create', [MercadoPagoController::class, 'testPixPayment'])->name('mercadopago.create');
 
+    Route::post('/mercadopago/createCard', [MercadoPagoCard::class, 'createPaymentPreference'])->name('mercadopago.createCard');
+
     Route::get('/mercadopago/webhook', [MercadoPagoController::class, 'handleWebhook'])->name('mercadopago.webhook');
     
     Route::get('/mercadopago/pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
@@ -91,13 +93,18 @@ Route::middleware('auth')->group(function () {
 
     // ---------------------------------------------------------------------------------------------------------------------------------
 
-    Route::post('/mercadopago/createCard', [MercadoPagoCard::class, 'createPaymentPreference'])->name('mercadopago.createCard');
     
     Route::get('/mercadopago/successCard', [MercadoPagoCard::class, 'paymentSuccess'])->name('mercadopago.success');
     
-
     Route::get('/mercadopagoCard/{id}', [MercadoPagoCard::class, 'getPreferenceById'])->name('mercadopago.get');
 
+    // ---------------------------------------------------------------------------------------------------------------------------------
+
+    Route::get('/licenca', function () {
+        return view('licenca');
+    })->name('licenca');
+
+    
     // ---------------------------------------------------------------------------------------------------------------------------------
 
     Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
