@@ -43,7 +43,6 @@
                     </div>
                 @endforeach
             </div>
-            <!-- Botões de navegação com imagens -->
             <button class="prev" onclick="moveSlide(-1)">
                 <img src="{{ asset('assets/left.png') }}" class="icon-seta" alt="Previous" />
             </button>
@@ -72,40 +71,35 @@
     <div class="container-venda-wrapper">
         @foreach ($urlMarcaDaguaVenda as $imagem)
             <div class="container-venda">
-                <!-- Desconto -->
+        
                 <div class="desconto">-11%</div>
 
-                <!-- Imagem -->
                 <div class="image-container-venda">
                     <div class="slide-venda" style="background-image: url('{{ $imagem->url_marca_dagua }}');">
                     </div>
                 </div>
 
-                <!-- Tags -->
                 <div class="tags">
                     <div class="tag destaque">Destaque</div>
                     <div class="tag lancamento">Lançamento</div>
                     <div class="tag black-friday">Black Friday</div>
                 </div>
 
-                <!-- Título -->
                 <div class="product-title">{{ $imagem->nome }}</div>
 
-                <!-- Avaliação -->
                 <div class="rating">★★★★★</div>
 
-                <!-- Preço -->
                 <div class="price">
                     <div class="old-price">R$ {{ number_format($discountValue->valores, 2, ',', '.') }}</div>
                     <div class="new-price">R$ {{ number_format($imagem->valor, 2, ',', '.') }}</div>
                 </div>
 
-                <!-- Parcelamento -->
+
                 <div class="installments">
                     ou 10x de R$ {{ number_format($imagem->valor / 10, 2, ',', '.') }} sem juros no Cartão Crédito.
                 </div>
 
-                <!-- Botão de Compra -->
+
                 <form action="/pagamento/{{ $imagem->id }}" method="GET">
                     @csrf
                     <button type="submit" id="boton-loja"
@@ -126,27 +120,27 @@
         @endforeach
     </div>
 
-    <!-- Seção Informativa -->
+
     <div class="info-section">
-        <!-- Item 1 -->
+
         <div class="info-item">
             <img src="{{ asset('assets/guarantee.png') }}" alt="Garantia">
             <h3>Garantia</h3>
             <p>de até 1 ano da loja</p>
         </div>
-        <!-- Item 2 -->
+
         <div class="info-item">
             <img src="{{ asset('assets/discount.png') }}" alt="Desconto">
             <h3>5% de desconto</h3>
             <p>no pagamento à vista</p>
         </div>
-        <!-- Item 3 -->
+
         <div class="info-item">
             <img src="{{ asset('assets/credit-card.png') }}" alt="Parcelamento">
             <h3>Em até 6x</h3>
             <p>sem juros no cartão</p>
         </div>
-        <!-- Item 4 -->
+
         <div class="info-item">
             <img src="{{ asset('assets/camera.png') }}" alt="Parcelamento">
             <h3>Fotos exclusivas</h3>
@@ -161,6 +155,7 @@
                         <div class="compra">
                             <form action="/pagamento/{{ $imagem->id }}" method="GET">
                                 @csrf
+                                <input type="hidden" name="redirectTo" value="{{ url()->full() }}">
                                 <button type="submit" id="boton">COMPRAR IMAGEM</button>
                             </form>
                         </div>
@@ -171,32 +166,7 @@
     </div>
 
     <footer class="footer">
-        {{-- <div class="footer-links">
-            <a href="{{ route('biblioteca') }}">Home</a>
-            <a
-                href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Sobre</a>
-            <a href="https://www.instagram.com/vitor_filmes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
-                Empresa</a>
 
-        </div>
-        <div class="payment-security">
-            <div class="payment">
-                <h3>Pagamento</h3>
-                <div class="payment-icons">
-                    <img src="{{ asset('assets/pagamento/boleto.png') }}" alt="Boleto" style="filter: invert(1);">
-                    <img src="{{ asset('assets/pagamento/itau.png') }}" alt="Itaú">
-                    <img src="{{ asset('assets/pagamento/bradesco.png') }}" alt="Bradesco">
-                    <img src="{{ asset('assets/pagamento/banco-do-brasil.png') }}" alt="Banco do Brasil">
-                    <img src="{{ asset('assets/pagamento/pix.png') }}" alt="Pix">
-                    <img src="{{ asset('assets/pagamento/visa.png') }}" alt="Visa">
-                    <img src="{{ asset('assets/pagamento/mastercard.png') }}" alt="Mastercard">
-                    <img src="{{ asset('assets/pagamento/cartao-elo.png') }}" alt="Elo">
-                </div>
-            </div>
-        </div>
-
-        <hr class="footer-divider"> --}}
-        
         <div class="footer-logo">
             <img src="{{ asset('assets/vitorfilmes2.png') }}" alt="Logout" class="logo-footer">
         </div>

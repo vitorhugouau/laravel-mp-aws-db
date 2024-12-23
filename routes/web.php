@@ -60,9 +60,7 @@ Route::middleware('auth')->group(function () {
     //     return view('biblioteca.biblioteca', compact('imagens'));
     // })->name('biblioteca');
 
-    Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
-    Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
-
+   
     Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -112,6 +110,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/minhas-compras', [UsuariosController::class, 'minhasCompras'])->name('minhas.compras');
 
     Route::get('/compras/{id}', [UsuariosController::class, 'show'])->name('compras.show');
+
+    Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
+    Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
+
 
 });
 
