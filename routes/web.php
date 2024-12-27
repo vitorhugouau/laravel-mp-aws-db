@@ -51,8 +51,6 @@ Route::post('/password/res', [ResetPasswordController::class, 'reset'])->name('p
 
 
 
-
-
 Route::middleware('auth')->group(function () {
 
     // Route::get('/biblioteca', function () {
@@ -111,14 +109,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/compras/{id}', [UsuariosController::class, 'show'])->name('compras.show');
 
-    Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
-    Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
+    
 
 
 });
 
 // middleware 
 Route::middleware([AdminAuthMiddleware::class])->group(function () {
+
+    Route::get('/adm', [AdminController::class, 'showLoginForm'])->name('adm.login');
+    Route::post('/adm', [AdminController::class, 'login'])->name('adm.login.post');
 
     Route::get('/imagensEdit/{id}', [ImagemController::class, 'edit'])->name('imagens.edit');
     Route::post('/imagens/{id}', [ImagemController::class, 'update'])->name('imagens.update');

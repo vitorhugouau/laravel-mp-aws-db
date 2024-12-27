@@ -13,7 +13,7 @@
 
 </head>
 
-@include('partials.teste-nav')
+@include('partials.nav')
 
 <!-- <body background="../../assets/img/rio.jpg"> -->
 

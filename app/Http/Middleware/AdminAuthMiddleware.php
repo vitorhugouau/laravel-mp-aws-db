@@ -10,10 +10,10 @@ class AdminAuthMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if (Auth::guard('AdminAuthMiddleware')->check()) {
+        if (Auth::check() && Auth::user()->role === 'admin') {
             return $next($request);
         }
-        
-        return redirect('adm');
+
+        return redirect()->route('adm.login')->with('error', 'Você precisa estar logado como administrador.');
     }
 }

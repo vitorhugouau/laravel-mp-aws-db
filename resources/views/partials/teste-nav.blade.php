@@ -65,7 +65,7 @@
         @endauth
 
         @guest
-            <li class="nav-li-02"><a href="{{ route('adm.login') }}">LOGIN</a></li>
+            <li class="nav-li-02"><a href="{{ route('login') }}">LOGIN</a></li>
         @endguest
     </ul>
 </nav>

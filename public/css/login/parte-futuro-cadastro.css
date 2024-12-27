@@ -18,7 +18,7 @@
     border-radius: 20px;
     margin: 1rem auto;
     width: 28rem; /* Ajustado para ficar menor */
-    height: 32rem; /* Ajustado para ficar menor */
+    height: 36rem; /* Ajustado para ficar menor */
     color: white;
 }
 
@@ -59,27 +59,31 @@
 .flex-column > label {
     color: #151717;
     font-weight: 600;
+    font-size: 13px;
 }
 
 .inputForm {
     border: 1.5px solid #ecedec;
-    border-radius: 8px; /* Ajustado */
-    height: 40px; /* Ajustado */
+    border-radius: 8px;
+    height: 40px; /* Altura maior */
     display: flex;
     align-items: center;
-    padding-left: 8px; /* Ajustado */
+    padding-left: 15px; /* Espaço entre o ícone e o texto */
     transition: 0.2s ease-in-out;
-    margin-bottom: 15px; /* Ajustado */
+    margin-bottom: 20px; /* Espaçamento entre os inputs */
+    width: 100%; /* O input ocupará toda a largura do contêiner pai */
+    max-width: 500px; /* Limite de largura para inputs muito grandes */
 }
 
 .input {
-    margin-left: 8px; /* Ajustado */
-    border-radius: 8px; /* Ajustado */
+    border-radius: 8px;
     border: none;
-    width: 100%;
-    height: 100%;
+    width: 100%; /* Ajusta para ocupar toda a largura do contêiner */
+    height: 100%; /* Ajusta para herdar a altura do contêiner pai */
     background-color: transparent;
     color: white;
+    font-size: 1.2rem; /* Fonte maior */
+    padding: 0 10px; /* Espaçamento interno */
 }
 
 .input:focus {
@@ -87,8 +91,9 @@
 }
 
 .inputForm:focus-within {
-    border: 1.5px solid #5c5c5c;
+    border: 1.5px solid #5c5c5c; /* Cor do foco */
 }
+
 
 .flex-row {
     display: flex;
@@ -164,6 +169,7 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     margin-bottom: 15px;
+    margin-top: 6px;
 }
 
 #btn-entrar:hover {
