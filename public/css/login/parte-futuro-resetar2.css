@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .body {
-    margin: 60px;
+    margin: 170px;
     padding: 0;
     box-sizing: border-box;
     overflow: hidden;
@@ -78,11 +78,11 @@
 .input {
     border-radius: 8px;
     border: none;
-    width: 100%; /* Ajusta para ocupar toda a largura do contêiner */
+    width: 185px; /* Ajusta para ocupar toda a largura do contêiner */
     height: 100%; /* Ajusta para herdar a altura do contêiner pai */
     background-color: transparent;
     color: white;
-    font-size: 1.2rem; /* Fonte maior */
+    font-size: 0.8rem; /* Fonte maior */
     padding: 0 10px; /* Espaçamento interno */
 }
 
