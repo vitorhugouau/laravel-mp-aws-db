@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-vindo ao Nosso Site</title>
     <style>
-        /* Reseta os estilos padrão */
+        
         body, h1, h2, h3, p {
             margin: 0;
             padding: 0;
@@ -69,23 +69,20 @@
 </head>
 <body>
     <div class="container">
-        <!-- Cabeçalho -->
+        
         <div class="header">
             <h1>Bem-vindo ao Nosso Site!</h1>
         </div>
 
-        <!-- Conteúdo Principal -->
         <div class="content">
             <h2>Olá, {{ $dados['nome'] }}!</h2>
             <p>{{ $dados['mensagem'] }}</p>
             <p>Estamos muito felizes em ter você conosco. Este é um email de boas-vindas com base no template do nosso site.</p>
             <p>Explore tudo o que temos a oferecer e aproveite os melhores conteúdos e serviços. Se precisar de qualquer ajuda, nossa equipe estará à disposição para ajudar!</p>
 
-            <!-- Botão de Ação -->
             <a href="https://vitorhugo.netlify.app/" class="button">Visite Nosso Site</a>
         </div>
 
-        <!-- Rodapé -->
         <div class="footer">
             <p>Você está recebendo este email porque se cadastrou em nosso site.</p>
             <p>Se você não deseja mais receber nossos emails, <a href="https://zonafantasmanet.wordpress.com/wp-content/uploads/2021/07/the_joker_vol_2_1_exclusive_scorpion_comics_variant_b.jpg?w=660">clique aqui para se descadastrar</a>.</p>

@@ -156,28 +156,25 @@
         window.addEventListener("scroll", () => {
             const currentScrollPosition = window.scrollY;
 
-            // Verifica se o usuário está no topo da página
             if (currentScrollPosition === 0) {
-                scrollCount = 0; // Reseta o contador
-                topBar.style.transform = "translateY(0)"; // Mostra a top-bar
-                navBar.style.top = "40px"; // Ajusta a navbar
+                scrollCount = 0; 
+                topBar.style.transform = "translateY(0)"; 
+                navBar.style.top = "40px"; 
                 return;
             }
 
-            // Detecta rolagem para baixo
             if (currentScrollPosition > lastScrollPosition) {
                 scrollCount++;
             } else {
-                scrollCount = Math.max(scrollCount - 1, 0); // Reduz o contador, mas nunca negativo
+                scrollCount = Math.max(scrollCount - 1, 0); 
             }
 
-            // Esconde a top-bar após três rolagens para baixo
             if (scrollCount >= 3) {
-                topBar.style.transform = "translateY(-100%)"; // Move a barra para fora da tela
-                navBar.style.top = "0"; // Move a navbar para o topo
+                topBar.style.transform = "translateY(-100%)"; 
+                navBar.style.top = "0"; 
             } else {
-                topBar.style.transform = "translateY(0)"; // Mostra a barra novamente
-                navBar.style.top = "40px"; // Ajusta a navbar
+                topBar.style.transform = "translateY(0)"; 
+                navBar.style.top = "40px"; 
             }
 
             lastScrollPosition = currentScrollPosition;

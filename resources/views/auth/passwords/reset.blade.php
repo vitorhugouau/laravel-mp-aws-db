@@ -36,10 +36,8 @@
                     <h3 style="color: white;">RESETAR SENHA</h3>
                     <div class="card-header">
 
-                        <!-- Campo de token oculto -->
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <!-- Campo de e-mail -->
                         <div class="flex-column">
                             <label for="email" style="color: white;">E-mail</label>
                         </div>
@@ -48,7 +46,6 @@
                                 placeholder="Digite seu e-mail" value="{{ $email }}" readonly>
                         </div>
                         
-                        <!-- Campo de nova senha -->
                         <div class="flex-column">
                             <label for="password" style="color: white;">Nova Senha</label>
                         </div>
@@ -56,7 +53,6 @@
                             <input class="input" type="password" name="password" id="password" required
                                 placeholder="Digite sua nova senha">
                         </div>
-                        <!-- Campo de confirmação de senha -->
                         <div class="flex-column">
                             <label for="password_confirmation" style="color: white;">Confirmar Senha</label>
                         </div>
@@ -66,7 +62,6 @@
                         </div>
                     </div>
 
-                    <!-- Mensagens de sucesso ou erro -->
                     <div class="message">
                         @if (session('success'))
                             <p style="color: green;">{{ session('success') }}</p>
@@ -77,7 +72,6 @@
                         @endif
                     </div>
 
-                    <!-- Botões de ações -->
                     <div class="card-footer">
                         <button type="submit" class="submit" id="btn-entrar">RESETAR SENHA</button>
                     </div>
@@ -112,7 +106,6 @@
             }
         });
 
-        // Redirecionar ao clicar no botão "Voltar"
         document.getElementById("teste2").onclick = function() {
             window.location.href = this.getAttribute("data-url");
         };

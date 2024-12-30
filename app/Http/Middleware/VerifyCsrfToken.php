@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 class VerifyCsrfToken extends BaseVerifier
 {
     /**
-     * O conjunto de exceções para a verificação CSRF.
+     * 
      *
      * @var array
      */
@@ -26,8 +26,6 @@ class VerifyCsrfToken extends BaseVerifier
      */
     public function handle($request, \Closure $next)
     {
-        // Se a requisição for do tipo POST, PUT, PATCH ou DELETE, o Laravel verifica o CSRF automaticamente
-        // Você pode adicionar outras lógicas personalizadas, se necessário
 
         return parent::handle($request, $next);
     }

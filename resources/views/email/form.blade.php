@@ -8,12 +8,10 @@
 <body>
     <h1>Enviar Email com SendGrid</h1>
 
-    <!-- Exibe uma mensagem de sucesso, se houver -->
     @if(session('success'))
         <p style="color: green;">{{ session('success') }}</p>
     @endif
 
-    <!-- Formulário para envio do email -->
     <form action="{{ route('send.email') }}" method="POST">
         @csrf
         <label for="nome">Nome:</label>

@@ -52,21 +52,21 @@ header{
 /*---------------------------------MENU--------------------------------------*/
 .menu {
     list-style-type: none;
-    margin: 0 auto; /* Centralizar horizontalmente */
+    margin: 0 auto; 
     padding: 0;
     background: #355a92;
     background: linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
     background: -webkit-linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
     background: -moz-linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
-    text-align: center; /* Centralizar os itens do menu */
-    justify-content: center; /* Centralizar os itens horizontalmente */
-    align-items: center; /* Centralizar os itens verticalmente */
+    text-align: center; 
+    justify-content: center;
+    align-items: center; 
 }
 
 
 .menu li {
     display: inline-block;
-    position: relative; /* Para posicionar o submenu */
+    position: relative; 
 }
 
 .menu li a {
@@ -78,20 +78,20 @@ header{
 }
 
 .menu li a:hover {
-    background-color: #1159c5; /* Cor de fundo ao passar o mouse */
+    background-color: #1159c5; 
 }
 
 .menu ul {
     display: none;
     position: absolute;
-    background-color: #444; /* Cor de fundo do submenu */
-    min-width: 150px; /*ajusata o tamanha do submenu*/
-    top: 100%; /* Posiciona o submenu abaixo do item pai */
+    background-color: #444; 
+    min-width: 150px; 
+    top: 100%; 
     left: 0;
 }
 
 .menu li:hover > ul {
-    display: block; /* Exibe o submenu ao passar o mouse sobre o item pai */
+    display: block; 
 }
 
 .menu ul li {
@@ -99,11 +99,11 @@ header{
 }
 
 .menu ul li a {
-    padding: 10px 15px; /* Ajuste de padding para o submenu */
+    padding: 10px 15px; 
 }
 
 .logout {
-    margin-left: auto; /* Mover o botão "SAIR" para a direita */
+    margin-left: auto; 
 }
 #sair {
     background-color: #1159c5;
@@ -112,14 +112,13 @@ header{
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px; /* Adiciona margem à direita para separar o botão do último item */
+    margin-right: 10px; 
 }
 
 #sair:hover {
     background-color: #0d3a75;
 }
 
-/* Layout */
 .meio {
     display: flex;
     justify-content: center;
@@ -133,7 +132,6 @@ header{
     width: 1250px;
 }
 
-/* Formulário */
 .card1 h3 {
     color: #c1c1c1;
 }
@@ -169,10 +167,10 @@ header{
     box-sizing: border-box;
 }
 .form-control{
-    padding: 8px; /* Espaçamento interno */
-    width: 600px; /* Ocupar 100% da largura do contêiner pai */
-    height: 40px; /* Altura do input, ajuste conforme necessário */
-    font-size: 16px; /* Tamanho da fonte do texto no input */
+    padding: 8px; 
+    width: 600px; 
+    height: 40px; 
+    font-size: 16px; 
 }
 
 .card1-footer,
@@ -213,7 +211,6 @@ header{
     /* text-align: center; */
 }
 
-/* Campos do formulário */
 .card1-content-area .form-group {
     margin-bottom: 15px;
 }

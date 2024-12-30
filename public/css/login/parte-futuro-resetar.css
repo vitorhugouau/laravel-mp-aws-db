@@ -17,24 +17,24 @@
     border: 1px solid white;
     border-radius: 20px;
     margin: 1rem auto;
-    width: 28rem; /* Ajustado para ficar menor */
-    height: 22rem; /* Ajustado para ficar menor */
+    width: 28rem;
+    height: 22rem;
     color: white;
 }
 
 #logo-profile {
-    font-size: 80px; /* Ajustado para reduzir o tamanho */
+    font-size: 80px; 
     color: white;
-    width: 90px; /* Ajustado */
-    height: 90px; /* Ajustado */
+    width: 90px; 
+    height: 90px; 
     background-color: black;
     backdrop-filter: blur(5px);
     border: 1px solid white;
-    padding: 15px; /* Ajustado */
+    padding: 15px; 
     border-radius: 50%;
     position: relative;
     left: 47%;
-    top: 4rem; /* Ajustado */
+    top: 4rem; 
     z-index: 2;
     display: flex;
     align-items: center;
@@ -46,9 +46,9 @@
     flex-direction: column;
     gap: 10px;
     background-color: #ffffff;
-    padding: 20px; /* Ajustado */
-    width: 380px; /* Ajustado */
-    border-radius: 15px; /* Ajustado */
+    padding: 20px; 
+    width: 380px; 
+    border-radius: 15px; 
     color: white;
 }
 
@@ -65,25 +65,25 @@
 .inputForm {
     border: 1.5px solid #ecedec;
     border-radius: 8px;
-    height: 40px; /* Altura maior */
+    height: 40px; 
     display: flex;
     align-items: center;
-    padding-left: 15px; /* Espaço entre o ícone e o texto */
+    padding-left: 15px; 
     transition: 0.2s ease-in-out;
-    margin-bottom: 20px; /* Espaçamento entre os inputs */
-    width: 100%; /* O input ocupará toda a largura do contêiner pai */
-    max-width: 500px; /* Limite de largura para inputs muito grandes */
+    margin-bottom: 20px; 
+    width: 100%; 
+    max-width: 500px;
 }
 
 .input {
     border-radius: 8px;
     border: none;
-    width: 100%; /* Ajusta para ocupar toda a largura do contêiner */
-    height: 100%; /* Ajusta para herdar a altura do contêiner pai */
+    width: 100%; 
+    height: 100%; 
     background-color: transparent;
     color: white;
-    font-size: 1.2rem; /* Fonte maior */
-    padding: 0 10px; /* Espaçamento interno */
+    font-size: 1.2rem; 
+    padding: 0 10px; 
 }
 
 .input:focus {
@@ -91,7 +91,7 @@
 }
 
 .inputForm:focus-within {
-    border: 1.5px solid #5c5c5c; /* Cor do foco */
+    border: 1.5px solid #5c5c5c; 
 }
 
 
@@ -99,17 +99,17 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px; /* Ajustado */
+    gap: 8px; 
     justify-content: space-between;
 }
 
 .flex-row > div > label {
-    font-size: 12px; /* Ajustado */
+    font-size: 12px; 
     font-weight: 400;
 }
 
 .span {
-    font-size: 12px; /* Ajustado */
+    font-size: 12px; 
     margin-left: 5px;
     color: #5c5c5c;
     font-weight: 500;
@@ -118,14 +118,14 @@
 }
 
 .button-submit {
-    margin: 15px 0 8px 0; /* Ajustado */
+    margin: 15px 0 8px 0; 
     background-color: #151717;
     border: none;
     color: white;
-    font-size: 14px; /* Ajustado */
+    font-size: 14px; 
     font-weight: 500;
-    border-radius: 8px; /* Ajustado */
-    height: 40px; /* Ajustado */
+    border-radius: 8px; 
+    height: 40px; 
     width: 100%;
     cursor: pointer;
 }
@@ -135,20 +135,20 @@
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    font-size: 12px; /* Ajustado */
+    font-size: 12px; 
     margin: 5px 0;
 }
 
 .btn {
     margin-top: 10px;
     width: 100%;
-    height: 40px; /* Ajustado */
-    border-radius: 8px; /* Ajustado */
+    height: 40px; 
+    border-radius: 8px; 
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 500;
-    gap: 8px; /* Ajustado */
+    gap: 8px; 
     border: 1px solid #ededef;
     background-color: white;
     cursor: pointer;
@@ -164,7 +164,7 @@
     background-color: white;
     border: 1px solid white;
     width: 100%;
-    height: 40px; /* Ajustado */
+    height: 40px; 
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -173,9 +173,9 @@
 }
 
 #btn-entrar:hover {
-    box-shadow: 0px 0px 10px -2px rgba(255,255,255,0.75); /* Ajustado */
-    -webkit-box-shadow: 0px 0px 10px -2px rgba(255,255,255,0.75); /* Ajustado */
-    -moz-box-shadow: 0px 0px 10px -2px rgba(255,255,255,0.75); /* Ajustado */
+    box-shadow: 0px 0px 10px -2px rgba(255,255,255,0.75); 
+    -webkit-box-shadow: 0px 0px 10px -2px rgba(255,255,255,0.75); 
+    -moz-box-shadow: 0px 0px 10px -2px rgba(255,255,255,0.75); 
 }
 
 #teste2 {
@@ -184,16 +184,16 @@
     border: 1px solid white;
     background-color: transparent;
     width: 100%;
-    height: 40px; /* Ajustado */
+    height: 40px; 
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
 
 #teste2:hover {
-    box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75); /* Ajustado */
-    -webkit-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75); /* Ajustado */
-    -moz-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75); /* Ajustado */
+    box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75); 
+    -webkit-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75); 
+    -moz-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75); 
 }
 
 .password a {

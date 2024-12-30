@@ -25,7 +25,6 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Verificação de email
             if ($user->email_verified_at == null) {
                 Session::put('verification_email', $user->email);
                 Auth::logout();
@@ -33,20 +32,18 @@ class AuthController extends Controller
                 return redirect()->route('verification.showForm')->with('error', 'Por favor, verifique seu email antes de continuar.');
             }
 
-            // Recupera o 'redirectTo' passado no formulário
-            $redirectTo = $request->get('redirectTo', route('biblioteca')); // Se não houver 'redirectTo', usa a URL padrão
+            $redirectTo = $request->get('redirectTo', route('biblioteca')); 
 
-            // Registrar log com a URL para onde o usuário será redirecionado
             Log::info("Usuário redirecionado para: " . $redirectTo, [
                 'user_id' => $user->id,
                 'email' => $user->email,
                 'redirect_url' => $redirectTo
             ]);
             if ($user->role == 'admin') {
-                 $redirectTo = $request->get('redirectTo', route('biblioteca')); // Se não houver 'redirectTo', usa a URL padrão
+                 $redirectTo = $request->get('redirectTo', route('biblioteca')); 
             }
 
-            return redirect()->intended($redirectTo); // Redireciona para a URL fornecida no 'redirectTo'
+            return redirect()->intended($redirectTo); 
         }
 
         return redirect()->back()->withErrors(['email' => 'Credenciais inválidas']);

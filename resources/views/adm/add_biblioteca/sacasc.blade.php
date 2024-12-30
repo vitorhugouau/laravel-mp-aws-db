@@ -103,7 +103,7 @@
                             <img src="{{ route('imagem-show', $imagem->id) }}" alt="{{ $imagem->nome }}" width="500px">
                         </div>
                         <p>{{ $imagem->nome }}</p>
-                        <p>Valor: R$ {{ number_format($imagem->valor, 2, ',', '.') }}</p> <!-- Exibe o valor -->
+                        <p>Valor: R$ {{ number_format($imagem->valor, 2, ',', '.') }}</p> 
                     </div>
                 @endforeach
             </div>

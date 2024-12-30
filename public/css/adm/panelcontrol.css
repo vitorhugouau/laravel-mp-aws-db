@@ -57,10 +57,10 @@ a {
     font-size: 13px;
     transition: 0.4s ease;
     color: white;
-    white-space: nowrap; /* Evita quebra de linha */
+    white-space: nowrap; 
     display: flex;
     align-items: center;
-    gap: 8px; /* Ajuste de espaço entre o ícone e o texto */
+    gap: 8px; 
 }
 
 .panel-content ul li:hover {
@@ -70,5 +70,5 @@ a {
 
 .container-bottom {
     margin-top: 20px;
-    white-space: nowrap; /* Evita quebra de linha */
+    white-space: nowrap; 
 }

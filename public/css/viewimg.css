@@ -14,19 +14,19 @@ body {
 
 .menu {
     list-style-type: none;
-    margin: 0 auto; /* Centralizar horizontalmente */
+    margin: 0 auto; 
     padding: 0;
     background: linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
     background: -webkit-linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
     background: -moz-linear-gradient(180deg,#355a92 20%, #35557c 50%, #000000 80%);
-    text-align: center; /* Centralizar os itens do menu */
-    justify-content: center; /* Centralizar os itens horizontalmente */
-    align-items: center; /* Centralizar os itens verticalmente */
+    text-align: center; 
+    justify-content: center; 
+    align-items: center; 
 }
 
 .menu li {
     display: inline-block;
-    position: relative; /* Para posicionar o submenu */
+    position: relative; 
 }
 
 .menu li a {
@@ -38,7 +38,7 @@ body {
 }
 
 .menu li a:hover {
-    background-color: #1159c5; /* Cor de fundo ao passar o mouse */
+    background-color: #1159c5;
 }
 
 .cont {
@@ -84,14 +84,14 @@ input[type="submit"]:hover {
 
 .acaoBotao {
     display: none;
-    color: #fff; /* Cor do texto */
-    padding: 15px 25px; /* EspaÃ§amento interno */
-    font-size: 16px; /* Tamanho da fonte */
-    border: none; /* Remover borda */
-    border-radius: 5px; /* Bordas arredondadas */
-    cursor: pointer; /* Alterar cursor ao passar por cima */
-    transition: background-color 0.3s; /* Efeito de transiÃ§Ã£o */
-    margin-right: 10px; /* Margem Ã  direita */
+    color: #fff; 
+    padding: 15px 25px; 
+    font-size: 16px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    margin-right: 10px;
     transition: all 0.4s ease;
 }
 .acaoBotao:hover {
@@ -100,14 +100,13 @@ input[type="submit"]:hover {
 #botaoAcao{
     background-color: #007BFF;
 }
-/* Estilo do botÃ£o "SIM" */
+
 #botaoAcao1 {
-    background-color: #019e09; /* Azul */
+    background-color: #019e09; 
 }
 
-/* Estilo do botÃ£o "NÃƒO" */
 #botaoAcao2 {
-    background-color: #DC3545; /* Vermelho */
+    background-color: #DC3545; 
 }
 .container{
     padding: 18px 32.5%;
@@ -188,26 +187,18 @@ input[type="submit"]:hover {
 
 }
 
-
-/* Estilo para a tabela */
-/* Estilo para a tabela */
-/* Estilo para a tabela */
-/* Estilo para a tabela */
-/* Estilo para a tabela */
 .table {
     width: 9%;
     margin: 0 auto;
     border-collapse: collapse;
     border-spacing: 0;
-    border-radius: 8px; /* Bordas arredondadas */
-    overflow: hidden; /* Oculta as bordas arredondadas que vÃ£o alÃ©m da tabela */
-    box-shadow: 0 0 10px rgb(162 24 24 / 10%); /* Adiciona uma sombra suave */
-    background-color: rgb(82 178 208 / 50%); /* Fundo com 50% de opacidade */
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-shadow: 0 0 10px rgb(162 24 24 / 10%); 
+    background-color: rgb(82 178 208 / 50%); 
     font-size: 20px;
 }
 
-
-/* Estilo para as cÃ©lulas do cabeÃ§alho */
 .table th {
     background-color: #007bff;
     color: #fff;
@@ -215,12 +206,10 @@ input[type="submit"]:hover {
     text-align: center;
 }
 
-/* Estilo para a borda direita da cÃ©lula de ID */
 .table th#id {
-    border-right: 1px solid #000; /* Linha preta */
+    border-right: 1px solid #000; 
 }
 
-/* Estilo para as cÃ©lulas dos dados */
 .table td {
     padding: 8px;
     border-bottom: 1px solid #ddd;
@@ -234,7 +223,7 @@ input[type="submit"]:hover {
     padding: 50px;
 }
 
-/* Estilo para as linhas Ã­mpares */
+
 .table tbody tr:nth-child(odd) {
     background-color: #f2f2f2;
 }
@@ -244,18 +233,15 @@ input[type="submit"]:hover {
 .table td.image-cell img:hover {
     transform: scale(1.5);
 }
-/* Estilo para os botÃµes */
-/* Estilo para o contÃªiner dos botÃµes */
+
 .button-container {
     display: flex;
-    gap: 8px; /* EspaÃ§o entre os botÃµes */
+    gap: 8px; 
 }
 
-/* Estilo para os botÃµes */
-/* Estilo para os botÃµes */
 .btn {
-    display: flex; /* Adiciona os botÃµes em linha */
-    margin-right: 5px; /* EspaÃ§amento entre os botÃµes */
+    display: flex; 
+    margin-right: 5px; 
     padding: 25px 50px;
     border: none;
     border-radius: 4px;
@@ -263,19 +249,17 @@ input[type="submit"]:hover {
     font-size: 15px;
 }
 
-/* Estilo para o botÃ£o de exclusÃ£o */
 .btn-danger {
     background-color: #dc3545;
     color: #fff;
 }
 
-/* Estilo para o botÃ£o de ediÃ§Ã£o */
 .btn-success {
     background-color: #28a745;
     color: #fff;
 }
 
-/* Estilo para os botÃµes quando hover */
+
 .btn:hover {
     filter: brightness(90%);
 }

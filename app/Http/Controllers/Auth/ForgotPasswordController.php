@@ -9,28 +9,26 @@ use Illuminate\Validation\ValidationException;
 
 class ForgotPasswordController extends Controller
 {
-    // Exibe o formulário para solicitar o link de redefinição de senha
+    
     public function showLinkRequestForm()
     {
-        return view('auth.passwords.email'); // Retorna a view para o formulário
+        return view('auth.passwords.email'); 
     }
 
-    // Envia o link de redefinição de senha para o e-mail do usuário
+    
     public function sendResetLinkEmail(Request $request)
     {
-        // Validação do e-mail
+        
         $request->validate([
-            'email' => 'required|email|exists:usuarios,email', // Verifica se o e-mail existe na tabela users
+            'email' => 'required|email|exists:usuarios,email', 
         ]);
 
-        // Enviar o link de redefinição de senha
         $status = Password::sendResetLink(
-            $request->only('email')  // Apenas o e-mail do usuário
+            $request->only('email')  
         );
 
-        // Verificar se o link foi enviado com sucesso
         return $status == Password::RESET_LINK_SENT
-            ? back()->with('status', __($status))  // Mensagem de sucesso
-            : back()->withErrors(['email' => __($status)]);  // Mensagem de erro
+            ? back()->with('status', __($status))  
+            : back()->withErrors(['email' => __($status)]);  
     }
 }

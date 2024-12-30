@@ -106,10 +106,9 @@
     </div>
 </body>
 <script>
-    const externalReference = "{{ $externalReference }}"; // ID único do pagamento
+    const externalReference = "{{ $externalReference }}";
     const checkStatusUrl = "{{ route('mercadopago.check-status', ':externalReference') }}".replace(':externalReference', externalReference);
 
-    // Armazena o intervalo para permitir parada posterior
     let paymentCheckInterval = null;
 
     function checkPaymentStatus() {
@@ -119,12 +118,12 @@
                 console.log('Status do pagamento:', data.status);
 
                 if (data.status === 'approved') {
-                    // Pagamento aprovado, redirecionar para a página de sucesso
-                    clearInterval(paymentCheckInterval); // Para o intervalo
+                    
+                    clearInterval(paymentCheckInterval); 
                     window.location.href = "{{ route('payment.success') }}?payment_id=" + data.payment_id + "&status=" + data.status;
                 } else if (data.status === 'rejected') {
-                    // Pagamento rejeitado, exibir mensagem de erro e parar a verificação
-                    clearInterval(paymentCheckInterval); // Para o intervalo
+                    
+                    clearInterval(paymentCheckInterval); 
                     
                 } else {
                     console.log('Pagamento pendente. Continuando a verificação...');
@@ -135,7 +134,6 @@
             });
     }
 
-    // Inicia a verificação a cada 3 segundos
     paymentCheckInterval = setInterval(checkPaymentStatus, 3000);
 </script>
 

@@ -1,10 +1,9 @@
-/* Estilos gerais do nav */
 .nav-01 {
-    background-color: #f8f5f0; /* Cor de fundo */
+    background-color: #f8f5f0; 
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
     text-align: center;
-    font-family: 'Times New Roman', serif; /* Fonte elegante */
+    font-family: 'Times New Roman', serif; 
 }
 
 .menu {
@@ -31,7 +30,7 @@
 }
 
 .menu .nav-li-02 a:hover {
-    color: #b04646; /* Cor vermelha no hover */
+    color: #b04646; 
 }
 
 .logout button {

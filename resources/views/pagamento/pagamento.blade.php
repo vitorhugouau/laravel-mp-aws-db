@@ -119,7 +119,7 @@
             <form action="{{ route('mercadopago.create') }}" method="post" id="paymentForm">
                 @csrf
                 <input type="hidden" name="imagem_id" value="{{ $imagem->id }}">
-                <input type="hidden" id="paymentMethod" name="payment_method" value="pix"> <!-- Default option -->
+                <input type="hidden" id="paymentMethod" name="payment_method" value="pix"> 
 
                 <div class="payment-method">
                     <input type="radio" id="pix" name="valor" class="payment-radio"
@@ -157,28 +157,25 @@
             </form>
 
             <script>
-                // Função para alterar a rota de acordo com a opção selecionada
+                
                 function checkSelection(event) {
                     event.preventDefault();
 
-                    // Verificar qual método de pagamento foi selecionado
                     const paymentMethod = document.querySelector('input[name="valor"]:checked').id;
 
-                    console.log('Método de pagamento selecionado:', paymentMethod); // Log para verificar o método selecionado
+                    console.log('Método de pagamento selecionado:', paymentMethod); 
 
                     if (paymentMethod === 'pix') {
-                        console.log('Alterando ação para Pix'); // Log para verificar se a rota correta está sendo definida
+                        console.log('Alterando ação para Pix'); 
                         document.getElementById('paymentForm').action = '{{ route('mercadopago.create') }}';
                     } else if (paymentMethod === 'cartao') {
                         console.log(
-                        'Alterando ação para Cartão de Crédito'); // Log para verificar se a rota correta está sendo definida
+                        'Alterando ação para Cartão de Crédito'); 
                         document.getElementById('paymentForm').action = '{{ route('mercadopago.createCard') }}';
                     }
 
-                    // Verificando o novo action do formulário
                     console.log('Ação do formulário:', document.getElementById('paymentForm').action);
 
-                    // Submeter o formulário
                     document.getElementById('paymentForm').submit();
                 } 
             </script>

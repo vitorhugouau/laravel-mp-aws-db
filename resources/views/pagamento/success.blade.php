@@ -45,7 +45,7 @@
 
         if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
             if (sessionStorage.getItem('formSubmitted')) {
-                // Redireciona para evitar duplicidade no reload
+                
                 window.location.href = "{{route('minhas.compras') }}";
             } else {
                 sessionStorage.setItem('formSubmitted', true);

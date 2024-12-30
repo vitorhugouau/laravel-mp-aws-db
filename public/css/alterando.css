@@ -21,17 +21,17 @@ h1{
 
 .menu {
     list-style-type: none;
-    margin: 0 auto; /* Centralizar horizontalmente */
+    margin: 0 auto; 
     padding: 0;
-    background-color: #355a92; /* Cor de fundo do menu */
-    text-align: center; /* Centralizar os itens do menu */
-    justify-content: center; /* Centralizar os itens horizontalmente */
-    align-items: center; /* Centralizar os itens verticalmente */
+    background-color: #355a92; 
+    text-align: center; 
+    justify-content: center; 
+    align-items: center; 
 }
 
 .menu li {
     display: inline-block;
-    position: relative; /* Para posicionar o submenu */
+    position: relative; 
 }
 
 .menu li a {
@@ -43,7 +43,7 @@ h1{
 }
 
 .menu li a:hover {
-    background-color: #1159c5; /* Cor de fundo ao passar o mouse */
+    background-color: #1159c5; 
 }
 
 .cont {

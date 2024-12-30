@@ -10,12 +10,7 @@
     @include('partials.nav')
     <br><br><br><br><br>
     <style>
-        /* Estilos gerais da página */
 
-
-/* Estilos do container principal */
-
-/* Títulos principais e subtítulos */
 h1 {
     font-size: 32px;
     font-weight: bold;

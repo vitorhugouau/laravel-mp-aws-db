@@ -19,7 +19,6 @@
         <h1 class="heading">SELECIONE UMA FOTO</h1>
     </div>
 
-    <!-- Exibe a mensagem de sucesso -->
     @if (session('success'))
         <div style="color: green; font-weight: bold;">
             {{ session('success') }}

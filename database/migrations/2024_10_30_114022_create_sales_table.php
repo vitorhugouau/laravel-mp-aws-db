@@ -10,7 +10,7 @@ class CreateSalesTable extends Migration
 {
     Schema::create('sales', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('user_id')->constrained('usuarios')->onDelete('cascade'); // Chave estrangeira para 'usuarios'
+        $table->foreignId('user_id')->constrained('usuarios')->onDelete('cascade'); 
         $table->string('user_name'); 
         $table->foreignId('product_id')->constrained('imgApi')->onDelete('cascade');
         $table->string('payment_id')->unique();
