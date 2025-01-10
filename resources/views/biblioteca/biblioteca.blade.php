@@ -82,7 +82,7 @@
                 <div class="tags">
                     <div class="tag destaque">Destaque</div>
                     <div class="tag lancamento">Lançamento</div>
-                    <div class="tag black-friday">Black Friday</div>
+                    <div class="tag black-friday">Exclusiva</div>
                 </div>
 
                 <div class="product-title">{{ $imagem->nome }}</div>
