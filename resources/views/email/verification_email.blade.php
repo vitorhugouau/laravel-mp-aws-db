@@ -25,7 +25,7 @@
 </head>
 
 <body class="body">
-    <div id="particles-js"></div>
+    {{-- <div id="particles-js"></div> --}}
 
     <div class="meio">
         <div class="form-container">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="message">
                             @if (session('success'))
-                                <p style="color: green; font-size: 14px;">{{ session('success') }}</p>
+                                <p style="color: green; font-size: 11px;">{{ session('success') }}</p>
                             @endif
                             @if ($errors->any())
                                 <p style="color: red; font-size: 14px;">{{ $errors->first() }}</p>
@@ -58,11 +58,20 @@
                     <button type="button" class="teste2" id="teste2" data-url="{{ route('login') }}">VOLTAR</button>
                 </div>
                 <div class="card-footer">
-                    <p style="color: white;">Não recebeu o código? <a href="{{ route('send.verification.code') }}" style="color: lightblue;">Clique aqui para reenviar.</a></p>
+                    <p style="color: white; font-size:12px">Não recebeu o código? <a href="{{ route('send.verification.code') }}" style="color: lightblue;">Clique aqui para reenviar.</a></p>
                 </div>
             </div>
         </div>
     </div>
+    <footer class="footer">
+
+        <div class="footer-logo">
+            <img src="{{ asset('assets/vitorfilmes2.png') }}" alt="Logout" class="logo-footer">
+        </div>
+        <div class="footer-copyright">
+            © 2024 Company, Inc
+        </div>
+    </footer>
 
     <script>
         particlesJS('particles-js', {

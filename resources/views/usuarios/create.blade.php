@@ -25,7 +25,7 @@
 </head>
 
 <body class="body">
-    <div id="particles-js"></div>
+    {{-- <div id="particles-js"></div> --}}
 
     <i class="bi bi-person-plus" id="logo-profile"></i>
     <div class="meio">
@@ -67,6 +67,12 @@
                                 name="password_confirmation" required>
                         </div>
                     </div>
+                    <div class="message">
+                        
+                        @if ($errors->any())
+                            <p style="color: red;">As senhas digitadas não coincidem</p>
+                        @endif
+                    </div>
 
                     <div class="card-footer">
                         <button type="submit" class="submit" id="btn-entrar">CADASTRAR</button>
@@ -84,6 +90,15 @@
         </div>
     </div>
     </div>
+    <footer class="footer">
+
+        <div class="footer-logo">
+            <img src="{{ asset('assets/vitorfilmes2.png') }}" alt="Logout" class="logo-footer">
+        </div>
+        <div class="footer-copyright">
+            © 2024 Company, Inc
+        </div>
+    </footer>
 
 
     <script>

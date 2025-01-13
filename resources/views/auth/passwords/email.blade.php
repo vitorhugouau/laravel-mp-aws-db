@@ -25,7 +25,7 @@
 </head>
 
 <body class="body">
-    <div id="particles-js"></div>
+    {{-- <div id="particles-js"></div> --}}
 
     <div class="meio">
         <div class="form-container">
@@ -64,6 +64,16 @@
         </div>
     </div>
     </div>
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            <img src="{{ asset('assets/vitorfilmes2.png') }}" alt="Logout" class="logo-footer">
+        </div>
+        <div class="footer-copyright">
+            © 2024 Company, Inc
+        </div>
+    </footer>
 
     <script>
         particlesJS('particles-js', {
