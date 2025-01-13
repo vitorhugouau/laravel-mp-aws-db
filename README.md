@@ -4,4 +4,4 @@
 ![screen-home](https://github.com/user-attachments/assets/8af83078-f792-46da-af9c-8ba0c38dfd24)
 
 
-![screen-home-att](https://github.com/user-attachments/assets/ed86c22b-a615-46f5-a9d6-474b78fd6aeb)
+![screen-home-att](https://github.com/user-attachments/assets/aacd1a05-77e2-45bc-b6ce-8ff90f87c126)
