@@ -9,6 +9,10 @@ composer install
 
 verificar senha, login, database
 
+importar .env
+importar seeders
+importar vedor(caso necessário)
+
 MERCADO_PAGO_PUBLIC_KEY=
 MERCADO_PAGO_ACCESS_TOKEN=
 
@@ -20,7 +24,7 @@ php artisan db:seed
 composer require mercadopago/dx-php
 composer require cloudinary-labs/cloudinary-laravel
 composer require sendgrid/sendgrid
-
+composer require endroid/qr-code
 
 
 -----------------

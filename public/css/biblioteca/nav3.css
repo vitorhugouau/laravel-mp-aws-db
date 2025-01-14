@@ -1,0 +1,46 @@
+.nav-01 {
+    background-color: #f8f5f0; 
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    text-align: center;
+    font-family: 'Times New Roman', serif; 
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu .nav-li-01 {
+    font-size: 18px;
+    color: #333;
+    margin-right: 20px;
+}
+
+.menu .nav-li-02 a {
+    text-decoration: none;
+    color: #222;
+    font-size: 16px;
+    margin: 0 15px;
+    transition: color 0.3s ease-in-out;
+}
+
+.menu .nav-li-02 a:hover {
+    color: #b04646; 
+}
+
+.logout button {
+    background-color: transparent;
+    border: none;
+    color: #b04646;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.logout button:hover {
+    text-decoration: underline;
+}

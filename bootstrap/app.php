@@ -10,6 +10,13 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->validateCsrfTokens(except: [
+            'webhook',       // exclui rota do webhook da proteção CSRF
+            
+        ]);
+    })
     ->withMiddleware(function (Middleware $middleware) {
         //
     })

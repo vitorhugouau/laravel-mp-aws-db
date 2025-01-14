@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: url('../../assets/img/iac.jpg');
+    background-size: cover;
+    background-color: white;
+    color: #000;
+    font: normal 20pt Poppins;
+}
+
+.header {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 7%;
+    border-bottom: var(--border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header .navbar a {
+    margin: 0 1rem;
+    font-size: 1.6rem;
+    color: #000;
+}
+
+h1 {
+    text-align: center;
+    color: #212767;
+    font: normal 63pt Impact;
+    opacity: 100%;
+    text-shadow: 6px 4px 3px rgb(100 100 100 / 60%);
+}
+
+.discord-button {
+    text-align: end;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.meio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 57vh;
+}
+
+.card {
+    background-color: rgb(8 8 8 / 70%);
+    padding: 39px;
+    border-radius: 45px;
+    width: 280px;
+    height: 270px;
+    margin: 10px;
+}
+
+.card h3 {
+    color: white;
+    text-align: center;
+    margin-top: 24px;
+}
+
+.card-header {
+    padding-bottom: 50px;
+    opacity: 0.9;
+    color: #fff;
+}
+.error-message {
+    color: #da0808; 
+    margin-bottom: 10px;
+    border: 1px solid #bba0a0; 
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px; 
+    background-color: #0a0a0a; 
+    opacity: 75%;
+}
+
+.card-content label {
+    color: #fff;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.card-content-area {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    margin-top: 36px;
+}
+
+.card-content-area input {
+    margin-top: 10px;
+    padding: 0 5px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #e1e1e1;
+    outline: none;
+    color: #fff;
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-footer .submit, .card-cadastro .teste, .card-cadastro2 .teste2 {
+    width: 100%;
+    height: 40px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 20px;
+    transition: all 0.4s ease;
+}
+
+.card-footer .submit {
+    background-color: #2a2083;
+    color: #fff;
+
+}
+.card-footer .submit:hover{
+    transform: scale(1.2);
+}
+
+
+.card-cadastro .teste {
+    background-color: rgb(168, 25, 25);
+    color: #f9f9f9;
+}
+.card-cadastro .teste:hover {
+    transform: scale(1.2);
+}
+
+.card-cadastro2 .teste2 {
+    background-color: #008600;
+    color: #f9f9f9;
+    margin-top:40px;
+}
+.card-cadastro2 .teste2:hover {
+    transform: scale(1.2);
+}
+
+
+p{
+    font-size: 14px; 
+}
+a{
+    color: #00d900;
+}

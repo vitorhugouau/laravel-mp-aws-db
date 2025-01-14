@@ -65,6 +65,7 @@ h1 {
     border-radius: 45px;
     width: 280px;
     margin: 10px;
+    height: 522px;
 }
 
 .card h3 {
@@ -78,13 +79,13 @@ h1 {
     color: #fff;
 }
 .error-message {
-    color: #da0808; /* Uma tonalidade mais escura de vermelho */
+    color: #da0808; 
     margin-bottom: 10px;
-    border: 1px solid #bba0a0; /* Uma tonalidade mais suave de vermelho */
+    border: 1px solid #bba0a0; 
     border-radius: 5px;
     padding: 10px;
-    font-size: 14px; /* Tamanho de fonte menor */
-    background-color: #0a0a0a; /* Fundo branco */
+    font-size: 14px; 
+    background-color: #0a0a0a; 
     opacity: 75%;
 }
 
@@ -152,8 +153,16 @@ h1 {
 }
 
 p{
-    font-size: 14px; /* Tamanho do texto */
+    font-size: 13px; 
 }
+.password a{
+    font-size: 12px; 
+    color: #717bf3;
+    }
 a{
     color: green;
+}
+
+.conta{
+    margin-top: 20px;
 }

@@ -14,7 +14,7 @@
     }
 </style>
 <body>
-
+    
     <div class="container-geral">
         <div class="navbar">
             <div class="container-top">
@@ -29,8 +29,6 @@
                         <li><img src="{{ asset('assets/users-alt.png') }}" alt="Ícone" class="icon"><a href="{{ route('clientes.index2') }}">Gerenciar Clientes</a></li>
                         <li><img src="{{ asset('assets/carrinho-de-compras.png') }}" alt="Ícone" class="icon"><a href="{{ route('sales.index') }}">Consultar Vendas</a></li>
                         <li><img src="{{ asset('assets/galeria.png') }}" alt="Ícone" class="icon"><a href="{{ route('biblioteca') }}">Biblioteca</a></li>
-                       
-                
                     </ul>
                 </div>
             </div>
@@ -44,7 +42,8 @@
                 </p>
                 
             </div>
-        </div>      
+        </div>  
+
         <div class="main-content">
             <img style="height: 115vh; width: 100vw;" src="../../assets/img/ti2.jpg" alt="">
         </div>

@@ -4,11 +4,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
 }
 
 body {
-    background-image: url('../../assets/img/iac.jpg');
+    /* background-image: url('../../assets/img/iac.jpg'); */
     background-size: cover;
     background-color: white;
     color: #000;
@@ -38,88 +38,6 @@ header {
 }
 
 /*---------------------------------MENU--------------------------------------*/
-.menu {
-    list-style-type: none;
-    margin: 0 auto;
-    /* Centralizar horizontalmente */
-    padding: 0;
-    background: #355a92;
-    background: linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
-    background: -webkit-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
-    background: -moz-linear-gradient(180deg, #355a92 20%, #35557c 50%, #000000 80%);
-    text-align: center;
-    /* Centralizar os itens do menu */
-    justify-content: center;
-    /* Centralizar os itens horizontalmente */
-    align-items: center;
-    /* Centralizar os itens verticalmente */
-}
-
-
-.menu li {
-    display: inline-block;
-    position: relative;
-    /* Para posicionar o submenu */
-}
-
-.menu li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-.menu li a:hover {
-    background-color: #1159c5;
-    /* Cor de fundo ao passar o mouse */
-}
-
-.menu ul {
-    display: none;
-    position: absolute;
-    background-color: #444;
-    /* Cor de fundo do submenu */
-    min-width: 150px;
-    /*ajusata o tamanha do submenu*/
-    top: 100%;
-    /* Posiciona o submenu abaixo do item pai */
-    left: 0;
-}
-
-.menu li:hover>ul {
-    display: block;
-    /* Exibe o submenu ao passar o mouse sobre o item pai */
-}
-
-.menu ul li {
-    display: block;
-}
-
-.menu ul li a {
-    padding: 10px 15px;
-    /* Ajuste de padding para o submenu */
-}
-
-.logout {
-    margin-left: auto;
-    /* Mover o botão "SAIR" para a direita */
-}
-
-#sair {
-    background-color: #1159c5;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    /* Adiciona margem à direita para separar o botão do último item */
-}
-
-#sair:hover {
-    background-color: #0d3a75;
-}
 
 /*---------------------------------BEM VINDO--------------------------------------*/
 /* .bemvindo{
@@ -150,9 +68,8 @@ header {
 */
 /*---------------------------------PESQUISA--------------------------------------*/
 .container {
-    padding: 50px 3%;
-    text-align: center;
-
+    padding: 47px 38%;
+    /* text-align: center; */
 }
 
 .container .heading {
@@ -178,18 +95,12 @@ header {
 /*---------------------------------IMAGENS--------------------------------------*/
 .container .container-image {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     grid-template-columns: 1fr 3fr 1fr;
     user-select: none;
-
-
 }
 
-.container-image {
-
-    margin-left: -10rem;
-
-}
+.container-image {margin-left: -7rem;}
 
 @keyframes fadeIn {
     0% {
@@ -379,10 +290,10 @@ header {
 }
 
 .main-container {
-    display: flex;
-    justify-content: center;
+    /* display: flex; */
+    /* justify-content: center; */
     align-items: center;
-    padding: 20px;
+    /* padding: 2px; */
 }
 
 .container-image {
@@ -408,7 +319,17 @@ header {
             height: 100vh;
         } */
 .container1 {
-    background-color: #ffffffdb;
+    background-color: #ffffffd7;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    /* width: 300px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 2rem;
+    /* opacity: 100%; */
+}
+.container2 {
+    background-color: rgba(255, 255, 255, 0.911);
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
@@ -483,4 +404,41 @@ h2 {
     color: #4fc3f7;
     text-decoration: none;
 
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@media screen and (max-width: 1200px) {
+
+    #menu02 {
+        display: block;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    #menu02 {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+    }
+
+    #menu02-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        margin: 10px;
+        position: absolute;
+        left: 30px; 
+        transition: transform 0.3s ease-in-out; 
+        top: 27px;
+    }
+    
+    #menu02-bar:hover {
+        transform: scale(1.1); 
+    }
+    
+    .bar {
+        width: 30px;
+        height: 3px;
+        background-color: #ffffff;
+        transition: all 0.3s ease-in-out; 
+        border-radius: 2px; 
+    }
+    
+    #menu02-bar:hover .bar {
+        background-color: #00000000;
+    }
+    
+    .bar:hover {
+        transform: scaleX(1.2); 
+        box-shadow: 0px 0px 8px rgb(76 175 80 / 0%); 
+    }
+
+    .change #bar1 {
+        transform: rotate(-45deg) translate(-5px, 5px);
+        opacity: 0;
+    }
+
+    .change #bar2 {
+        opacity: 0;
+    }
+
+    .change #bar3 {
+        transform: rotate(45deg) translate(-5px, -5px);
+        opacity: 0;
+    }
+
+    .menu02-bg {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(0 0 0 / 19%);
+        z-index: 5;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .menu02-bg.change-bg {
+        display: block;
+        opacity: 1;
+    }
+
+    .nav {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        background-color: rgb(0 0 0 / 68%); 
+        width: 250px;
+        height: 100%;
+        background: linear-gradient(180deg, #000000de 28%, #0d3a75f0 50%);
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        transition: left 0.3s ease-in-out;
+        z-index: 10;
+    }
+
+    .nav.change {
+        left: 0;
+    }
+
+    .container-geral {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .navbar {
+        padding: 20px;
+    }
+
+    .container-top {
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+
+    .logo h1 {
+        font-size: 18px;
+        color: #ffffff;
+    }
+
+    .panel-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .panel-content li {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        gap: 11px;
+        white-space: nowrap;
+    }
+
+    .panel-content a {
+        text-decoration: none;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        gap: 10px;
+    }
+
+    .panel-content a:hover {
+        color: #007BFF;
+    }
+
+    .icon {
+        width: 20px;
+        height: 20px;
+        filter: invert(1);
+    }
+
+    .container-bottom {
+        margin-top: -10px;
+        text-align: center;
+        padding: 50px;
+        border-top: 2px solid #ccc;
+    }
+
+    .container-bottom p {
+        
+        margin: 0;
+    }
+
+    .container-bottom a {
+        margin-top: -20px;
+        color: #dd1c16;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .container-bottom a:hover {
+        color: #ff0600;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 26px;
+        font-weight: bold;
+        color: #ffffff;
+        cursor: pointer;
+        z-index: 15;
+        transition: color 0.3s;
+    }
+
+    .close-btn:hover {
+        color: #007BFF;
+    }
+
+    .menu-icon {
+        width: 45px;  
+        height: 45px;
+        position: fixed;  
+        top: 48px; 
+        left: 51px;  
+        cursor: pointer;  
+        /* filter: invert(1);   */
+    }
+    .menu-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .menu-list li {
+        margin-bottom: 18px;
+    }
+    
+
+}

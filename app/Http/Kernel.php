@@ -4,6 +4,9 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use \App\Http\Middleware\AdminAuthMiddleware as AdminAuthMiddleware;
+use \App\Http\Middleware\VerificaMercadoPago as VerificaMercadoPago;
+
+// use \App\Http\Middleware\VerifyCsrfToken as VerifyCsrfToken;
 
 class Kernel extends HttpKernel
 {
@@ -43,7 +46,6 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
-
     /**
      * Middlewares individuais (roteamento).
      *
@@ -60,7 +62,11 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'AdminAuthMiddleware' => AdminAuthMiddleware::class,
+        'mercadopago' => VerificaMercadoPago::class,
+        'csrf.exempt' => \App\Http\Middleware\VerifyCsrfToken::class,
+        
     ];
+    
 
     /**
      * As middlewares aplicadas a todas as requisições em uma rota específica.

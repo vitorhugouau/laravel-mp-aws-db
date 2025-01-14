@@ -6,17 +6,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/serviço.css">
-    <title>Document</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" media="screen"
+        href="https://cpwebassets.codepen.io/assets/editor/themes/twilight-123214b13ed2699670d09785cc8ac3cbc46ebf6eeb43e268f0bb1a1e07c69684.css"
+        id="cm-theme">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <title>Serviço</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            /* background-color: #000; */
+            overflow: hidden;
+            z-index: -1;
+            /* filter: invert(1); */
+        }
+    </style>
 
 </head>
 
-<body background="../../assets/img/rio.jpg">
+@include('partials.nav')
 
-    @include('partials.nav')
+<body>
+    {{-- <div id="particles-js"></div> --}}
+
+
     <div class="container">
-        <h1 class="heading">FORMULÁRIO</h1>
-        <br>
-
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -27,95 +52,182 @@
             </div>
         @endif
 
+        <form action="{{ route('clientes.store') }}" method="POST" class="form-horizontal">
+            @csrf
+            <fieldset>
+                <legend>
+                    <center>
+                        <h1 class="teste-h2"><b>Formulário de Serviços</b></h1>
+                    </center>
+                </legend><br>
 
-        <div class="meio">
-            <div id="login">
-                <form action="{{ route('clientes.store') }}" method="POST" class="card1">
-                    <h3>Preencha com suas informações pessoais</h3>
-                    @csrf
-                    <div class="card1-header">
-                        <div class="card1-content">
-                            <div class="card1-content-area">
-                                <label for="nome" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="nome" name="nome" required>
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="cpf" class="form-label">CPF</label>
-                                <input type="text" class="form-control" id="cpf" name="cpf" required
-                                    onblur="validarCPF()">
-                                <small id="cpf-error" style="color: red; display: none;">CPF inválido!</small>
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="datadenascimento" class="form-label">Data de Nascimento</label>
-                                <input type="date" class="form-control" id="datadenascimento" name="datadenascimento"
-                                    required>
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="sexo" class="form-label">Sexo</label>
-                                <select class="form-control" id="sexo" name="sexo" required>
-                                    <option value="">Selecione</option>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Feminino</option>
-                                </select>
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="estadocivil" class="form-label">Estado Civil</label>
-                                <select id="estadocivil" name="estadocivil" class="form-control" required>
-                                    <option value="">Selecione</option>
-                                    <option value="solteiro">Solteiro(a)</option>
-                                    <option value="casado">Casado(a)</option>
-                                    <option value="divorciado">Divorciado(a)</option>
-                                    <option value="viuvo">Viúvo(a)</option>
-                                    <option value="separado">Separado(a)</option>
-                                    <option value="uniao_estavel">União Estável</option>
-                                </select>
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="cep" class="form-label">CEP</label>
-                                <input type="text" class="form-control" id="cep" name="cep" required
-                                    onblur="buscarEndereco()">
-                                <small id="cep-error" style="color: red; display: none;">CEP inválido!</small>
-                            </div>
-
-                            <div class="card1-content-area">
-                                <label for="logradouro" class="form-label">Logradouro</label>
-                                <input type="text" class="form-control" id="logradouro" name="logradouro" required>
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="numero" class="form-label">Número</label>
-                                <input type="text" class="form-control" id="numero" name="numero" required>
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="complemento" class="form-label">Complemento</label>
-                                <input type="text" class="form-control" id="complemento" name="complemento">
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="bairro" class="form-label">Bairro</label>
-                                <input type="text" class="form-control" id="bairro" name="bairro" required>
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="cidade" class="form-label">Cidade</label>
-                                <input type="#" class="form-control" id="cidade" name="cidade" required>
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="estado" class="form-label">Estado</label>
-                                <input type="#" class="form-control" id="estado" name="estado" required>
-                            </div>
-                            <div class="card1-content-area">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-
-                            </div>
-
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="nome">Nome</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="nome" name="nome" placeholder="Nome" class="form-control" required
+                                type="text">
                         </div>
                     </div>
-                    <div class="card1-footer">
-                        <button type="submit" class="submit" name="submit" id="enviar">ENVIAR</button>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="cpf">CPF</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="cpf" name="cpf" placeholder="CPF" class="form-control" required
+                                type="text" onblur="validarCPF()">
+                        </div>
                     </div>
-                </form>
-            </div>
-        </div>
+                    <small id="cpf-error" style="color: red; display: none;">CPF inválido!</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="datadenascimento">Data de Nascimento</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <input id="datadenascimento" name="datadenascimento" class="form-control" required
+                                type="date">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="sexo">Sexo</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            <select id="sexo" name="sexo" class="form-control" required>
+                                <option value="">Selecione</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="estadocivil">Estado Civil</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
+                            <select id="estadocivil" name="estadocivil" class="form-control" required>
+                                <option value="">Selecione</option>
+                                <option value="solteiro">Solteiro(a)</option>
+                                <option value="casado">Casado(a)</option>
+                                <option value="divorciado">Divorciado(a)</option>
+                                <option value="viuvo">Viúvo(a)</option>
+                                <option value="separado">Separado(a)</option>
+                                <option value="uniao_estavel">União Estável</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="cep">CEP</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                            <input id="cep" name="cep" placeholder="CEP" class="form-control" required
+                                type="text" onblur="buscarEndereco()">
+                        </div>
+                    </div>
+                    <small id="cep-error" style="color: red; display: none;">CEP inválido!</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="logradouro">Logradouro</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                            <input id="logradouro" name="logradouro" placeholder="Logradouro" class="form-control"
+                                required type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="numero">Número</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                            <input id="numero" name="numero" placeholder="Número" class="form-control" required
+                                type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="complemento">Complemento</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                            <input id="complemento" name="complemento" placeholder="Complemento"
+                                class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="bairro">Bairro</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                            <input id="bairro" name="bairro" placeholder="Bairro" class="form-control" required
+                                type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="cidade">Cidade</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                            <input id="cidade" name="cidade" placeholder="Cidade" class="form-control" required
+                                type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="estado">Estado</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                            <input id="estado" name="estado" placeholder="Estado" class="form-control" required
+                                type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="email">Email</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <input id="email" name="email" placeholder="E-Mail" class="form-control" required
+                                type="email">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label"></label>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-warning">ENVIAR <span
+                                class="glyphicon glyphicon-send"></span></button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
     </div>
+
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -123,67 +235,24 @@
     @endif
 
 
+</body>
 
-    <script>
-        document.getElementById('sair').addEventListener('click', function() {
-            document.getElementById('logout-form').submit();
-        });
+<script>
+    document.getElementById('sair').addEventListener('click', function() {
+        document.getElementById('logout-form').submit();
+    });
 
-        function bloquearBotaoDireito(event) {
-            event.preventDefault();
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    {{-- ---------------------------------------ESTADO---CIDADE------------------------------ --}}
-    <!-- <script>
-        async function getEstados() {
-            try {
-                const response = await axios.get(
-                    'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
-                const estados = response.data;
+    function bloquearBotaoDireito(event) {
+        event.preventDefault();
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-                const estadoSelect = document.getElementById('estado');
-                estadoSelect.innerHTML = '<option value="">Selecione um Estado</option>';
+{{-- ---------------------------------------VALIDAÇÃO-DE-CPF------------------------------ --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const enviarButton = document.getElementById('enviar');
 
-                estados.forEach((estado) => {
-                    const option = document.createElement('option');
-                    option.value = estado.id;
-                    option.textContent = estado.nome;
-                    estadoSelect.appendChild(option);
-                });
-            } catch (error) {
-                console.error('Erro ao buscar estados: ', error);
-            }
-        }
-
-        async function getCidades(estadoId, cidadeSelectId) {
-            if (!estadoId) return;
-
-            try {
-                const response = await axios.get(
-                    `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoId}/municipios?orderBy=nome`
-                );
-                const cidades = response.data;
-
-                const cidadeSelect = document.getElementById(cidadeSelectId);
-                cidadeSelect.innerHTML = '<option value="">Selecione uma Cidade</option>';
-
-                cidades.forEach((cidade) => {
-                    const option = document.createElement('option');
-                    option.value = cidade.nome;
-                    option.textContent = cidade.nome;
-                    cidadeSelect.appendChild(option);
-                });
-            } catch (error) {
-                console.error('Erro ao buscar cidades: ', error);
-            }
-        }
-
-        // Chamar a função para preencher os estados ao carregar a página
-        document.addEventListener('DOMContentLoaded', getEstados);
-    </script> -->
-    {{-- ---------------------------------------VALIDAÇÃO-DE-CPF------------------------------ --}}
-    <script>
         function validarCPF() {
             const cpfInput = document.getElementById('cpf');
             const cpfError = document.getElementById('cpf-error');
@@ -192,11 +261,15 @@
             if (!isValidCPF(cpf)) {
                 cpfError.style.display = 'inline';
                 cpfInput.classList.add('is-invalid');
-                document.getElementById('enviar').disabled = true;
+                if (enviarButton) {
+                    enviarButton.disabled = true;
+                }
             } else {
                 cpfError.style.display = 'none';
                 cpfInput.classList.remove('is-invalid');
-                document.getElementById('enviar').disabled = false;
+                if (enviarButton) {
+                    enviarButton.disabled = false;
+                }
             }
         }
 
@@ -205,7 +278,6 @@
 
             let sum = 0;
             let remainder;
-
 
             for (let i = 1; i <= 9; i++) {
                 sum += parseInt(cpf[i - 1]) * (11 - i);
@@ -232,10 +304,20 @@
 
             return true;
         }
-    </script>
-    {{-- ------------------------------------------VERIFICAÇÃO-DE-CEP--------------------------------------------------- --}}
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
+
+        const cpfInput = document.getElementById('cpf');
+        if (cpfInput) {
+            cpfInput.addEventListener('blur', validarCPF);
+        }
+    });
+</script>
+
+{{-- ------------------------------------------VERIFICAÇÃO-DE-CEP--------------------------------------------------- --}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const enviarButton = document.getElementById('enviar');
+
         function buscarEndereco() {
             const cepInput = document.getElementById('cep');
             const cepError = document.getElementById('cep-error');
@@ -244,12 +326,16 @@
             if (!isValidCEP(cep)) {
                 cepError.style.display = 'inline';
                 cepInput.classList.add('is-invalid');
-                document.getElementById('enviar').disabled = true;
+                if (enviarButton) {
+                    enviarButton.disabled = true;
+                }
                 return;
             } else {
                 cepError.style.display = 'none';
                 cepInput.classList.remove('is-invalid');
-                document.getElementById('enviar').disabled = false;
+                if (enviarButton) {
+                    enviarButton.disabled = false;
+                }
             }
 
             fetchEndereco(cep);
@@ -265,23 +351,60 @@
                 const data = await response.json();
 
                 if (data.erro) {
-
                     document.getElementById('cep-error').innerText = 'CEP não encontrado!';
                     document.getElementById('cep-error').style.display = 'inline';
-                    document.getElementById('enviar').disabled = true;
+                    if (enviarButton) {
+                        enviarButton.disabled = true;
+                    }
                 } else {
-
                     document.getElementById('bairro').value = data.bairro || '';
                     document.getElementById('logradouro').value = data.logradouro || '';
                     document.getElementById('cidade').value = data.localidade || '';
                     document.getElementById('estado').value = data.uf || '';
-
                 }
             } catch (error) {
                 console.error('Erro ao buscar endereço:', error);
             }
         }
-    </script>
+
+        const cepInput = document.getElementById('cep');
+        if (cepInput) {
+            cepInput.addEventListener('blur', buscarEndereco);
+        }
+    });
+</script>
+
+
+<script>
+    particlesJS('particles-js', {
+        particles: {
+            number: {
+                value: 100
+            },
+            size: {
+                value: 3
+            },
+            move: {
+                speed: 1
+            },
+            shape: {
+                type: "circle"
+            },
+            line_linked: {
+                enable: true,
+                distance: 150
+            }
+        }
+    });
+</script>
+</body>
+
+<script src="particles.js"></script>
+<script>
+    particlesJS.load('particles-js', 'particles.json', function() {
+        console.log('particles.js loaded');
+    });
+</script>
 
 </body>
 

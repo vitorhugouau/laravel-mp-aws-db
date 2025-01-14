@@ -14,13 +14,13 @@ class SiteTemplateEmail extends Mailable
 
     public function __construct($dados)
     {
-        $this->dados = $dados; // Agora aceita um array de dados
+        $this->dados = $dados; 
     }
 
     public function build()
     {
         return $this->view('email.site_template')
                     ->subject('Bem-vindo ao Nosso Site')
-                    ->with('dados', $this->dados); // Passa os dados para a view
+                    ->with('dados', $this->dados); 
     }
 }
