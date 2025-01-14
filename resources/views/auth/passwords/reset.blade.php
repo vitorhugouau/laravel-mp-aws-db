@@ -3,75 +3,121 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resetar Senha</title>
-    <link rel="stylesheet" href="/css/login/parte2.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/login/parte-futuro-resetar2.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+            z-index: -1;
+        }
+    </style>
 </head>
 
-<body>
-    <h1>SEJA BEM-VINDO</h1>
+<body class="body">
+    {{-- <div id="particles-js"></div> --}}
 
     <div class="meio">
         <div class="form-container">
-            <div id="reset-password">
+            <div id="login">
                 <form class="card" method="POST" action="{{ route('password.update') }}">
                     @csrf
-                    <h3>RESETAR SENHA</h3>
+
+                    <h3 style="color: white;">RESETAR SENHA</h3>
                     <div class="card-header">
-                        <div class="card-content">
-                            <!-- Campo de token oculto -->
-                            <input type="hidden" name="token" value="{{ $token }}">
 
-                            <!-- Campo de e-mail -->
-                            <div class="card-content-area">
-                                <label for="email">E-mail</label>
-                                <input type="email" name="email" id="email" required
-                                    placeholder="Digite seu e-mail" value="{{ $email }}">
-                            </div>
+                        <input type="hidden" name="token" value="{{ $token }}">
 
-                            <!-- Campo de nova senha -->
-                            <div class="card-content-area">
-                                <label for="password">Nova Senha</label>
-                                <input type="password" name="password" id="password" required
-                                    placeholder="Digite sua nova senha">
-                            </div>
-
-                            <!-- Campo de confirmação de senha -->
-                            <div class="card-content-area">
-                                <label for="password_confirmation">Confirmar Senha</label>
-                                <input type="password" name="password_confirmation" id="password_confirmation" required
-                                    placeholder="Confirme sua nova senha">
-                            </div>
+                        <div class="flex-column">
+                            <label for="email" style="color: white;">E-mail</label>
                         </div>
-
-                        <!-- Mensagens de sucesso ou erro -->
-                        <div class="message">
-                            @if (session('success'))
-                                <p style="color: green;">{{ session('success') }}</p>
-                            @endif
-
-                            @if ($errors->any())
-                                <p style="color: red;">{{ $errors->first() }}</p>
-                            @endif
+                        <div class="inputForm">
+                            <input class="input" type="email" name="email" id="email" required
+                                placeholder="Digite seu e-mail" value="{{ $email }}" readonly>
                         </div>
-
-                        <!-- Botões de ações -->
-                        <div class="card-footer">
-                            <button type="submit" class="submit">RESETAR SENHA</button>
+                        
+                        <div class="flex-column">
+                            <label for="password" style="color: white;">Nova Senha</label>
                         </div>
-
-                        <div class="card-cadastro2">
-                            <button type="button" class="teste2" id="teste2"
-                                data-url="{{ route('login') }}">VOLTAR</button>
+                        <div class="inputForm">
+                            <input class="input" type="password" name="password" id="password" required
+                                placeholder="Digite sua nova senha">
+                        </div>
+                        <div class="flex-column">
+                            <label for="password_confirmation" style="color: white;">Confirmar Senha</label>
+                        </div>
+                        <div class="inputForm">
+                            <input class="input" type="password" name="password_confirmation"
+                                id="password_confirmation" required placeholder="Confirme sua nova senha">
                         </div>
                     </div>
+
+                    <div class="message">
+                        @if (session('success'))
+                            <p style="color: green;">{{ session('success') }}</p>
+                        @endif
+
+                        @if ($errors->any())
+                            <p style="color: red;">{{ $errors->first() }}</p>
+                        @endif
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="submit" id="btn-entrar">RESETAR SENHA</button>
+                    </div>
+
                 </form>
+                <div class="card-cadastro2">
+                    <button type="button" class="teste2" id="teste2" data-url="{{ route('login') }}">VOLTAR</button>
+                </div>
             </div>
         </div>
     </div>
+    <footer class="footer">
+
+        <div class="footer-logo">
+            <img src="{{ asset('assets/vitorfilmes2.png') }}" alt="Logout" class="logo-footer">
+        </div>
+        <div class="footer-copyright">
+            © 2024 Company, Inc
+        </div>
+    </footer>
 
     <script>
-        // Redirecionar ao clicar no botão "Voltar"
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 100
+                },
+                size: {
+                    value: 3
+                },
+                move: {
+                    speed: 1
+                },
+                shape: {
+                    type: "circle"
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150
+                }
+            }
+        });
+
+        
+    </script>
+    <script>
         document.getElementById("teste2").onclick = function() {
             window.location.href = this.getAttribute("data-url");
         };

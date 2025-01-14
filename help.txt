@@ -9,6 +9,10 @@ composer install
 
 verificar senha, login, database
 
+importar .env
+importar seeders
+importar vedor(caso necessário)
+
 MERCADO_PAGO_PUBLIC_KEY=
 MERCADO_PAGO_ACCESS_TOKEN=
 

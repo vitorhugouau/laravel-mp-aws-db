@@ -22,25 +22,21 @@
         @csrf
         @method('PUT') 
 
-        <!-- Nome -->
         <div class="area">
             <label for="nome">Nome:</label>
             <input type="text" class="form-control" id="nome" name="nome" value="{{ $cliente->nome }}" required>
         </div>
 
-        <!-- CPF -->
         <div class="area">
             <label for="cpf">CPF:</label>
             <input type="text" class="form-control" id="cpf" name="cpf" value="{{ $cliente->cpf }}" required>
         </div>
 
-        <!-- Data de Nascimento -->
         <div class="area">
             <label for="datadenascimento">Data de Nascimento:</label>
             <input type="date" class="form-control" id="datadenascimento" name="datadenascimento" value="{{ $cliente->datadenascimento }}">
         </div>
 
-        <!-- Sexo -->
         <div class="area">
             <label for="sexo">Sexo:</label>
             <select class="form-control" id="sexo" name="sexo">
@@ -50,7 +46,6 @@
             </select>
         </div>
 
-        <!-- Estado Civil -->
         <div class="area">
             <label for="estadocivil">Estado Civil:</label>
             <select class="form-control" id="estadocivil" name="estadocivil">
@@ -61,43 +56,36 @@
             </select>
         </div>
 
-        <!-- Estado -->
         <div class="area">
             <label for="estado">Estado:</label>
             <input type="text" class="form-control" id="estado" name="estado" value="{{ $cliente->estado }}" required>
         </div>
 
-        <!-- Logradouro -->
         <div class="area">
             <label for="logradouro">Logradouro:</label>
             <input type="text" class="form-control" id="logradouro" name="logradouro" value="{{ $cliente->logradouro }}" required>
         </div>
 
-        <!-- Número -->
         <div class="area">
             <label for="numero">Número:</label>
             <input type="text" class="form-control" id="numero" name="numero" value="{{ $cliente->numero }}" required>
         </div>
 
-        <!-- Complemento -->
         <div class="area">
             <label for="complemento">Complemento:</label>
             <input type="text" class="form-control" id="complemento" name="complemento" value="{{ $cliente->complemento }}">
         </div>
 
-        <!-- Cidade -->
         <div class="area">
             <label for="cidade">Cidade:</label>
             <input type="text" class="form-control" id="cidade" name="cidade" value="{{ $cliente->cidade }}" required>
         </div>
 
-        <!-- Email -->
         <div class="area">
             <label for="email">Email:</label>
             <input type="text" class="form-control" id="email" name="email" value="{{ $cliente->email }}" required>
         </div>
 
-        <!-- Botão de Enviar -->
         <button type="submit" id="boton">Salvar</button>
     </form>
 </div>

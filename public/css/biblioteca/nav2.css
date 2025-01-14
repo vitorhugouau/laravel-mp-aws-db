@@ -6,7 +6,6 @@
         display: block;
     }
 
-    /* Geral */
     body {
         margin: 0;
         font-family: 'Poppins', sans-serif;
@@ -29,33 +28,32 @@
         cursor: pointer;
         margin: 10px;
         position: absolute;
-        left: 30px; /* Mantém o ícone no lado esquerdo */
-        transition: transform 0.3s ease-in-out; /* Transição para o menu como um todo */
+        left: 30px; 
+        transition: transform 0.3s ease-in-out; 
         top: 27px;
     }
     
     #menu02-bar:hover {
-        transform: scale(1.1); /* Aumenta ligeiramente o tamanho do menu */
+        transform: scale(1.1); 
     }
     
     .bar {
         width: 30px;
         height: 3px;
         background-color: #ffffff;
-        transition: all 0.3s ease-in-out; /* Transição suave para cor e tamanho */
-        border-radius: 2px; /* Adiciona cantos arredondados para um visual moderno */
+        transition: all 0.3s ease-in-out; 
+        border-radius: 2px; 
     }
     
     #menu02-bar:hover .bar {
-        background-color: #00000000; /* Muda a cor das barras ao passar o mouse */
+        background-color: #00000000;
     }
     
     .bar:hover {
-        transform: scaleX(1.2); /* Barra individual cresce na largura */
-        box-shadow: 0px 0px 8px rgb(76 175 80 / 0%); /* Adiciona um brilho ao redor */
+        transform: scaleX(1.2); 
+        box-shadow: 0px 0px 8px rgb(76 175 80 / 0%); 
     }
 
-    /* Animação do menu */
     .change #bar1 {
         transform: rotate(-45deg) translate(-5px, 5px);
         opacity: 0;
@@ -70,7 +68,6 @@
         opacity: 0;
     }
 
-    /* Estilo do fundo do menu ao abrir */
     .menu02-bg {
         display: none;
         position: fixed;
@@ -89,7 +86,6 @@
         opacity: 1;
     }
 
-    /* Nav geral */
     .nav {
         position: fixed;
         top: 0;
@@ -105,7 +101,6 @@
 
     .nav.change {
         left: 0;
-        /* Move o menu para dentro da tela */
     }
 
     .container-geral {
@@ -114,7 +109,6 @@
         height: 100%;
     }
 
-    /* Navbar */
     .navbar {
         padding: 20px;
     }
@@ -130,7 +124,6 @@
         color: #ffffff;
     }
 
-    /* Estilo da lista */
     .panel-content ul {
         list-style: none;
         padding: 0;
@@ -139,26 +132,19 @@
 
     .panel-content li {
         display: flex;
-        /* Alinha itens na mesma linha */
         align-items: center;
-        /* Centraliza verticalmente */
         margin: 10px 0;
         gap: 11px;
         white-space: nowrap;
-        /* Evita quebra de linha */
     }
 
     .panel-content a {
         text-decoration: none;
         color: #ffffff;
         display: flex;
-        /* Para alinhar ícone e texto */
         align-items: center;
-        /* Centraliza ícone e texto */
         font-size: 16px;
-        /* font-weight: bold; */
         gap: 10px;
-        /* Espaço entre ícone e texto */
     }
 
     .panel-content a:hover {
@@ -171,7 +157,6 @@
         filter: invert(1);
     }
 
-    /* Container Bottom */
     .container-bottom {
         margin-top: -10px;
         text-align: center;
@@ -195,7 +180,6 @@
         color: #ff0600;
     }
 
-    /* Botão de fechar */
     .close-btn {
         position: absolute;
         top: 10px;
@@ -215,12 +199,12 @@
     }
 
     .menu-icon {
-        width: 45px;  /* Ajuste o tamanho conforme necessário */
-        height: 45px; /* Ajuste o tamanho conforme necessário */
-        position: fixed;  /* Fixa a posição na tela */
-        top: 48px;  /* Distância do topo */
-        left: 51px;  /* Distância da esquerda */
-        cursor: pointer;  /* Indicando que é clicável */
+        width: 45px;  
+        height: 45px;
+        position: fixed;  
+        top: 48px; 
+        left: 51px;  
+        cursor: pointer;  
         /* filter: invert(1);   */
     }
     .menu-list {

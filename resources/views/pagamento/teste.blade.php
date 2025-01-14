@@ -85,7 +85,6 @@
             background-color: #0056b3;
         }
 
-        /* Esconde os formulários por padrão */
         .payment-form {
             display: none;
         }
@@ -123,7 +122,6 @@
     <div class="payment-container">
         <div class="payment-header">Selecione o método de pagamento</div>
 
-        <!-- Métodos de pagamento -->
         <div class="payment-methods">
             <label for="credit-card-option">
                 <img src="../../assets/mastercard.png" alt="Cartão de Crédito" style="height: 29px;">
@@ -140,7 +138,6 @@
             </label>
         </div>
 
-        <!-- Formulário de pagamento por cartão -->
         <div id="credit-card-form" class="payment-form">
             <form method="POST" action="{{ route('finalizarPagamento', ['imagem' => $imagem->id]) }}">
                 @csrf
@@ -175,7 +172,6 @@
             </form>
         </div>
 
-        <!-- Formulário de pagamento por Pix -->
         <div id="pix-form" class="payment-form">
             <form method="POST" > 
                 {{-- action="{{ route('finalizarPagamentoPix', ['imagem' => $imagem->id]) }}" --}}

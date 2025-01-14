@@ -4,11 +4,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
 }
 
 body {
-    background-image: url('../../assets/img/iac.jpg');
+    /* background-image: url('../../assets/img/iac.jpg'); */
     background-size: cover;
     background-color: white;
     color: #000;
@@ -68,9 +68,8 @@ header {
 */
 /*---------------------------------PESQUISA--------------------------------------*/
 .container {
-    padding: 50px 3%;
-    text-align: center;
-
+    padding: 47px 38%;
+    /* text-align: center; */
 }
 
 .container .heading {
@@ -96,18 +95,12 @@ header {
 /*---------------------------------IMAGENS--------------------------------------*/
 .container .container-image {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     grid-template-columns: 1fr 3fr 1fr;
     user-select: none;
-
-
 }
 
-.container-image {
-
-    margin-left: -10rem;
-
-}
+.container-image {margin-left: -7rem;}
 
 @keyframes fadeIn {
     0% {
@@ -297,10 +290,10 @@ header {
 }
 
 .main-container {
-    display: flex;
-    justify-content: center;
+    /* display: flex; */
+    /* justify-content: center; */
     align-items: center;
-    padding: 20px;
+    /* padding: 2px; */
 }
 
 .container-image {
@@ -421,7 +414,7 @@ h2 {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    background-color: rgba(0, 0, 0, 0.7); 
 }
 
 .modal-content {

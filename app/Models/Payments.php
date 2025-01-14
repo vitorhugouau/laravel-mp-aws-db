@@ -18,10 +18,9 @@ class Payments extends Model
         'user_id',  
     ];
 
-    // Relacionamento correto com Usuarios
     public function usuario()
     {
-        return $this->belongsTo(Usuarios::class, 'user_id'); // Relacionamento correto com user_id
+        return $this->belongsTo(Usuarios::class, 'user_id'); 
     }
 
 }

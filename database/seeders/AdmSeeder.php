@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Adm;  // Certifique-se de importar o modelo Adm
-use Illuminate\Support\Facades\Hash;  // Para fazer o hash da senha
+use App\Models\Adm;  
+use Illuminate\Support\Facades\Hash;  
 
 class AdmSeeder extends Seeder
 {
@@ -15,10 +15,10 @@ class AdmSeeder extends Seeder
      */
     public function run()
     {
-        // Cria um administrador
+        
         Adm::create([
             'email' => 'vitor@hugo',
-            'password' => Hash::make('123'),  // Hash da senha
+            'password' => Hash::make('123'),  
         ]);
     }
 }

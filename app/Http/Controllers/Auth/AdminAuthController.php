@@ -17,13 +17,11 @@ class AdminAuthController extends Controller
     {
         $credentials = $request->all();
 
-        // Tente autenticar com as credenciais fornecidas
+        
         if (Auth::attempt(array_merge($credentials, ['is_admin' => true]))) {
-            // Se for bem-sucedido, redirecione para o painel de admin
             return redirect()->intended('/admin/dashboard');
         }
 
-        // Se falhar, redireciona de volta para o formulário de login com erros
         return back()->withErrors([
             'email' => 'Credenciais de administrador inválidas.',
         ]);

@@ -12,9 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
 
     ->withMiddleware(function (Middleware $middleware) {
-        // Configurações específicas de middlewares
         $middleware->validateCsrfTokens(except: [
-            'webhook',       // Excluir rota do webhook da proteção CSRF
+            'webhook',       // exclui rota do webhook da proteção CSRF
             
         ]);
     })

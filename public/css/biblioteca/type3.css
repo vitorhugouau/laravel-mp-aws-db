@@ -413,31 +413,22 @@ h2 {
     border-collapse: collapse;
     border-spacing: 0;
     border-radius: 8px;
-    /* Bordas arredondadas */
     overflow: hidden;
-    /* Oculta as bordas arredondadas que vão além da tabela */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* Adiciona uma sombra suave */
     background-color: #ffffff91;
-    /* Fundo com 50% de opacidade */
     align-items: center;
 }
 
-/* Estilo para as células do cabeçalho */
 .table th {
     background-color: #007bff;
     color: #fff;
     padding: 18px;
-    /* text-align: left; */
 }
 
-/* Estilo para a borda direita da célula de ID */
 .table th#id {
     border-right: 1px solid #000;
-    /* Linha preta */
 }
 
-/* Estilo para as células dos dados */
 .table td {
     padding: 7px;
     border-bottom: 1px solid #ddd;
@@ -447,7 +438,6 @@ h2 {
     text-align: center;
 }
 
-/* Estilo para as linhas ímpares */
 .table tbody tr:nth-child(odd) {
     background-color: #f2f2f2;
 }
@@ -457,13 +447,11 @@ h2 {
     text-align: center;
 }
 
-/* Estilo para o botão de edição */
 .btn-success {
     background-color: #28a745;
     color: #fff;
 }
 
-/* Estilo para os botões quando hover */
 .btn:hover {
     filter: brightness(90%);
 }
