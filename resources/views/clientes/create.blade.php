@@ -39,7 +39,7 @@
 
 <body>
     {{-- <div id="particles-js"></div> --}}
-    
+
 
     <div class="container">
         @if ($errors->any())
@@ -61,7 +61,6 @@
                     </center>
                 </legend><br>
 
-                <!-- Nome -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nome">Nome</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -73,7 +72,6 @@
                     </div>
                 </div>
 
-                <!-- CPF -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="cpf">CPF</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -86,7 +84,6 @@
                     <small id="cpf-error" style="color: red; display: none;">CPF inválido!</small>
                 </div>
 
-                <!-- Data de Nascimento -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="datadenascimento">Data de Nascimento</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -98,7 +95,6 @@
                     </div>
                 </div>
 
-                <!-- Sexo -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="sexo">Sexo</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -113,7 +109,6 @@
                     </div>
                 </div>
 
-                <!-- Estado Civil -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="estadocivil">Estado Civil</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -132,7 +127,6 @@
                     </div>
                 </div>
 
-                <!-- CEP -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="cep">CEP</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -145,7 +139,6 @@
                     <small id="cep-error" style="color: red; display: none;">CEP inválido!</small>
                 </div>
 
-                <!-- Logradouro -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="logradouro">Logradouro</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -157,7 +150,6 @@
                     </div>
                 </div>
 
-                <!-- Número -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="numero">Número</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -169,7 +161,6 @@
                     </div>
                 </div>
 
-                <!-- Complemento -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="complemento">Complemento</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -181,7 +172,6 @@
                     </div>
                 </div>
 
-                <!-- Bairro -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="bairro">Bairro</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -193,7 +183,6 @@
                     </div>
                 </div>
 
-                <!-- Cidade -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="cidade">Cidade</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -205,7 +194,6 @@
                     </div>
                 </div>
 
-                <!-- Estado -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="estado">Estado</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -217,7 +205,6 @@
                     </div>
                 </div>
 
-                <!-- Email -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="email">Email</label>
                     <div class="col-md-4 inputGroupContainer">
@@ -229,7 +216,6 @@
                     </div>
                 </div>
 
-                <!-- Botão de Enviar -->
                 <div class="form-group">
                     <label class="col-md-4 control-label"></label>
                     <div class="col-md-4">
@@ -276,13 +262,13 @@
                 cpfError.style.display = 'inline';
                 cpfInput.classList.add('is-invalid');
                 if (enviarButton) {
-                    enviarButton.disabled = true; // Desabilitar o botão se o CPF for inválido
+                    enviarButton.disabled = true;
                 }
             } else {
                 cpfError.style.display = 'none';
                 cpfInput.classList.remove('is-invalid');
                 if (enviarButton) {
-                    enviarButton.disabled = false; // Habilitar o botão se o CPF for válido
+                    enviarButton.disabled = false;
                 }
             }
         }
@@ -293,7 +279,6 @@
             let sum = 0;
             let remainder;
 
-            // Cálculo do primeiro dígito verificador
             for (let i = 1; i <= 9; i++) {
                 sum += parseInt(cpf[i - 1]) * (11 - i);
             }
@@ -305,7 +290,6 @@
                 return false;
             }
 
-            // Cálculo do segundo dígito verificador
             sum = 0;
             for (let i = 1; i <= 10; i++) {
                 sum += parseInt(cpf[i - 1]) * (12 - i);
@@ -321,7 +305,6 @@
             return true;
         }
 
-        // Adiciona o evento de blur no campo CPF
         const cpfInput = document.getElementById('cpf');
         if (cpfInput) {
             cpfInput.addEventListener('blur', validarCPF);
@@ -344,14 +327,14 @@
                 cepError.style.display = 'inline';
                 cepInput.classList.add('is-invalid');
                 if (enviarButton) {
-                    enviarButton.disabled = true; // Desabilitar o botão se o CEP for inválido
+                    enviarButton.disabled = true;
                 }
                 return;
             } else {
                 cepError.style.display = 'none';
                 cepInput.classList.remove('is-invalid');
                 if (enviarButton) {
-                    enviarButton.disabled = false; // Habilitar o botão se o CEP for válido
+                    enviarButton.disabled = false;
                 }
             }
 
@@ -371,7 +354,7 @@
                     document.getElementById('cep-error').innerText = 'CEP não encontrado!';
                     document.getElementById('cep-error').style.display = 'inline';
                     if (enviarButton) {
-                        enviarButton.disabled = true; // Desabilitar o botão se o CEP não for encontrado
+                        enviarButton.disabled = true;
                     }
                 } else {
                     document.getElementById('bairro').value = data.bairro || '';
@@ -384,7 +367,6 @@
             }
         }
 
-        // Adiciona o evento de blur no campo CEP
         const cepInput = document.getElementById('cep');
         if (cepInput) {
             cepInput.addEventListener('blur', buscarEndereco);

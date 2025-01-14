@@ -82,11 +82,9 @@ class MercadoPagoController extends Controller
         $client = new PreferenceClient();
 
         try {
-            // Cria a preferência de pagamento
             $preference = $client->create($preferenceData);
 
-            // Obtém o ponto de inicialização da URL de pagamento
-            $initPoint = $preference->init_point; // Esta URL redireciona para a página de pagamento com o QR Code
+            $initPoint = $preference->init_point; 
 
             return view('mercadopago.pix', [
                 'initPoint' => $initPoint
@@ -100,7 +98,6 @@ class MercadoPagoController extends Controller
         }
     }
 
-    // Sucesso no pagamento
     public function paymentSuccess(Request $request)
     {
         Log::info('Entrou no método paymentSuccess', $request->all());
@@ -133,7 +130,6 @@ class MercadoPagoController extends Controller
         return redirect()->route('mercadopago.failure')->with('error', 'Pagamento não foi aprovado ou imagem inválida.');
     }
 
-    // Processar o webhook
     public function webhook(Request $request)
     {
         Log::info('Webhook iniciado.', [
@@ -157,7 +153,6 @@ class MercadoPagoController extends Controller
         $this->authenticate();
         Log::info('Autenticação realizada com sucesso.');
 
-        // Recebe o ID do pagamento a partir da notificação do Mercado Pago
         $paymentId = $data['data']['id'];
         $externalReference = $data['data']['external_reference'] ?? null;
 
@@ -176,7 +171,6 @@ class MercadoPagoController extends Controller
             if ($payment) {
                 Log::info('Pagamento encontrado no banco de dados.', $payment->toArray());
 
-                // Atualiza o status do pagamento no banco
                 $payment->update(['status' => $data['data']['status']]);
                 Log::info('Pagamento atualizado com sucesso.', [
                     'payment_id' => $paymentId,
@@ -194,17 +188,16 @@ class MercadoPagoController extends Controller
         }
 
         try {
-            // Cria o cliente do Mercado Pago
             $client = new PaymentClient();
             $payment = $client->get($paymentId);
 
-            // Verifica se o pagamento foi encontrado
+            
             if (!$payment) {
                 Log::warning("Pagamento com ID {$paymentId} não encontrado no Mercado Pago.");
                 return response()->json(['error' => 'Pagamento não encontrado'], 404);
             }
 
-            // Estrutura os dados do pagamento
+            
             $paymentData = [
                 'id' => $payment->id,
                 'status' => $payment->status,
@@ -220,18 +213,18 @@ class MercadoPagoController extends Controller
             $externalReference = $paymentData['external_reference'];
 
             if (strpos($externalReference, '{') === 0) {
-                // Trata como JSON e decodifica
+                
                 $decodedReference = json_decode($externalReference, true);
             } else {
-                // Trata como string simples
+                
                 $decodedReference = [
                     'user_id' => null,
                     'user_name' => 'Desconhecido',
-                    'imagem_id' => $externalReference, // Usa o valor direto
+                    'imagem_id' => $externalReference, 
                 ];
             }
 
-            // Verifica se a referência foi decodificada corretamente
+            
             if (!$decodedReference) {
                 Log::warning('Referência externa inválida ou não decodificada corretamente.', [
                     'external_reference' => $externalReference,
@@ -239,7 +232,6 @@ class MercadoPagoController extends Controller
                 return response()->json(['error' => 'Referência externa inválida'], 400);
             }
 
-            // Log da referência decodificada
             Log::info('Referência externa decodificada com sucesso.', $decodedReference);
 
             Log::info('Dados do pagamento antes de salvar:', [
@@ -249,7 +241,7 @@ class MercadoPagoController extends Controller
 
             ]);
 
-            // Atualiza ou cria o registro do pagamento no banco
+            
             $paymentRecord = Payments::updateOrCreate(
                 ['external_reference' => $paymentData['external_reference']],
                 [
@@ -260,17 +252,16 @@ class MercadoPagoController extends Controller
 
             Log::info('Pagamento registrado/atualizado no banco.', $paymentRecord->toArray());
 
-            // Verifica o status do pagamento
+            
             if ($paymentData['status'] === 'approved') {
-                // Log de pagamento aprovado
+                
                 Log::info("Pagamento aprovado, processando informações.", [
                     'payment_id' => $paymentId,
                 ]);
 
-                // Extrair o external_reference
+               
                 $externalReference = $paymentData['external_reference'];
 
-                // Buscar o pagamento na tabela 'payments' usando o external_reference
                 $paymentRecord = Payments::where('external_reference', $externalReference)->first();
 
                 Log::info('Pagamento encontrado:', [
@@ -280,19 +271,17 @@ class MercadoPagoController extends Controller
                 ]);
 
                 if ($paymentRecord) {
-                    // Se o pagamento foi encontrado, obtenha os dados
+                    
                     $userName = $paymentRecord->payer_name;
                     $userEmail = $paymentRecord->payer_email;
                     $imagemId = $paymentRecord->imagem_id;
 
-                    // Buscar o user_id baseado no payer_email da tabela 'payments'
                     $user = Usuarios::where('email', $paymentRecord->payer_email)->first();
 
-                    $userId = $user->id;  // Pegando o ID do usuário
+                    $userId = $user->id;  
                     $userName = $user->name;
                     $userEmail = $user->email;
 
-                    // Log dos dados extraídos
                     Log::info('Dados extraídos do pagamento:', [
                         'user_id' => $userId,
                         'user_name' => $userName,
@@ -300,7 +289,6 @@ class MercadoPagoController extends Controller
                         'imagem_id' => $imagemId,
                     ]);
 
-                    // Log dos dados do pagamento antes de salvar a venda
                     Log::info('Dados extraídos do pagamento:', [
                         'user_id' => $userId,
                         'user_name' => $userName,
@@ -308,18 +296,15 @@ class MercadoPagoController extends Controller
                         'imagem_id' => $imagemId,
                     ]);
 
-                    // Criar a venda usando os dados extraídos
                     $this->saveSale($userId, $userName, $imagemId, $paymentRecord->id, $paymentData['status']);
 
                     Log::info('Venda criada com sucesso.', [
                         'payment_id' => $paymentRecord->id,
                     ]);
                 } else {
-                    // Caso o pagamento não seja encontrado
                     Log::error("Pagamento não encontrado para o external_reference: " . $externalReference);
                 }
 
-                // Log de venda salva com sucesso
                 Log::info('Venda salva com sucesso.', [
                     'payment_id' => $paymentId,
                     'user_id' => $userId,
@@ -331,7 +316,7 @@ class MercadoPagoController extends Controller
                 Log::info("Pagamento com ID {$paymentId} não foi aprovado. Status: {$paymentData['status']}");
             }
         } catch (\Exception $e) {
-            // Log de erro ao processar webhook
+
             Log::error('Erro ao processar webhook.', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
@@ -345,7 +330,7 @@ class MercadoPagoController extends Controller
         return response()->json(['status' => 'success'], 200);
     }
 
-    // Salvar uma venda
+
     protected function saveSale($userId, $userName, $productId, $paymentId, $status)
     {
         Log::info('Iniciando o processo de salvar a venda.', [
@@ -355,25 +340,21 @@ class MercadoPagoController extends Controller
             'status' => $status,
         ]);
 
-        // Verificando se já existe uma venda com o mesmo payment_id
         $existingSale = Sale::where('payment_id', $paymentId)->first();
 
-        // Adicionando log para verificar se o código entrou na verificação de venda existente
         if ($existingSale) {
             Log::info('Venda já existente. Nenhuma ação realizada.', [
                 'payment_id' => $paymentId,
             ]);
-            return;  // Retorna sem fazer nada se a venda já existir
+            return;  
         } else {
             Log::info('Nenhuma venda existente encontrada, procedendo com a criação.');
         }
 
-        // Recuperando os dados da imagem associada ao productId
         $imagem = ImgApi::find($productId);
         $value = $imagem ? $imagem->valor : 0;
 
         try {
-            // Criando a nova venda no banco de dados
             Sale::create([
                 'user_id' => $userId,
                 'user_name' => $userName,
@@ -389,11 +370,10 @@ class MercadoPagoController extends Controller
                 'product_id' => $productId,
             ]);
 
-            // Chamando processSale para o pós-processamento
-            $payment = (object) ['id' => $paymentId]; // Criar um objeto simplificado para passar ao processSale
+            $payment = (object) ['id' => $paymentId];
             $this->processSale($userId, $userName, $productId, $payment, $status);
         } catch (\Exception $e) {
-            // Log para captura de erro ao tentar salvar a venda
+            
             Log::error('Erro ao salvar venda.', [
                 'message' => $e->getMessage(),
                 'payment_id' => $paymentId,
@@ -440,19 +420,18 @@ class MercadoPagoController extends Controller
         ]);
 
         $imagemId = $validated['imagem_id'];
-        $valor = (float) $validated['valor']; // Convertendo para float
+        $valor = (float) $validated['valor']; 
 
 
-        $imagemId = $validated['imagem_id']; // Acessando os dados validados
-        $valor = $validated['valor']; // Acessando os dados validados
+        $imagemId = $validated['imagem_id']; 
+        $valor = $validated['valor'];
 
         Log::info('Dados recebidos do formulário:', ['imagem_id' => $imagemId, 'valor' => $valor]);
 
-        // Gerando um ID único para o cabeçalho X-Idempotency-Key
         $idempotencyKey = uniqid('payment_', true);
         Log::info('ID de Idempotência Gerado:', ['idempotencyKey' => $idempotencyKey]);
 
-        $user = Auth::user(); // Obtém o usuário autenticado
+        $user = Auth::user(); 
 
         if ($user) {
             Log::info('Usuário autenticado', [
@@ -469,7 +448,6 @@ class MercadoPagoController extends Controller
 
         $userId = $user->id;
 
-        // Construção do externalReference
         $externalReference = json_encode([
             'user_id' => $userId,
             'imagem_id' => $imagemId,
@@ -629,22 +607,20 @@ class MercadoPagoController extends Controller
                 ],
             ]);
 
-            // Verifica se a resposta foi bem-sucedida
             if ($response->getStatusCode() === 200) {
                 $body = json_decode($response->getBody(), true);
 
                 if (!empty($body['results'])) {
-                    // Retorna o status do pagamento
+                    
                     $status = $body['results'][0]['status'];
-
-                    // Verifica se o status é encontrado corretamente
+                   
                     return response()->json(['status' => $status]);
                 } else {
-                    // Pagamento não encontrado
+                    
                     return response()->json(['status' => 'not_found'], 404);
                 }
             } else {
-                // Erro na requisição
+                
                 Log::error('Erro ao chamar API do Mercado Pago.', [
                     'status_code' => $response->getStatusCode(),
                     'external_reference' => $externalReference
@@ -652,7 +628,7 @@ class MercadoPagoController extends Controller
                 return response()->json(['status' => 'error'], 500);
             }
         } catch (\Exception $e) {
-            // Erro na comunicação ou processamento
+            
             Log::error('Erro ao verificar status do pagamento', [
                 'message' => $e->getMessage(),
                 'external_reference' => $externalReference

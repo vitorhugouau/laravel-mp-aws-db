@@ -20,35 +20,37 @@ use App\Http\Controllers\MercadoPagoCard;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\EmailVerificationController;
 
 
 // Route::get('/register', [UsuariosController::class, 'create'])->name('usuarios.create');
 // Route::post('/register', [UsuariosController::class, 'store'])->name('usuarios.store');
 
 // ------------------------------------------------------------------------------------------------------------------------- 
+Route::get('/', [ImageUploadController::class, 'indexTable2'])->name('biblioteca');
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/usuarios/create', [UsuariosController::class, 'create'])->name('usuarios.create');
 Route::post('/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
 
-Route::get('/', [ImageUploadController::class, 'indexTable2'])->name('biblioteca');
-
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
 
-// rotas públicas (não requerem autenticação)
 Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
 
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-
 Route::post('/password/res', [ResetPasswordController::class, 'reset'])->name('password.update');
 
-
+Route::get('/email/form', [EmailController::class, 'showForm'])->name('email.form');
+Route::post('/email/send', [EmailController::class, 'sendEmail'])->name('send.email');
+Route::get('/enviar-email-template', [EmailController::class, 'sendTemplateEmail'])->name('send.template.email');
+Route::get('/verificacao-email', [EmailVerificationController::class, 'showForm'])->name('verification.showForm');
+Route::get('/reenviar-codigo', [EmailVerificationController::class, 'resendVerificationCode'])->name('send.verification.code');
+Route::post('/verificar-codigo', [EmailVerificationController::class, 'verifyCode'])->name('verify.code');
 
 
 Route::middleware('auth')->group(function () {
@@ -58,7 +60,6 @@ Route::middleware('auth')->group(function () {
     //     return view('biblioteca.biblioteca', compact('imagens'));
     // })->name('biblioteca');
 
-   
     Route::post('/logoutAdm', [AuthController::class, 'logoutAdm'])->name('logoutAdm');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -80,7 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/mercadopago/createCard', [MercadoPagoCard::class, 'createPaymentPreference'])->name('mercadopago.createCard');
 
     Route::get('/mercadopago/webhook', [MercadoPagoController::class, 'handleWebhook'])->name('mercadopago.webhook');
-    
+
     Route::get('/mercadopago/pix', [MercadoPagoController::class, 'showPixPayment'])->name('mercadopago.pix');
 
     Route::get('/mercadopago/check-status/{externalReference}', [MercadoPagoController::class, 'checkPaymentStatus'])->name('mercadopago.check-status');
@@ -89,9 +90,9 @@ Route::middleware('auth')->group(function () {
 
     // ---------------------------------------------------------------------------------------------------------------------------------
 
-    
+
     Route::get('/mercadopago/successCard', [MercadoPagoCard::class, 'paymentSuccess'])->name('mercadopago.success');
-    
+
     Route::get('/mercadopagoCard/{id}', [MercadoPagoCard::class, 'getPreferenceById'])->name('mercadopago.get');
 
     // ---------------------------------------------------------------------------------------------------------------------------------
@@ -100,7 +101,7 @@ Route::middleware('auth')->group(function () {
         return view('licenca');
     })->name('licenca');
 
-    
+
     // ---------------------------------------------------------------------------------------------------------------------------------
 
     Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
@@ -108,8 +109,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/minhas-compras', [UsuariosController::class, 'minhasCompras'])->name('minhas.compras');
 
     Route::get('/compras/{id}', [UsuariosController::class, 'show'])->name('compras.show');
-
-    
 
 
 });
@@ -176,24 +175,6 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
 });
 
-
-use App\Http\Controllers\EmailController;
-
-Route::get('/email/form', [EmailController::class, 'showForm'])->name('email.form');
-Route::post('/email/send', [EmailController::class, 'sendEmail'])->name('send.email');
-Route::get('/enviar-email-template', [EmailController::class, 'sendTemplateEmail'])->name('send.template.email');
-
-use App\Http\Controllers\EmailVerificationController;
-
-// Route::get('/verificacao-email', [EmailVerificationController::class, 'showForm'])->name('show.verification.form');
-Route::get('/verificacao-email', [EmailVerificationController::class, 'showForm'])->name('verification.showForm');
-
-Route::get('/reenviar-codigo', [EmailVerificationController::class, 'resendVerificationCode'])->name('send.verification.code');
-
-// Route::post('/enviar-codigo', [EmailVerificationController::class, 'sendVerificationCode'])->name('send.verification.code');
-// Route::get('/enviar-codigo', [EmailVerificationController::class, 'sendVerificationCode'])->name('send.verification.code');
-
-Route::post('/verificar-codigo', [EmailVerificationController::class, 'verifyCode'])->name('verify.code');
 
 
 
