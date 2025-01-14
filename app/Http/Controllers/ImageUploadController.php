@@ -71,7 +71,7 @@ class ImageUploadController extends Controller
         $urlMarcaDaguaFinal = ImgApi::whereBetween('id', [7, 11])->get();
 
         foreach ($urlMarcaDaguaVenda as $imagem) {
-            $imagem->valor_parcelado = $imagem->valor / 10; // Divide o valor por 12
+            $imagem->valor_parcelado = $imagem->valor / 10; 
         }
 
         // $discounts = Desconto::inRandomOrder()->first()->valores;
