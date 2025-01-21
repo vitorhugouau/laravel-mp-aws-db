@@ -65,14 +65,25 @@
         }
 
         a.btn {
-            display: inline-block;
+            display: block;
             background-color: #007bff;
             color: white;
             padding: 10px 20px;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 10px;
             font-size: 16px;
-            margin-top: 20px;
+            margin-top: 5px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            margin-left: 198px;
+            width: 175px;
+        }
+
+        .inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         a.btn:hover {
@@ -99,15 +110,19 @@
         <p>Código PIX (copia e cola):</p>
         <textarea readonly>{{ $qrCode }}</textarea>
 
-        <p>Ou acesse diretamente o link:</p>
-        <a href="{{ $ticketUrl }}" target="_blank" class="btn">Clique aqui para pagar</a>
+        <div class="inputs">
+            <p>Ou acesse diretamente o link:</p>
+            <a href="{{ $ticketUrl }}" target="_blank" class="btn">Clique aqui para pagar</a>
+            <a href="{{ url()->previous() }}" class="btn">Voltar para o site</a>
+        </div>
 
         <p class="external-reference">Referência Externa: {{ $externalReference }}</p>
     </div>
 </body>
 <script>
     const externalReference = "{{ $externalReference }}";
-    const checkStatusUrl = "{{ route('mercadopago.check-status', ':externalReference') }}".replace(':externalReference', externalReference);
+    const checkStatusUrl = "{{ route('mercadopago.check-status', ':externalReference') }}".replace(':externalReference',
+        externalReference);
 
     let paymentCheckInterval = null;
 
@@ -118,13 +133,14 @@
                 console.log('Status do pagamento:', data.status);
 
                 if (data.status === 'approved') {
-                    
-                    clearInterval(paymentCheckInterval); 
-                    window.location.href = "{{ route('payment.success') }}?payment_id=" + data.payment_id + "&status=" + data.status;
+
+                    clearInterval(paymentCheckInterval);
+                    window.location.href = "{{ route('payment.success') }}?payment_id=" + data.payment_id +
+                        "&status=" + data.status;
                 } else if (data.status === 'rejected') {
-                    
-                    clearInterval(paymentCheckInterval); 
-                    
+
+                    clearInterval(paymentCheckInterval);
+
                 } else {
                     console.log('Pagamento pendente. Continuando a verificação...');
                 }
