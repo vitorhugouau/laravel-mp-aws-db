@@ -6,42 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagamento Aprovado</title>
     <link rel="stylesheet" href="/css/biblioteca/type2.css">
+    <link rel="stylesheet" href="/css/biblioteca/type-sucess.css">
 </head>
 @include('partials.nav')
 <body>
-    <div class="container">
-        <h1>Pagamento Aprovado</h1>
+    <div class="payment-page">
+        <div class="payment-options">
+            <h1>Pagamento Aprovado</h1>
 
-        <p><strong>ID do Pagamento:</strong> {{ $payment_id }}</p>
-        <p><strong>Status do Pagamento:</strong> {{ $status }}</p>
-
-        @if($imagem)
-            <h3>Imagem Comprada:</h3>
-            <div class="main-container">
-                <div class="container">
-                    <div class="container-image">
-                        <div class="image-container">
-                            <div id="imagemkk"
-                                style="background-image: url('{{ $imagem->url_original }}'); background-size: cover; background-position: center; width: auto; height: 300px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important">
+            <p><strong>ID do Pagamento:</strong> {{ $payment_id }}</p>
+            <p><strong>Status do Pagamento:</strong> {{ $status }}</p>
+        </div>
+        <div class="purchase-summary">
+            @if ($imagem)
+                <h3>Imagem Comprada:</h3>
+                <div class="main-container">
+                    <div class="container">
+                        <div class="container-image">
+                            <div class="image-container">
+                                <div
+                                    style="background-image: url('{{ $imagem->url_original }}'); background-size: cover; background-position: center; width: 690px; height: 387px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important;border-radius:4%">
                                     <div
-                                    style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
-                                    <div class="compra">
+                                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
+                                        <div class="compra">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            @else
+                <p>Informações da imagem não disponíveis.</p>
+            @endif
+
+            <div class="button-container">
+                <button class="btn btn-primary" onclick="downloadImage()">Baixar Imagem</button>
+                <a href="{{ route('biblioteca') }}" class="btn btn-primary">Voltar à Página Inicial</a>
+                <a href="{{ route('minhas.compras') }}" class="btn btn-primary">Voltar as Imagens Compradas</a>
             </div>
-        @else
-            <p>Informações da imagem não disponíveis.</p>
-        @endif
 
-        <button class="btn" onclick="downloadImage()">Baixar Imagem</button>
-        <a href="{{ route('biblioteca') }}" class="btn">Voltar à Página Inicial</a>
-        <a href="{{ route('minhas.compras') }}" class="btn btn-primary">Voltar as Imagens Compradas</a>
+
+        </div>
     </div>
-
+        
     <script>
         const imagemElement = document.getElementById('imagemkk');
         const imagemUrl = imagemElement.style.backgroundImage.slice(5, -2);
@@ -59,10 +67,10 @@
         .btn {
             display: inline-block;
             padding: 12px 24px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             color: #fff;
-            background-color: #3498db;
+            background-color: #000000;
             text-align: center;
             border-radius: 8px;
             text-decoration: none;
@@ -74,13 +82,15 @@
         }
 
         .btn:hover {
-            background-color: #2980b9;
+            background-color: #ffffff;
+            color: #000000;
             transform: translateY(-2px);
             box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         .btn:active {
-            background-color: #1c5d8b;
+            background-color: #ffffff;
+            color: #000000
             transform: translateY(0px);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }

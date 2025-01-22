@@ -44,6 +44,7 @@
             <div class="button-container">
                 <button class="btn btn-primary" onclick="downloadImage()">Baixar Imagem</button>
                 <a href="{{ route('biblioteca') }}" class="btn btn-primary">Voltar à Página Inicial</a>
+                <a href="{{ route('minhas.compras') }}" class="btn btn-primary">Voltar as Imagens Compradas</a>
             </div>
 
 
