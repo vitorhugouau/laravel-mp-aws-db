@@ -4,16 +4,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
 }
 
 body {
-    background-image: url('../../assets/img/iac.jpg');
+    /* background-image: url('../../assets/img/iac.jpg'); */
     background-size: cover;
     background-color: white;
     color: #000;
     font: normal 12pt Poppins;
-    user-select: text;
 }
 
 .caixa {
@@ -69,7 +68,7 @@ header {
 */
 /*---------------------------------PESQUISA--------------------------------------*/
 .container {
-    padding: 45px 30%;
+    /* padding: 45px 30%; */
     text-align: center;
 }
 
@@ -294,7 +293,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    /* padding: 20px; */
     position: relative;
     left: 84px;
 }
@@ -396,4 +395,25 @@ h2 {
     color: #4fc3f7;
     text-decoration: none;
 
+}
+
+h3{
+    font-size: 20px;
+    /* left: 1189px; */
+    right: 300px;
+    margin-top: -50px;
+    position: absolute;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px; 
+    margin-top: 28px;
+}
+
+.btn {
+    text-align: center;
+}
+.button-container .btn {
+    flex: 1; 
 }

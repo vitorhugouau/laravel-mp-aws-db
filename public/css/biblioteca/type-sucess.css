@@ -1,0 +1,145 @@
+
+.payment-page {
+    /* display: flex; */
+    gap: 43px;
+    max-width: 900px;
+    margin: 100px auto;
+}
+
+.payment-options {
+    flex: 2;
+    margin-top: 58px;
+    position: relative;
+    left: 309px;
+    margin-top: 135px;
+    align-items: center;
+    justify-content: center;
+    /* display: flex; */
+}
+
+
+.purchase-summary {
+    flex: 1;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 78px;
+    max-width: 793px;
+    height: 597px;
+    margin-top: 25px;
+    left: 70px;
+    position: relative;
+}
+
+.payment-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.payment-method {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.payment-radio {
+    margin-right: 10px;
+}
+
+.method-details {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.method-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.method-subtitle {
+    font-size: 12px;
+    color: #555;
+    padding: 2px;
+}
+
+.new-option {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.continue-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.continue-button:hover {
+    background-color: #0056b3;
+}
+
+.summary-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.free {
+    color: green;
+    font-weight: bold;
+}
+
+.coupon {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.coupon-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.coupon-link:hover {
+    text-decoration: underline;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 15px 0;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+}
