@@ -50,14 +50,14 @@
         </div>
     </div>
     <script>
-        // if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-        //     if (sessionStorage.getItem('formSubmitted')) {
+        if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+            if (sessionStorage.getItem('formSubmitted')) {
 
-        //         window.location.href = "{{ route('minhas.compras') }}";
-        //     } else {
-        //         sessionStorage.setItem('formSubmitted', true);
-        //     }
-        // }
+                window.location.href = "{{ route('minhas.compras') }}";
+            } else {
+                sessionStorage.setItem('formSubmitted', true);
+            }
+        }
     </script>
     <script>
         const imagemElement = document.getElementById('imagemkk');
