@@ -27,7 +27,7 @@ class UsuariosController extends Controller
             'email' => 'required|string|email|max:255|unique:usuarios',
             'password' => 'required|string|min:3|confirmed',
         ]);
-    
+
         $user = Usuarios::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -35,17 +35,17 @@ class UsuariosController extends Controller
             'role' => 'user',
             'email_verified_at' => null,
         ]);
-    
+
         $verificationCode = random_int(100000, 999999);
-    
+
         Session::put('verification_code', $verificationCode);
         Session::put('verification_email', $validated['email']);
         Session::put('verification_code_time', now());
-    
+
         Mail::to($validated['email'])->send(new VerificationCodeEmail($verificationCode));
-    
+
         session(['user_id' => $user->id]);
-    
+
         return redirect()->route('verification.showForm')->with('success', 'Usuário cadastrado com sucesso! Por favor, verifique seu email.');
     }
 
@@ -89,12 +89,34 @@ class UsuariosController extends Controller
         return redirect()->route('usuarios.index')->with('success', 'Usuário deletado com sucesso!');
     }
 
-    public function minhasCompras()
+    public function minhasCompras(Request $request)
     {
         $user = Auth::user();
         $compras = Sale::where('user_id', $user->id)
             ->with(['product', 'imagens'])
             ->get();
+
+
+        $data = $request->input('data'); 
+        $valorMin = $request->input('valor_min'); 
+        $valorMax = $request->input('valor_max'); 
+
+        
+        $compras = Sale::query();
+
+        if ($data) {
+            $compras->whereDate('created_at', $data);
+        }
+
+        if ($valorMin) {
+            $compras->where('value', '>=', $valorMin); 
+        }
+
+        if ($valorMax) {
+            $compras->where('value', '<=', $valorMax); 
+        }
+
+        $compras = $compras->get(); 
 
         return view('compras.index', compact('compras'));
     }
@@ -122,4 +144,5 @@ class UsuariosController extends Controller
 
         return view('compras.show', compact('compra'));
     }
+
 }

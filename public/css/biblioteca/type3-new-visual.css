@@ -1,0 +1,117 @@
+.compras-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+    margin-top: 65px;
+}
+
+.compra-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 630px; /* Reduz a largura do cartão */
+    margin: 0 auto; /* Centraliza o cartão */
+}
+
+.compra-imagem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.compra-imagem img {
+    max-width: 446px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.compra-info {
+    flex: 1;
+}
+
+.compra-info h4 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+    text-wrap-mode: nowrap;
+}
+
+.compra-info p {
+    font-size: 14px;
+    color: #555;
+    margin: 4px 0;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 8px 12px;
+    background-color: #3483fa;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn.btn-secondary{
+    background-color: red;
+    width: 120px;
+    height: 35px;
+    font-size: 13px;
+}
+.btn.btn-secondary:hover{
+    background-color: red;
+}
+
+.btn:hover {
+    background-color: #2968c8;
+}
+.compras-page {
+    display: flex;
+    gap: 244px;
+    margin: 20px;
+}
+
+.filtros-card {
+    width: 253px;
+    border: 1px solid #e0e0e0;
+    padding: 27px;
+    height: 400px;
+    margin-left: 125px;
+    margin-top: 150px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.filtros-card h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.filtro-item {
+    margin-bottom: 15px;
+}
+
+.filtro-item label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.filtro-item input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}

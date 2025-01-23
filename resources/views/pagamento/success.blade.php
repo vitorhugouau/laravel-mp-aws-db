@@ -25,7 +25,7 @@
                     <div class="container">
                         <div class="container-image">
                             <div class="image-container">
-                                <div
+                                <div id="imagemkk"
                                     style="background-image: url('{{ $imagem->url_original }}'); background-size: cover; background-position: center; width: 690px; height: 387px; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; user-select: none !important;border-radius:4%">
                                     <div
                                         style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40rem; height: 40px;">
@@ -44,9 +44,8 @@
             <div class="button-container">
                 <button class="btn btn-primary" onclick="downloadImage()">Baixar Imagem</button>
                 <a href="{{ route('biblioteca') }}" class="btn btn-primary">Voltar à Página Inicial</a>
-                <a href="{{ route('minhas.compras') }}" class="btn btn-primary">Voltar as Imagens Compradas</a>
+                <a href="{{ route('minhas.compras') }}" class="btn btn-primary">Imagens Compradas</a>
             </div>
-
 
         </div>
     </div>
