@@ -65,17 +65,17 @@ ________________________________________
 
 # Tecnologias Utilizadas
 
-### •	Laravel: Framework principal.
-### •	MySQL: Banco de dados relacional.
-### •	Blade: Motor de templates para renderização de views.
-### •	Bootstrap: Framework CSS para estilização.
-### •	Mercado Pago SDK: Para integração de pagamentos.
+- Laravel: Framework principal.
+- MySQL: Banco de dados relacional.
+- Blade: Motor de templates para renderização de views.
+- Bootstrap: Framework CSS para estilização.
+- Mercado Pago SDK: Para integração de pagamentos.
 
 # Planejamento Futuro
-### •	Implementar suporte à API de terceiros para promoções.
-### •	Criar uma área para revisões e comentários sobre imagens.
-### •	Melhorar o design responsivo para dispositivos móveis.
-### •	Adicionar relatórios de vendas para o administrador.
+- Implementar suporte à API de terceiros para promoções.
+- Criar uma área para revisões e comentários sobre imagens.
+- Melhorar o design responsivo para dispositivos móveis.
+- Adicionar relatórios de vendas para o administrador.
 ________________________________________
 
 
