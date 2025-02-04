@@ -65,11 +65,11 @@ o	O banco de dados é hospedado no Amazon RDS (Relational Database Service), o q
 
 # Tecnologias Utilizadas
 
-•	Laravel: Framework principal.
-•	MySQL: Banco de dados relacional.
-•	Blade: Motor de templates para renderização de views.
-•	Bootstrap: Framework CSS para estilização.
-•	Mercado Pago SDK: Para integração de pagamentos.
+### •	Laravel: Framework principal.
+### •	MySQL: Banco de dados relacional.
+### •	Blade: Motor de templates para renderização de views.
+### •	Bootstrap: Framework CSS para estilização.
+### •	Mercado Pago SDK: Para integração de pagamentos.
 
 # Planejamento Futuro
 •	Implementar suporte à API de terceiros para promoções.
