@@ -58,10 +58,10 @@ ________________________________________
 
 # Integrações Externas
 
-•	API de Verificação de E-mail: Usada para garantir que apenas e-mails válidos sejam registrados.
-•	Mercado Pago: Utilizado para processar pagamentos de forma segura.
-•	AWS: Integração para armazenamento e processamento de dados.
-o	O banco de dados é hospedado no Amazon RDS (Relational Database Service), o que garante alta disponibilidade, escalabilidade e backups automáticos. O RDS permite a escolha de instâncias otimizadas para aplicações com alto desempenho e utiliza criptografia para dados em repouso e em trânsito.
+### •	API de Verificação de E-mail: Usada para garantir que apenas e-mails válidos sejam registrados.
+### •	Mercado Pago: Utilizado para processar pagamentos de forma segura.
+### •	AWS: Integração para armazenamento e processamento de dados.
+### •	O banco de dados é hospedado no Amazon RDS (Relational Database Service), o que garante alta disponibilidade, escalabilidade e backups automáticos. O RDS permite a escolha de instâncias otimizadas para aplicações com alto desempenho e utiliza criptografia para dados em repouso e em trânsito.
 
 # Tecnologias Utilizadas
 
@@ -72,10 +72,10 @@ o	O banco de dados é hospedado no Amazon RDS (Relational Database Service), o q
 ### •	Mercado Pago SDK: Para integração de pagamentos.
 
 # Planejamento Futuro
-•	Implementar suporte à API de terceiros para promoções.
-•	Criar uma área para revisões e comentários sobre imagens.
-•	Melhorar o design responsivo para dispositivos móveis.
-•	Adicionar relatórios de vendas para o administrador.
+### •	Implementar suporte à API de terceiros para promoções.
+### •	Criar uma área para revisões e comentários sobre imagens.
+### •	Melhorar o design responsivo para dispositivos móveis.
+### •	Adicionar relatórios de vendas para o administrador.
 ________________________________________
 
 
