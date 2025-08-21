@@ -81,12 +81,19 @@ class MercadoPagoCard extends Controller
         return redirect($preference->init_point);
 
     } catch (MPApiException $error) {
-        Log::error('Erro ao criar preferência de pagamento.', [
-            'message' => $error->getMessage(),
-            'code' => $error->getCode(),
-        ]);
-        return response()->json(['error' => 'Erro ao criar a preferência de pagamento.'], 500);
-    }
+    $apiResponse = $error->getApiResponse() ? $error->getApiResponse()->getContent() : null;
+
+    Log::error('Erro ao criar preferência de pagamento.', [
+        'message' => $error->getMessage(),
+        'code' => $error->getCode(),
+        'response' => $apiResponse
+    ]);
+
+    return response()->json([
+        'error' => 'Erro ao criar a preferência de pagamento.',
+        'details' => $apiResponse
+    ], 500);
+}
 }
 
 private function createPreferenceRequest($items, $payer): array
@@ -111,7 +118,7 @@ private function createPreferenceRequest($items, $payer): array
         "back_urls" => $backUrls,
         "statement_descriptor" => "MINHA LOJA",
         "expires" => false,
-        "auto_return" => 'approved',
+        // "auto_return" => 'approved',
     ];
 
     Log::info('Dados da preferência criados com sucesso.', ['request_data' => $requestData]);

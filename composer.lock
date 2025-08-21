@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5514f1a546fc1a6755b8e7e3afc47845",
+    "content-hash": "f8cc2d57b062343b42b6de8fc03e83e4",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -814,16 +814,16 @@
         },
         {
             "name": "endroid/qr-code",
-            "version": "6.0.3",
+            "version": "6.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endroid/qr-code.git",
-                "reference": "bdbb06e767efe9abe3c00461662b4059a6cd0b55"
+                "reference": "21e888e8597440b2205e2e5c484b6c8e556bcd1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endroid/qr-code/zipball/bdbb06e767efe9abe3c00461662b4059a6cd0b55",
-                "reference": "bdbb06e767efe9abe3c00461662b4059a6cd0b55",
+                "url": "https://api.github.com/repos/endroid/qr-code/zipball/21e888e8597440b2205e2e5c484b6c8e556bcd1a",
+                "reference": "21e888e8597440b2205e2e5c484b6c8e556bcd1a",
                 "shasum": ""
             },
             "require": {
@@ -874,7 +874,7 @@
             ],
             "support": {
                 "issues": "https://github.com/endroid/qr-code/issues",
-                "source": "https://github.com/endroid/qr-code/tree/6.0.3"
+                "source": "https://github.com/endroid/qr-code/tree/6.0.9"
             },
             "funding": [
                 {
@@ -882,7 +882,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-29T19:28:52+00:00"
+            "time": "2025-07-13T19:59:45+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -2202,16 +2202,16 @@
         },
         {
             "name": "mercadopago/dx-php",
-            "version": "3.0.8",
+            "version": "3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mercadopago/sdk-php.git",
-                "reference": "b03c3c789c7d4fedfcf7d54cf57993e77c95aabb"
+                "reference": "657be1bf17b08b3c887891245825e56111006883"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mercadopago/sdk-php/zipball/b03c3c789c7d4fedfcf7d54cf57993e77c95aabb",
-                "reference": "b03c3c789c7d4fedfcf7d54cf57993e77c95aabb",
+                "url": "https://api.github.com/repos/mercadopago/sdk-php/zipball/657be1bf17b08b3c887891245825e56111006883",
+                "reference": "657be1bf17b08b3c887891245825e56111006883",
                 "shasum": ""
             },
             "require": {
@@ -2235,9 +2235,9 @@
             "description": "Mercado Pago PHP SDK",
             "homepage": "https://github.com/mercadopago/sdk-php",
             "support": {
-                "source": "https://github.com/mercadopago/sdk-php/tree/3.0.8"
+                "source": "https://github.com/mercadopago/sdk-php/tree/3.5.1"
             },
-            "time": "2024-09-03T12:26:16+00:00"
+            "time": "2025-06-09T13:08:57+00:00"
         },
         {
             "name": "monolog/monolog",
